@@ -1,0 +1,9 @@
+= Eclipse Dart Language Server Implementation
+
+== Setup
+
+Currently this plugin requires to have the dart_language_server (https://github.com/natebosch/dart_language_server) globally installed via pub.
+Also the file src/com/vogella/lsp/flutter/FlutterLanguageServerStreamProvider.java has it hardcoded to my home directory. 
+Change this after installation to wherever your pub global packages are.
+
+
