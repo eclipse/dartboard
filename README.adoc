@@ -2,8 +2,10 @@
 
 == Setup
 
-Currently this plugin requires to have the dart_language_server (https://github.com/natebosch/dart_language_server) globally installed via pub.
-Also the file src/com/vogella/lsp/flutter/FlutterLanguageServerStreamProvider.java has it hardcoded to my home directory. 
-Change this after installation to wherever your pub global packages are.
+The language server binary is bundled in the /language_server/bin/dart_language_server.dart.snapshot.
+Currently there is still the need to have dart globally installed to run this. Also the path where it has to be is /usr/lib/dart/bin/dart. 
 
-
+== TODO
+- Also bundle the dart executable or pull it from.. ? 
+	Resources: https://www.dartlang.org/tools/sdk/archive
+	Problem: The file is 117 MB big. Which is a lot.
