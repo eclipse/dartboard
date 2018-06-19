@@ -30,5 +30,16 @@
             id="com.vogella.lsp.flutter.server1">
       </contentTypeMapping>
    </extension>
+   <extension
+         point="org.eclipse.tm4e.registry.grammars">
+      <grammar
+            path="./syntaxes/Dart.tmLanguage"
+            scopeName="source.dart">
+      </grammar>
+      <scopeNameContentTypeBinding
+            contentTypeId="com.vogella.lsp.flutter"
+            scopeName="source.dart">
+      </scopeNameContentTypeBinding>
+   </extension>
 
 </plugin>
