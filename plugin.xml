@@ -41,5 +41,12 @@
             scopeName="source.dart">
       </scopeNameContentTypeBinding>
    </extension>
+   <extension
+         point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
+      <languageConfiguration
+            contentTypeId="com.vogella.lsp.flutter"
+            path="language-configurations/dart-language-configuration.json">
+      </languageConfiguration>
+   </extension>
 
 </plugin>
