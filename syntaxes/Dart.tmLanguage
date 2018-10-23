@@ -22,13 +22,13 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>\b(library|import|part of|part|export)\b</string>
+			<string>#\b(library|import|source|resource)\b</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>0</key>
 				<dict>
 					<key>name</key>
-					<string>keyword.operator.import.dart</string>
+					<string>keyword.other.import.dart</string>
 				</dict>
 			</dict>
 			<key>end</key>
@@ -50,10 +50,16 @@
 					<string>#strings</string>
 				</dict>
 				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.other.import.dart</string>
+						</dict>
+					</dict>
 					<key>match</key>
-					<string>\b(as|show|hide)\b</string>
-					<key>name</key>
-					<string>keyword.other.import.dart</string>
+					<string>\b(prefix)\s*:</string>
 				</dict>
 			</array>
 		</dict>
@@ -160,12 +166,6 @@
 			<array>
 				<dict>
 					<key>match</key>
-					<string>\bas\b</string>
-					<key>name</key>
-					<string>keyword.cast.dart</string>
-				</dict>
-				<dict>
-					<key>match</key>
 					<string>\b(try|catch|finally|throw)\b</string>
 					<key>name</key>
 					<string>keyword.control.catch-exception.dart</string>
@@ -178,7 +178,7 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(break|case|continue|default|do|else|for|if|in|return|switch|while)\b</string>
+					<string>\b(break|case|continue|default|do|else|for|if|in|return|switch|while|yield|async|sync|await)\b</string>
 					<key>name</key>
 					<string>keyword.control.dart</string>
 				</dict>
@@ -187,12 +187,6 @@
 					<string>\b(new)\b</string>
 					<key>name</key>
 					<string>keyword.control.new.dart</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>\b(abstract|class|extends|external|factory|implements|interface|get|native|operator|set|typedef)\b</string>
-					<key>name</key>
-					<string>keyword.declaration.dart</string>
 				</dict>
 				<dict>
 					<key>match</key>
@@ -256,13 +250,13 @@
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(static|final|const)\b</string>
+					<string>\b(static|final|native|abstract|const|class|interface|get|set|operator)\b</string>
 					<key>name</key>
 					<string>storage.modifier.dart</string>
 				</dict>
 				<dict>
 					<key>match</key>
-					<string>\b(?:void|bool|num|int|double|Dynamic|var|String)\b</string>
+					<string>\b(?:void|bool|num|int|double|Dynamic|var)\b</string>
 					<key>name</key>
 					<string>storage.type.primitive.dart</string>
 				</dict>
@@ -303,11 +297,11 @@
 			<array>
 				<dict>
 					<key>begin</key>
-					<string>(?&lt;!r)"""</string>
+					<string>(?&lt;!@)"""</string>
 					<key>end</key>
 					<string>"""(?!")</string>
 					<key>name</key>
-					<string>string.interpolated.triple.double.dart</string>
+					<string>string.interpolated.triple.dart</string>
 					<key>patterns</key>
 					<array>
 						<dict>
@@ -318,38 +312,15 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(?&lt;!r)'''</string>
-					<key>end</key>
-					<string>'''(?!')</string>
-					<key>name</key>
-					<string>string.interpolated.triple.single.dart</string>
-					<key>patterns</key>
-					<array>
-						<dict>
-							<key>include</key>
-							<string>#string-interp</string>
-						</dict>
-					</array>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>r"""</string>
+					<string>@"""</string>
 					<key>end</key>
 					<string>"""(?!")</string>
 					<key>name</key>
-					<string>string.quoted.triple.double.dart</string>
+					<string>string.quoted.triple.dart</string>
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>r'''</string>
-					<key>end</key>
-					<string>'''(?!')</string>
-					<key>name</key>
-					<string>string.quoted.triple.single.dart</string>
-				</dict>
-				<dict>
-					<key>begin</key>
-					<string>(?&lt;!\\|r)"</string>
+					<string>(?&lt;!\\|@)"</string>
 					<key>end</key>
 					<string>"</string>
 					<key>name</key>
@@ -370,7 +341,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>r"</string>
+					<string>@"</string>
 					<key>end</key>
 					<string>"</string>
 					<key>name</key>
@@ -387,7 +358,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(?&lt;!\|r)'</string>
+					<string>(?&lt;!\|@)'</string>
 					<key>end</key>
 					<string>'</string>
 					<key>name</key>
@@ -408,7 +379,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>r'</string>
+					<string>@'</string>
 					<key>end</key>
 					<string>'</string>
 					<key>name</key>
