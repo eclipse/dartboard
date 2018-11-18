@@ -12,10 +12,8 @@ public class FlutterLanguageServerStreamProvider extends ProcessStreamConnection
 	public FlutterLanguageServerStreamProvider() {
 		List<String> commands = new ArrayList<>();
 		Optional<String> languageServerLocation = PathLocator.getLanguageServerLocation();
-		languageServerLocation.ifPresentOrElse(location -> {
+		languageServerLocation.ifPresent(location -> {
 			commands.add(location);
-		}, () -> {
-			// Install the language via pub global activate dart_language_server
 		});
 		setCommands(commands);
 		setWorkingDirectory(System.getProperty("user.dir"));
