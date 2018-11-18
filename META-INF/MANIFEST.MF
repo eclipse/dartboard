@@ -15,4 +15,5 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.apache.commons.io;bundle-version="2.2.0",
  org.eclipse.tm4e.registry,
  org.eclipse.tm4e.core;bundle-version="0.1.0",
- org.eclipse.tm4e.languageconfiguration
+ org.eclipse.tm4e.languageconfiguration,
+ org.eclipse.debug.ui

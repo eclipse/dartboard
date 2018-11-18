@@ -48,5 +48,22 @@
             path="language-configurations/dart-language-configuration.json">
       </languageConfiguration>
    </extension>
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="com.vogella.lsp.flutter.launch.LaunchConfig"
+            id="com.vogella.lsp.flutter.launch"
+            modes="run, debug"
+            name="Run Dart Program">
+      </launchConfigurationType>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="com.vogella.lsp.flutter.launch.LaunchTabGroup"
+            id="com.vogella.lsp.flutter.launchTabGroups"
+            type="com.vogella.lsp.flutter.launch">
+      </launchConfigurationTabGroup>
+   </extension>
 
 </plugin>
