@@ -30,11 +30,14 @@ For the plugin to work as expected you need to install some dependencies.
 Add the update site of the `LSP4E` project: `http://download.eclipse.org/lsp4e/releases/latest/`.
 
 Install the plugins:
+
 - `Language Server Protocol client for Eclipse IDE (Incubation) Source`
 - `Language Server Protocol client for Eclipse IDE (Incubation)`
 
 Add the update site of the `TM4E` project: `http://download.eclipse.org/tm4e/snapshots/`.
 
 Install the plugins:
+
 - `TextMate Core`
 - `TextMate Core Developer Resources`
+
