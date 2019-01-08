@@ -1,4 +1,4 @@
-= [WIP] Dart Plugin for Eclipse
+= image:https://www.dartlang.org/assets/shared/dart/logo/default-c7182d85b1eed8662f1fa9e6286f286412872e2208a5c972f507534a2bbebebe.svg[Dart Logo,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26,26] Dart Plugin for Eclipse
 
 An eclipse plugin for https://www.dartlang.org/[Dart] and https://flutter.io[Flutter] development.
 Dart is a programming language mostly used by the Flutter project.
@@ -6,6 +6,8 @@ Dart is a programming language mostly used by the Flutter project.
 == Documentation
 
 - https://www.dartlang.org/guides/get-started[Getting Started with Dart]
+
+image:https://user-images.githubusercontent.com/5540255/50854146-94870c00-1384-11e9-9866-ca39cffe4dba.jpeg[Dart development in Eclipse]
 
 == Development
 
