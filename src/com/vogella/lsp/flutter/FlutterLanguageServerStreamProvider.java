@@ -9,12 +9,12 @@ import org.eclipse.lsp4e.server.StreamConnectionProvider;
 public class FlutterLanguageServerStreamProvider extends ProcessStreamConnectionProvider implements StreamConnectionProvider {
 
 	public FlutterLanguageServerStreamProvider() {
-		String userDir = System.getProperty("user.dir");
-		String dartLocation = userDir + "/Library/dart-sdk/bin";
+		// Replace this with the location on your file system
+		String dartLocation = "/home/jhungershausen/Library/dart-nightly";
 
 		List<String> commands = new ArrayList<>();
-		commands.add(dartLocation + "/dart");
-		commands.add(dartLocation + "/snapshots/analysis_server.dart.snapshot");
+		commands.add(dartLocation + "/bin/dart");
+		commands.add(dartLocation + "/bin/snapshots/analysis_server.dart.snapshot");
 		commands.add("--lsp");
 
 		setCommands(commands);
