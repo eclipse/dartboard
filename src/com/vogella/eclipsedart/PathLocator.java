@@ -1,4 +1,4 @@
-package com.vogella.lsp.flutter;
+package com.vogella.eclipsedart;
 
 import java.io.BufferedReader;
 import java.io.IOException;

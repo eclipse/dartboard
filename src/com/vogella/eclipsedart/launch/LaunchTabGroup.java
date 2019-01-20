@@ -1,4 +1,4 @@
-package com.vogella.lsp.flutter.launch;
+package com.vogella.eclipsedart.launch;
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
