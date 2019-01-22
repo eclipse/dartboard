@@ -1,11 +1,17 @@
 package com.vogella.eclipsedart.preference;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.program.Program;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -14,6 +20,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osgi.service.prefs.BackingStoreException;
 
+import com.vogella.eclipsedart.CommandLineTools;
 import com.vogella.eclipsedart.Constants;
 
 public class DartPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
@@ -50,8 +57,30 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 	
 	@Override
 	public boolean performOk() {
+
 		//TODO: Add a check if the entered location is a valid dart SDK
 		
+//		String sdkLocation = sdkLocationTextField.getText();
+//		String command = "/usr/lib/dart-sdk/bin/dart";
+//
+//		Process process;
+//		try {
+//			process = new ProcessBuilder("/bin/sh", "-c", "'dart --version'").start();
+//			var reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//			
+//			String line;
+//			while((line = reader.readLine()) != null) {
+//				System.out.println(line);
+//			}
+//		} catch (IOException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//		
+//		
+//		CommandLineTools.execute("/bin/env")
+//			.ifPresentOrElse(System.out::println, () -> System.out.println("#### empty"));
+
 		preferences.put(Constants.PREFERENCES_SDK_LOCATION, sdkLocationTextField.getText());
 		
 		try {

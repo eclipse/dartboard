@@ -73,5 +73,11 @@
             name="Dart">
       </page>
    </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="com.vogella.eclipsedart.preference.DartPreferenceInitializer">
+      </initializer>
+   </extension>
 
 </plugin>
