@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/com.vogella.eclipsedart.feature_1.0.0.qualifier.jar" id="com.vogella.eclipsedart.feature" version="1.0.0.qualifier">
-      <category name="Eclipse Dart Support"/>
-   </feature>
-   <category-def name="Eclipse Dart Support" label="Dart Support for the Eclipse IDE"/>
-</site>
