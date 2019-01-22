@@ -13,6 +13,7 @@ image:https://user-images.githubusercontent.com/5540255/50854146-94870c00-1384-1
 
 Currently this project is highly experimental and in no way production ready.
 It is based on the "new" https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server[dart language server] which is also not production ready.
+[https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md[Dart Language Server Readme] for the current status of the Dart Language Server.
 
 The language server is not released yet and the only way to obtain it is by using a https://gsdview.appspot.com/dart-archive/channels/be/raw/latest/sdk/[Dart nightly build].
 
@@ -20,8 +21,9 @@ The language server is not released yet and the only way to obtain it is by usin
 
 - Download the latest nightly from https://gsdview.appspot.com/dart-archive/channels/be/raw/latest/sdk/[here].
 - Extract the archive.
-- Copy the path and replace the `dartLocation` in `FlutterLanguageServerStreamProvider` with your location
-- Start the plugin
+- Clone repo and build the Eclipse tooling with `mvn clean verify`
+- Install the Eclipse feature from 'com.vogella.eclipsedart.update/target/repository/' via the Help-> Install New Software... menu entry in the Eclipse IDE
+- Create or import a new `.dart` file and start editing it
 
 NOTE: If you have troubles with compilation and/or running try to install the necessary dependencies as described below.
 
