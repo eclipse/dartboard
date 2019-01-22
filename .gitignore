@@ -2,3 +2,4 @@
 *.class
 /bin/
 */target/*
+.polyglot.build.properties
