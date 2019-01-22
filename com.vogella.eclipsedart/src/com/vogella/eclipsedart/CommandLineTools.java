@@ -1,13 +1,11 @@
 package com.vogella.eclipsedart;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
 
 import org.apache.commons.io.IOUtils;
-import org.eclipse.swt.program.Program;
 
 public class CommandLineTools {
 
