@@ -1,6 +1,4 @@
 
 *.class
 /bin/
-*/org.eclipse.jdt.core.prefs
-/.classpath
 /target/
