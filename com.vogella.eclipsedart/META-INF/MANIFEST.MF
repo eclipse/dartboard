@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Flutter
-Bundle-SymbolicName: com.vogella.lsp.flutter;singleton:=true
+Bundle-SymbolicName: com.vogella.eclipsedart;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: VOGELLA
 Automatic-Module-Name: com.vogella.lsp.flutter
