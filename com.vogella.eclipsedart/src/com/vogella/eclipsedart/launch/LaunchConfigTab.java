@@ -1,29 +1,50 @@
 package com.vogella.eclipsedart.launch;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+
+import com.vogella.eclipsedart.Constants;
 
 
 public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	private Text textSdkLocation;
 	private Text textMainClass;
+	private Combo comboProject;
 
+	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
+	
 	@Override
 	public void createControl(Composite parent) {
 		Composite comp = new Group(parent, SWT.BORDER);
 		setControl(comp);
 
 		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(comp);
+		
+		Label labelProject = new Label(comp, SWT.NONE);
+		labelProject.setText("Project: ");
+		GridDataFactory.swtDefaults().applyTo(labelProject);
+		
+		comboProject = new Combo(comp, SWT.READ_ONLY | SWT.DROP_DOWN);
+		for(var project : getProjectsInWorkspace()) {
+			comboProject.add(project.getName());
+		}
+		GridDataFactory.fillDefaults().grab(true, false).applyTo(comboProject);
+		
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
 		labelSdkLocation.setText("Dart SDK Location: ");
@@ -49,11 +70,16 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String location = configuration.getAttribute(LaunchConfig.CONFIG_DART_SDK, "/usr/lib/dart");
+			String defaultLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, null);
+			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
-			String mainClass = configuration.getAttribute(LaunchConfig.CONFIG_MAIN_CLASS, "main.dart");
+			String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart");
 			textMainClass.setText(mainClass);
+			
+			//String selectedProject = 
+			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, ""));
+			this.setDirty(true);
 		} catch (CoreException e) {
 			// ignore here
 		}
@@ -61,8 +87,9 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(LaunchConfig.CONFIG_DART_SDK, textSdkLocation.getText());
-		configuration.setAttribute(LaunchConfig.CONFIG_MAIN_CLASS, textMainClass.getText());
+		configuration.setAttribute(Constants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
+		configuration.setAttribute(Constants.LAUNCH_MAIN_CLASS, textMainClass.getText());
+		configuration.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
 	}
 
 	@Override
@@ -70,4 +97,9 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		return "Dart Configuration";
 	}
 
+	private IProject[] getProjectsInWorkspace() {
+		var workspace = ResourcesPlugin.getWorkspace();
+		var root = workspace.getRoot();
+		return root.getProjects();
+	}
 }

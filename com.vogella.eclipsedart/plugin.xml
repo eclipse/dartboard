@@ -79,5 +79,12 @@
             class="com.vogella.eclipsedart.preference.DartPreferenceInitializer">
       </initializer>
    </extension>
+   <extension
+         point="org.eclipse.ui.console.consoleFactories">
+      <consoleFactory
+            class="com.vogella.eclipsedart.launch.console.DartConsoleFactory"
+            label="Dart Console">
+      </consoleFactory>
+   </extension>
 
 </plugin>
