@@ -3,14 +3,17 @@ package com.vogella.eclipsedart;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.preferences.IEclipsePreferences;
+import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.lsp4e.server.ProcessStreamConnectionProvider;
 import org.eclipse.lsp4e.server.StreamConnectionProvider;
 
 public class FlutterLanguageServerStreamProvider extends ProcessStreamConnectionProvider implements StreamConnectionProvider {
 
 	public FlutterLanguageServerStreamProvider() {
-		// Replace this with the location on your file system
-		String dartLocation = "/home/jhungershausen/Library/dart-nightly";
+		IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
+
+		String dartLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
 
 		List<String> commands = new ArrayList<>();
 		commands.add(dartLocation + "/bin/dart");
