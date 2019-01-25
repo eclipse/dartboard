@@ -24,17 +24,13 @@ public class DartConsoleFactory implements IConsoleFactory {
 		var console = new IOConsole(Constants.CONSOLE_NAME, null);
 		var outputSteam = console.newOutputStream();
 
-		//TODO: Check if this is efficient or if there's a better way
-		int value;
 		try {
-			while((value = inputStream.read()) != -1) {
-				outputSteam.write(value);
-			}
+			inputStream.transferTo(outputSteam);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		consoleManager.addConsoles(new IConsole[] { console });
 		consoleManager.showConsoleView(console);
 	}
-	
+
 }
