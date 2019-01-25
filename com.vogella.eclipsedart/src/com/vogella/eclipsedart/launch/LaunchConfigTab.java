@@ -19,7 +19,6 @@ import org.eclipse.swt.widgets.Text;
 
 import com.vogella.eclipsedart.Constants;
 
-
 public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	private Text textSdkLocation;
@@ -27,24 +26,23 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Combo comboProject;
 
 	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
-	
+
 	@Override
 	public void createControl(Composite parent) {
 		Composite comp = new Group(parent, SWT.BORDER);
 		setControl(comp);
 
 		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(comp);
-		
+
 		Label labelProject = new Label(comp, SWT.NONE);
 		labelProject.setText("Project: ");
 		GridDataFactory.swtDefaults().applyTo(labelProject);
-		
+
 		comboProject = new Combo(comp, SWT.READ_ONLY | SWT.DROP_DOWN);
-		for(var project : getProjectsInWorkspace()) {
+		for (var project : getProjectsInWorkspace()) {
 			comboProject.add(project.getName());
 		}
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(comboProject);
-		
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
 		labelSdkLocation.setText("Dart SDK Location: ");
@@ -76,8 +74,8 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 			String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart");
 			textMainClass.setText(mainClass);
-			
-			//String selectedProject = 
+
+			// String selectedProject =
 			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, ""));
 			this.setDirty(true);
 		} catch (CoreException e) {

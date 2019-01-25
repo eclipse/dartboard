@@ -16,8 +16,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		CommandLineTools.getDartSDKLocation().ifPresent(location -> {
 			preferences.put(Constants.PREFERENCES_SDK_LOCATION, location);
 		});
-		
+
 	}
 
-	
 }

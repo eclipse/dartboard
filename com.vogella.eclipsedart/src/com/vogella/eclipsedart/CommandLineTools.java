@@ -15,11 +15,10 @@ public class CommandLineTools {
 
 	protected static Optional<String> getLocation(String program) {
 		String[] commands = new String[] { "/usr/bin/sh", "-c", "which " + program };
-		//TODO: Add support for Windows and MacOS
-		
+
 		return execute(commands);
 	}
-	
+
 	public static Optional<String> execute(String... commands) {
 		BufferedReader reader = null;
 		try {
@@ -35,7 +34,7 @@ public class CommandLineTools {
 		}
 
 		return Optional.empty();
-		
+
 	}
 
 }

@@ -8,7 +8,8 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.lsp4e.server.ProcessStreamConnectionProvider;
 import org.eclipse.lsp4e.server.StreamConnectionProvider;
 
-public class FlutterLanguageServerStreamProvider extends ProcessStreamConnectionProvider implements StreamConnectionProvider {
+public class FlutterLanguageServerStreamProvider extends ProcessStreamConnectionProvider
+		implements StreamConnectionProvider {
 
 	public FlutterLanguageServerStreamProvider() {
 		IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
