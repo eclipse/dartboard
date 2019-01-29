@@ -1,7 +1,13 @@
 package com.vogella.eclipsedart.preference;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Optional;
+
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -19,6 +25,7 @@ import com.vogella.eclipsedart.Constants;
 public class DartPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
 	private Text sdkLocationTextField;
+	private Label versionLabel;
 
 	private IEclipsePreferences preferences;
 
@@ -44,37 +51,31 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 
 		sdkLocationTextField = new Text(composite, SWT.SINGLE | SWT.LEAD | SWT.BORDER);
 		sdkLocationTextField.setLayoutData(gridData);
-		sdkLocationTextField.setText(preferences.get(Constants.PREFERENCES_SDK_LOCATION, ""));
+
+		String dartLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
+		sdkLocationTextField.setText(dartLocation);
+
+		versionLabel = new Label(composite, SWT.NONE);
+		getVersion(dartLocation).ifPresent((version) -> {
+			versionLabel.setText(version);
+		});
 		return composite;
 	}
 
 	@Override
 	public boolean performOk() {
+		String sdkLocation = sdkLocationTextField.getText();
+		var optionalVersion = getVersion(sdkLocation);
 
-		// TODO: Add a check if the entered location is a valid dart SDK
-
-//		String sdkLocation = sdkLocationTextField.getText();
-//		String command = "/usr/lib/dart-sdk/bin/dart";
-//
-//		Process process;
-//		try {
-//			process = new ProcessBuilder("/bin/sh", "-c", "'dart --version'").start();
-//			var reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//			String line;
-//			while((line = reader.readLine()) != null) {
-//				System.out.println(line);
-//			}
-//		} catch (IOException e1) {
-//			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-//		}
-//
-//
-//		CommandLineTools.execute("/bin/env")
-//			.ifPresentOrElse(System.out::println, () -> System.out.println("#### empty"));
-
-		preferences.put(Constants.PREFERENCES_SDK_LOCATION, sdkLocationTextField.getText());
+		optionalVersion.ifPresentOrElse((version) -> {
+			preferences.put(Constants.PREFERENCES_SDK_LOCATION, sdkLocationTextField.getText());
+			versionLabel.setText(version);
+		}, () -> {
+			MessageDialog.openError(null, "Not a valid SDK location",
+					"The given location \"" + sdkLocation + "\" is not a valid dart SDK location.");
+			String oldLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
+			sdkLocationTextField.setText(oldLocation);
+		});
 
 		try {
 			preferences.flush();
@@ -85,4 +86,16 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 		return super.performOk();
 	}
 
+	private Optional<String> getVersion(String location) {
+		var builder = new ProcessBuilder(location + "/bin/dart", "--version");
+
+		builder.redirectErrorStream(true);
+
+		try (var reader = new BufferedReader(new InputStreamReader(builder.start().getInputStream()))) {
+			return Optional.ofNullable(reader.readLine());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Optional.empty();
+	}
 }
