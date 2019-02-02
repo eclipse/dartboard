@@ -1,0 +1,20 @@
+!SESSION 2019-01-22 16:55:00.629 -----------------------------------------------
+eclipse.buildId=4.11.0.I20190121-1800
+java.version=11.0.1
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.sdk.ide
+Command-line arguments:  -product org.eclipse.sdk.ide -data /home/vogella/workspace/dart/../runtime-EclipseApplication -dev file:/home/vogella/workspace/dart/.metadata/.plugins/org.eclipse.pde.core/Eclipse Application/dev.properties -os linux -ws gtk -arch x86_64 -consoleLog
+
+!ENTRY org.eclipse.ui 2 0 2019-01-22 16:55:04.832
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2019-01-22 16:55:04.832
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.tools.layout.spy', id='org.eclipse.tools.layout.spy.commands.layoutSpyCommand', categoryId='org.eclipse.pde.runtime.spy.commands.category'
+
+!ENTRY org.eclipse.ui 2 0 2019-01-22 16:55:05.370
+!MESSAGE Warnings while parsing the commands from the 'org.eclipse.ui.commands' and 'org.eclipse.ui.actionDefinitions' extension points.
+!SUBENTRY 1 org.eclipse.ui 2 0 2019-01-22 16:55:05.371
+!MESSAGE Commands should really have a category: plug-in='org.eclipse.tools.layout.spy', id='org.eclipse.tools.layout.spy.commands.layoutSpyCommand', categoryId='org.eclipse.pde.runtime.spy.commands.category'
+
+!ENTRY org.eclipse.egit.core 1 0 2019-01-22 16:55:05.707
+!MESSAGE Using Apache MINA sshd as ssh client.
