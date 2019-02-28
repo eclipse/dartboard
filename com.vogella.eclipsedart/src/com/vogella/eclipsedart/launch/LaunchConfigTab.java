@@ -63,6 +63,8 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		// This is currently not in use.
+		// TODO(Jonas): Evaluate if this could be used
 	}
 
 	@Override

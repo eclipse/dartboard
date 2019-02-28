@@ -12,6 +12,8 @@ public class CommandLineTools {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CommandLineTools.class);
 
+	private CommandLineTools() { }
+	
 	public static Optional<String> getDartSDKLocation() {
 		return getLocation("dart");
 	}
