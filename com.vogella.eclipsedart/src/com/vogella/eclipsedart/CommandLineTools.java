@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
 
-import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CommandLineTools {
+	
+	private static final Logger LOG = LoggerFactory.getLogger(CommandLineTools.class);
 
 	public static Optional<String> getDartSDKLocation() {
 		return getLocation("dart");
@@ -20,17 +23,14 @@ public class CommandLineTools {
 	}
 
 	public static Optional<String> execute(String... commands) {
-		BufferedReader reader = null;
-		try {
-			Process process = Runtime.getRuntime().exec(commands);
-			reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		try(BufferedReader reader 
+				= new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(commands).getInputStream()))){
+			
 			String output = reader.readLine();
 
 			return Optional.ofNullable(output);
 		} catch (IOException exception) {
-			exception.printStackTrace();
-		} finally {
-			IOUtils.closeQuietly(reader);
+			LOG.error(exception.getMessage());
 		}
 
 		return Optional.empty();

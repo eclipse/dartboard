@@ -18,3 +18,4 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.tm4e.languageconfiguration,
  org.eclipse.debug.ui,
  org.eclipse.ui.console
+Import-Package: org.slf4j;version="1.7.10"

@@ -7,11 +7,15 @@ import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleFactory;
 import org.eclipse.ui.console.IOConsole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vogella.eclipsedart.Constants;
 
 public class DartConsoleFactory implements IConsoleFactory {
 
+	private static final Logger LOG = LoggerFactory.getLogger(DartConsoleFactory.class);
+	
 	private InputStream inputStream;
 
 	public DartConsoleFactory(InputStream inputStream) {
@@ -26,8 +30,8 @@ public class DartConsoleFactory implements IConsoleFactory {
 
 		try {
 			inputStream.transferTo(outputSteam);
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ioException) {
+			LOG.error(ioException.getMessage());
 		}
 
 		consoleManager.addConsoles(new IConsole[] { console });

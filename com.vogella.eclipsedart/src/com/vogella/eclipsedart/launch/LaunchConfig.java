@@ -13,12 +13,16 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vogella.eclipsedart.Constants;
 import com.vogella.eclipsedart.launch.console.DartConsoleFactory;
 
 public class LaunchConfig extends LaunchConfigurationDelegate {
 
+	private static final Logger LOG = LoggerFactory.getLogger(LaunchConfig.class);
+	
 	IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
 
 	@Override
@@ -48,7 +52,7 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 			var process = processBuilder.start();
 			new DartConsoleFactory(process.getInputStream()).openConsole();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 
 	}

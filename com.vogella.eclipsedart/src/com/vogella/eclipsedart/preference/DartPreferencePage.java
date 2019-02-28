@@ -19,11 +19,15 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osgi.service.prefs.BackingStoreException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.vogella.eclipsedart.Constants;
 
 public class DartPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 
+	private static final Logger LOG = LoggerFactory.getLogger(DartPreferencePage.class);
+	
 	private Text sdkLocationTextField;
 	private Label versionLabel;
 
@@ -80,8 +84,7 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 		try {
 			preferences.flush();
 		} catch (BackingStoreException e) {
-			// TODO: Add logging
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		return super.performOk();
 	}
@@ -94,7 +97,7 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 		try (var reader = new BufferedReader(new InputStreamReader(builder.start().getInputStream()))) {
 			return Optional.ofNullable(reader.readLine());
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error(e.getMessage());
 		}
 		return Optional.empty();
 	}
