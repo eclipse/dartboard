@@ -33,7 +33,7 @@
    <extension
          point="org.eclipse.tm4e.registry.grammars">
       <grammar
-            path="assets/Dart.tmLanguage"
+            path="assets/dart.json"
             scopeName="source.dart">
       </grammar>
       <scopeNameContentTypeBinding
