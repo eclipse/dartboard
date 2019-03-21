@@ -43,6 +43,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 			comboProject.add(project.getName());
 		}
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(comboProject);
+		comboProject.addModifyListener((event) -> updateLaunchConfigurationDialog());
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
 		labelSdkLocation.setText("Dart SDK Location: ");
@@ -51,6 +52,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		textSdkLocation = new Text(comp, SWT.BORDER);
 		textSdkLocation.setMessage("The location the dart sdk is installed to");
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
+		textSdkLocation.addModifyListener((event) -> updateLaunchConfigurationDialog());
 
 		Label labelMainClass = new Label(comp, SWT.NONE);
 		labelMainClass.setText("Main class: ");
@@ -59,6 +61,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		textMainClass = new Text(comp, SWT.BORDER);
 		textMainClass.setMessage("Main class");
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textMainClass);
+		textMainClass.addModifyListener((event) -> updateLaunchConfigurationDialog());
 	}
 
 	@Override
