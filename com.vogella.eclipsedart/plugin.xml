@@ -4,7 +4,7 @@
    <extension
          point="org.eclipse.ui.editors">
       <editorContentTypeBinding
-            contentTypeId="com.vogella.eclipsedart"
+            contentTypeId="org.eclipse.dartboard"
             editorId="org.eclipse.ui.genericeditor.GenericEditor">
       </editorContentTypeBinding>
    </extension>
@@ -13,7 +13,7 @@
       <content-type
             base-type="org.eclipse.core.runtime.text"
             file-extensions="dart"
-            id="com.vogella.eclipsedart"
+            id="org.eclipse.dartboard"
             name="Flutter Language Server"
             priority="normal">
       </content-type>
@@ -21,13 +21,13 @@
    <extension
          point="org.eclipse.lsp4e.languageServer">
       <server
-            class="com.vogella.eclipsedart.FlutterLanguageServerStreamProvider"
-            id="com.vogella.eclipsedart.server1"
-            label="com.vogella.eclipsedart.server1">
+            class="org.eclipse.dartboard.FlutterLanguageServerStreamProvider"
+            id="org.eclipse.dartboard.server1"
+            label="org.eclipse.dartboard.server1">
       </server>
       <contentTypeMapping
-            contentType="com.vogella.eclipsedart"
-            id="com.vogella.eclipsedart.server1">
+            contentType="org.eclipse.dartboard"
+            id="org.eclipse.dartboard.server1">
       </contentTypeMapping>
    </extension>
    <extension
@@ -37,22 +37,22 @@
             scopeName="source.dart">
       </grammar>
       <scopeNameContentTypeBinding
-            contentTypeId="com.vogella.eclipsedart"
+            contentTypeId="org.eclipse.dartboard"
             scopeName="source.dart">
       </scopeNameContentTypeBinding>
    </extension>
    <extension
          point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
       <languageConfiguration
-            contentTypeId="com.vogella.eclipsedart"
+            contentTypeId="org.eclipse.dartboard"
             path="assets/dart-language-configuration.json">
       </languageConfiguration>
    </extension>
    <extension
          point="org.eclipse.debug.core.launchConfigurationTypes">
       <launchConfigurationType
-            delegate="com.vogella.eclipsedart.launch.LaunchConfig"
-            id="com.vogella.eclipsedart.launch"
+            delegate="org.eclipse.dartboard.launch.LaunchConfig"
+            id="org.eclipse.dartboard.launch"
             modes="run, debug"
             name="Run Dart Program">
       </launchConfigurationType>
@@ -60,29 +60,29 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="com.vogella.eclipsedart.launch.LaunchTabGroup"
-            id="com.vogella.eclipsedart.launchTabGroups"
-            type="com.vogella.eclipsedart.launch">
+            class="org.eclipse.dartboard.launch.LaunchTabGroup"
+            id="org.eclipse.dartboard.launchTabGroups"
+            type="org.eclipse.dartboard.launch">
       </launchConfigurationTabGroup>
    </extension>
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            class="com.vogella.eclipsedart.preference.DartPreferencePage"
-            id="com.vogella.eclipsedart.preferencePage"
+            class="org.eclipse.dartboard.preference.DartPreferencePage"
+            id="org.eclipse.dartboard.preferencePage"
             name="Dart">
       </page>
    </extension>
    <extension
          point="org.eclipse.core.runtime.preferences">
       <initializer
-            class="com.vogella.eclipsedart.preference.DartPreferenceInitializer">
+            class="org.eclipse.dartboard.preference.DartPreferenceInitializer">
       </initializer>
    </extension>
    <extension
          point="org.eclipse.ui.console.consoleFactories">
       <consoleFactory
-            class="com.vogella.eclipsedart.launch.console.DartConsoleFactory"
+            class="org.eclipse.dartboard.launch.console.DartConsoleFactory"
             label="Dart Console">
       </consoleFactory>
    </extension>

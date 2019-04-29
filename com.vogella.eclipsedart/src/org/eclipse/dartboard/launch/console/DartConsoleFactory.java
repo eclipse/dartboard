@@ -1,16 +1,15 @@
-package com.vogella.eclipsedart.launch.console;
+package org.eclipse.dartboard.launch.console;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.dartboard.Constants;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleFactory;
 import org.eclipse.ui.console.IOConsole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vogella.eclipsedart.Constants;
 
 public class DartConsoleFactory implements IConsoleFactory {
 

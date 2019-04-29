@@ -1,4 +1,4 @@
-package com.vogella.eclipsedart.preference;
+package org.eclipse.dartboard.preference;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.dartboard.Constants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferencePage;
 import org.eclipse.swt.SWT;
@@ -21,8 +22,6 @@ import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.osgi.service.prefs.BackingStoreException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vogella.eclipsedart.Constants;
 
 public class DartPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
 

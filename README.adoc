@@ -63,6 +63,11 @@ Install the plugins:
 - `TextMate Core`
 - `TextMate Core Developer Resources`
 
+For logging we use the logback library.
+You can install these from the `Install new software...` dialog:
+
+- `m2e - slf4j over logback logging (Optiona)`
+
 == Get Involved
 
 Support is currently available via https://github.com/vogellacompany/eclipse-dart/issues[GitHub issues].

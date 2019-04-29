@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Flutter
-Bundle-SymbolicName: com.vogella.eclipsedart;singleton:=true
+Bundle-SymbolicName: org.eclipse.dartboard;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: VOGELLA
-Automatic-Module-Name: com.vogella.lsp.flutter
+Automatic-Module-Name: org.eclipse.dartboard
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.lsp4e;bundle-version="0.9.0",

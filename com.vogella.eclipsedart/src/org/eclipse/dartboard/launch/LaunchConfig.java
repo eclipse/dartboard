@@ -1,4 +1,4 @@
-package com.vogella.eclipsedart.launch;
+package org.eclipse.dartboard.launch;
 
 import java.io.IOException;
 
@@ -8,6 +8,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.launch.console.DartConsoleFactory;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
@@ -15,9 +17,6 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.vogella.eclipsedart.Constants;
-import com.vogella.eclipsedart.launch.console.DartConsoleFactory;
 
 public class LaunchConfig extends LaunchConfigurationDelegate {
 
