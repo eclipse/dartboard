@@ -1,4 +1,4 @@
-package com.vogella.eclipsedart;
+package org.eclipse.dartboard;
 
 import java.util.ArrayList;
 import java.util.List;

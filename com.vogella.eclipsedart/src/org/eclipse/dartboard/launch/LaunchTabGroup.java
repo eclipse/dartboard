@@ -1,4 +1,4 @@
-package com.vogella.eclipsedart.launch;
+package org.eclipse.dartboard.launch;
 
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;

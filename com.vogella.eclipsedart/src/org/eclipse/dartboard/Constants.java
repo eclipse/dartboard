@@ -1,4 +1,4 @@
-package com.vogella.eclipsedart;
+package org.eclipse.dartboard;
 
 public abstract class Constants {
 
