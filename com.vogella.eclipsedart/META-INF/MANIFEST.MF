@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Flutter
+Bundle-Name: Eclipse Dartboard: Dart development in Eclipse
 Bundle-SymbolicName: org.eclipse.dartboard;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: VOGELLA
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: Eclipse Dartboard project
 Automatic-Module-Name: org.eclipse.dartboard
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
