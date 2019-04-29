@@ -39,7 +39,7 @@ Atleast version 2.2 is required.
 Check by running `dart --version` after installation.
 - Clone this repo `git clone git@github.com:vogellacompany/eclipse-dart.git`
 - Change to the cloned directory `cd eclipse-dart` and run `mvn clean verify`
-- Add the local update site from `com.vogella.eclipsedart.update/target/repository/` via the *Help*-> *Install New Software...* menu entry in the Eclipse IDE
+- Add the local update site from `org.eclipse.dartboard.update/target/repository/` via the *Help*-> *Install New Software...* menu entry in the Eclipse IDE
 - Install the listed plugin
 - Create or import a `.dart` file and start editing it
 

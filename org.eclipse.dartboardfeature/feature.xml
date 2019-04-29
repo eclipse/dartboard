@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="com.vogella.eclipsedart.feature"
+      id="org.eclipse.dartboard.feature"
       label="Eclipse Dart Support"
       version="1.0.0.qualifier"
       provider-name="VOGELLA">
@@ -18,7 +18,7 @@
    </license>
 
    <plugin
-         id="com.vogella.eclipsedart"
+         id="org.eclipse.dartboard"
          download-size="0"
          install-size="0"
          version="0.0.0"
