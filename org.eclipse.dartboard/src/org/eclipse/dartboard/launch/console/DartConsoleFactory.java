@@ -16,11 +16,14 @@ package org.eclipse.dartboard.launch.console;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.io.IOUtils;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleFactory;
+import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.IOConsole;
+import org.eclipse.ui.console.IOConsoleOutputStream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,12 +39,12 @@ public class DartConsoleFactory implements IConsoleFactory {
 
 	@Override
 	public void openConsole() {
-		var consoleManager = ConsolePlugin.getDefault().getConsoleManager();
-		var console = new IOConsole(Constants.CONSOLE_NAME, null);
-		var outputSteam = console.newOutputStream();
+		IConsoleManager consoleManager = ConsolePlugin.getDefault().getConsoleManager();
+		IOConsole console = new IOConsole(Constants.CONSOLE_NAME, null);
+		IOConsoleOutputStream outputSteam = console.newOutputStream();
 
 		try {
-			inputStream.transferTo(outputSteam);
+			IOUtils.copy(inputStream, outputSteam);
 		} catch (IOException ioException) {
 			LOG.error(ioException.getMessage());
 		}

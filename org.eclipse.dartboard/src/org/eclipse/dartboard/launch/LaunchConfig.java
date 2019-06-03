@@ -16,6 +16,8 @@ package org.eclipse.dartboard.launch;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -51,17 +53,17 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 		String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart");
 		String sdk = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, "");
 		String projectName = configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "");
-		var project = getProject(projectName);
+		IProject project = getProject(projectName);
 		if (!project.exists()) {
 			MessageDialog.openError(null, "No project selected", "Please select a project in the run configuration.");
 			return;
 		}
 
 		String location = project.getLocation().toOSString();
-		var processBuilder = new ProcessBuilder(sdk + "/bin/dart", location + "/" + mainClass);
+		ProcessBuilder processBuilder = new ProcessBuilder(sdk + "/bin/dart", location + "/" + mainClass);
 
 		try {
-			var process = processBuilder.start();
+			Process process = processBuilder.start();
 			new DartConsoleFactory(process.getInputStream()).openConsole();
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
@@ -70,8 +72,8 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 	}
 
 	public IProject getProject(String name) {
-		var workspace = ResourcesPlugin.getWorkspace();
-		var root = workspace.getRoot();
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
 		return root.getProject(name);
 	}
 

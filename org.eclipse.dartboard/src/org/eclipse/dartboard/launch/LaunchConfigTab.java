@@ -14,6 +14,8 @@
 package org.eclipse.dartboard.launch;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
@@ -51,7 +53,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		GridDataFactory.swtDefaults().applyTo(labelProject);
 
 		comboProject = new Combo(comp, SWT.READ_ONLY | SWT.DROP_DOWN);
-		for (var project : getProjectsInWorkspace()) {
+		for (IProject project : getProjectsInWorkspace()) {
 			comboProject.add(project.getName());
 		}
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(comboProject);
@@ -113,8 +115,8 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	}
 
 	private IProject[] getProjectsInWorkspace() {
-		var workspace = ResourcesPlugin.getWorkspace();
-		var root = workspace.getRoot();
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
 		return root.getProjects();
 	}
 }

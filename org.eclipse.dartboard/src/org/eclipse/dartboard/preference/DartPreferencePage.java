@@ -81,18 +81,18 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 	@Override
 	public boolean performOk() {
 		String sdkLocation = sdkLocationTextField.getText();
-		var optionalVersion = getVersion(sdkLocation);
+		Optional<String> optionalVersion = getVersion(sdkLocation);
 
-		optionalVersion.ifPresentOrElse((version) -> {
+		if(optionalVersion.isPresent()) {
 			preferences.put(Constants.PREFERENCES_SDK_LOCATION, sdkLocationTextField.getText());
-			versionLabel.setText(version);
-		}, () -> {
+			versionLabel.setText(optionalVersion.get());
+		} else {
 			MessageDialog.openError(null, "Not a valid SDK location",
 					"The given location \"" + sdkLocation + "\" is not a valid dart SDK location.");
 			String oldLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
 			sdkLocationTextField.setText(oldLocation);
-		});
-
+		}
+		
 		try {
 			preferences.flush();
 		} catch (BackingStoreException e) {
@@ -102,11 +102,11 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 	}
 
 	private Optional<String> getVersion(String location) {
-		var builder = new ProcessBuilder(location + "/bin/dart", "--version");
+		ProcessBuilder builder = new ProcessBuilder(location + "/bin/dart", "--version");
 
 		builder.redirectErrorStream(true);
 
-		try (var reader = new BufferedReader(new InputStreamReader(builder.start().getInputStream()))) {
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(builder.start().getInputStream()))) {
 			return Optional.ofNullable(reader.readLine());
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
