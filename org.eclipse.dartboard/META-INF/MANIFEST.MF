@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Eclipse Dartboard: Dart development in Eclipse
+Bundle-SymbolicName: org.eclipse.dartboard;singleton:=true
+Bundle-Version: 0.1.0.qualifier
+Bundle-Vendor: Eclipse Dartboard project
+Automatic-Module-Name: org.eclipse.dartboard
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
+ org.eclipse.lsp4e;bundle-version="0.9.0",
+ org.eclipse.lsp4j;bundle-version="0.6.0",
+ org.eclipse.core.contenttype;bundle-version="3.6.0",
+ org.eclipse.core.runtime,
+ org.eclipse.ui,
+ org.apache.commons.io;bundle-version="2.2.0",
+ org.eclipse.tm4e.registry,
+ org.eclipse.tm4e.core;bundle-version="0.3.2",
+ org.eclipse.tm4e.languageconfiguration,
+ org.eclipse.debug.ui,
+ org.eclipse.ui.console,
+ ch.qos.logback.classic
+Import-Package: org.slf4j,
+ org.slf4j.spi

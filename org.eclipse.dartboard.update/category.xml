@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright (c) 2019 vogella GmbH and others.
+   
+    This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License 2.0
+    which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-2.0/
+   
+    SPDX-License-Identifier: EPL-2.0
+   
+    Contributors:
+        Jonas Hungershausen - initial API and implementation
+ -->
+
+<site>
+   <feature url="features/org.eclipse.dartboard.feature_1.0.0.qualifier.jar" id="org.eclipse.dartboard.feature" version="1.0.0.qualifier">
+      <category name="Eclipse Dart Support"/>
+   </feature>
+   <category-def name="Eclipse Dart Support" label="Dart Support for the Eclipse IDE"/>
+</site>

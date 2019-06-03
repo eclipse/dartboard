@@ -1,0 +1,79 @@
+= image:https://www.dartlang.org/assets/shared/dart/logo/default-c7182d85b1eed8662f1fa9e6286f286412872e2208a5c972f507534a2bbebebe.svg[Dart Logo,26,26] Dart Plugin for Eclipse
+
+An eclipse plugin for https://www.dartlang.org/[Dart] and https://flutter.io[Flutter] development.
+Dart is a programming language mostly used in the Flutter project.
+
+== Features
+
+- Rich text editting with first class `.dart` support leveraging the Language Server Protocol
+- Running _Dart_ programs directly from the IDE
+- All features from the classic https://www.eclipse.org/eclipseide/[Eclipse IDE]
+
+=== Demo
+
+image:https://user-images.githubusercontent.com/5540255/50854146-94870c00-1384-11e9-9866-ca39cffe4dba.jpeg[Dart development in Eclipse]
+
+=== Planned features
+
+- First class support for the https://www.dartlang.org/tools/pub[Pub package manager] - https://github.com/vogellacompany/eclipse-dart/issues/12[Issue#12]
+- _TODO_
+
+== Usage
+
+To use this plugin you will need atleast Dart 2.2.
+You can download it from the https://www.dartlang.org/tools/sdk#install[Dart download page].
+
+Currently there is no eclipse update site for this plugin.
+The only way to obtain the plugin is by cloning this repo and building it yourself.
+See the link:#get-started[Get Started] section below.
+
+== Development
+
+It is based on the https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server[Dart language server].
+See the https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md[Dart Language Server Readme] for the current status of the server.
+
+=== Get Started
+
+- Download and install the latest https://www.dartlang.org/tools/sdk#install[Dart SDK]. 
+Atleast version 2.2 is required.
+Check by running `dart --version` after installation.
+- Clone this repo `git clone git@github.com:vogellacompany/eclipse-dart.git`
+- Change to the cloned directory `cd eclipse-dart` and run `mvn clean verify`
+- Add the local update site from `org.eclipse.dartboard.update/target/repository/` via the *Help*-> *Install New Software...* menu entry in the Eclipse IDE
+- Install the listed plugin
+- Create or import a `.dart` file and start editing it
+
+NOTE: If you have troubles with compilation and/or running try to install the necessary dependencies as described below.
+
+=== Installing the dependencies
+
+For the plugin to work as expected you need to install some dependencies.
+
+Add the update site of the `LSP4E` project: `http://download.eclipse.org/lsp4e/releases/latest/`.
+
+Install the plugins:
+
+- `Language Server Protocol client for Eclipse IDE (Incubation) Source`
+- `Language Server Protocol client for Eclipse IDE (Incubation)`
+
+Add the update site of the `TM4E` project: `http://download.eclipse.org/tm4e/snapshots/`.
+
+Install the plugins:
+
+- `TextMate Core`
+- `TextMate Core Developer Resources`
+
+For logging we use the logback library.
+You can install these from the `Install new software...` dialog:
+
+- `m2e - slf4j over logback logging (Optiona)`
+
+== Get Involved
+
+Support is currently available via https://github.com/vogellacompany/eclipse-dart/issues[GitHub issues].
+
+Code contributions are welcome via https://github.com/vogellacompany/eclipse-dart/pulls[GitHub pull requests].
+
+Code quality analysis is available on https://sonarcloud.io/dashboard?id=vogellacompany_eclipse-dart[SonarCloud].
+
+CI is currently not public.
