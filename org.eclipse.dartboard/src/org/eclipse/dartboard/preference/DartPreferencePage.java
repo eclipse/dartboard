@@ -18,89 +18,78 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Optional;
 
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.preference.PreferencePage;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.jface.preference.DirectoryFieldEditor;
+import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.osgi.service.prefs.BackingStoreException;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class DartPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
+/**
+ * A {@link FieldEditorPreferencePage} that lets the user set various preferences related to the Dart SDK, or other development related settings.
+ * 
+ * @author Jonas Hungershausen
+ *
+ */
+public class DartPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DartPreferencePage.class);
 	
-	private Text sdkLocationTextField;
-	private Label versionLabel;
+	/**
+	 * A {@link DirectoryFieldEditor} used to obtain the Dart SDK location
+	 */
+	private DirectoryFieldEditor dartSDKLocationEditor;
 
-	private IEclipsePreferences preferences;
-
+	/**
+	 * Initializes the {@link DartPreferencePage#getPreferenceStore()} to the default preference store of the plugin
+	 */
 	@Override
 	public void init(IWorkbench workbench) {
-		preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
+		setPreferenceStore(new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID));
 	}
 
-	@Override
-	protected Control createContents(Composite parent) {
-		Composite composite = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.marginHeight = 0;
-		layout.marginWidth = 0;
-		layout.horizontalSpacing = 2;
-		layout.verticalSpacing = 2;
-		composite.setLayout(layout);
-
-		GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
-
-		Label label = new Label(composite, SWT.NONE);
-		label.setText("Dart SDK Location");
-
-		sdkLocationTextField = new Text(composite, SWT.SINGLE | SWT.LEAD | SWT.BORDER);
-		sdkLocationTextField.setLayoutData(gridData);
-
-		String dartLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
-		sdkLocationTextField.setText(dartLocation);
-
-		versionLabel = new Label(composite, SWT.NONE);
-		getVersion(dartLocation).ifPresent((version) -> {
-			versionLabel.setText(version);
-		});
-		return composite;
-	}
-
+	/**
+	 * Called once the "Apply" or "Apply and Close" buttons on the preference page are pressed.
+	 */
 	@Override
 	public boolean performOk() {
-		String sdkLocation = sdkLocationTextField.getText();
-		Optional<String> optionalVersion = getVersion(sdkLocation);
-
-		if(optionalVersion.isPresent()) {
-			preferences.put(Constants.PREFERENCES_SDK_LOCATION, sdkLocationTextField.getText());
-			versionLabel.setText(optionalVersion.get());
-		} else {
-			MessageDialog.openError(null, "Not a valid SDK location",
-					"The given location \"" + sdkLocation + "\" is not a valid dart SDK location.");
-			String oldLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
-			sdkLocationTextField.setText(oldLocation);
-		}
-		
-		try {
-			preferences.flush();
-		} catch (BackingStoreException e) {
-			LOG.error(e.getMessage());
-		}
+		String sdkLocation = dartSDKLocationEditor.getStringValue();
+		checkOk(sdkLocation);
 		return super.performOk();
 	}
+	
+	/**
+	 * Checks if the value of {@link DartPreferencePage#dartSDKLocationEditor} is a valid Dart SDK location.
+	 * 
+	 * If the check is unsuccessful the page's validity is set to {@code false} to prevent clicks on apply.
+	 * The user then has to choose a different location
+	 * 
+	 * @param location - The location of the Dart SDK that should be checked
+	 */
+	private void checkOk(String location) {
+		Optional<String> optionalVersion = getVersion(location);
+		if(optionalVersion.isPresent()) {
+			getPreferenceStore().setValue(Constants.PREFERENCES_SDK_LOCATION, dartSDKLocationEditor.getStringValue());
+			//TODO: Add version label?
+			setValid(true);
+		} else {
+			dartSDKLocationEditor.setErrorMessage("Not a valid SDK location");
+			dartSDKLocationEditor.showErrorMessage();
+			setValid(false);
+		}
+	}
 
+	/**
+	 * Returns the version of the Dart SDK at a given location.
+	 * The version is obtained by executing the Dart SDK binary with the {@code --version} flag.
+	 * 
+	 * @param location - The location of the Dart SDK
+	 * @return an {@link Optional} of a {@link String} containing the version of the Dart SDK or {@link Optional#empty()} if the Dart SDK version could not be obtained
+	 */
 	private Optional<String> getVersion(String location) {
 		ProcessBuilder builder = new ProcessBuilder(location + "/bin/dart", "--version");
 
@@ -112,5 +101,25 @@ public class DartPreferencePage extends PreferencePage implements IWorkbenchPref
 			LOG.error(e.getMessage());
 		}
 		return Optional.empty();
+	}
+
+	/**
+	 * Creates the editor fields for the page
+	 */
+	@Override
+	protected void createFieldEditors() {
+		dartSDKLocationEditor = new DirectoryFieldEditor(Constants.PREFERENCES_SDK_LOCATION, "Dart SDK &Location:", getFieldEditorParent());
+		addField(dartSDKLocationEditor);
+	}
+	
+	/**
+	 * Called when changes to the property fields of the page are made.
+	 * 
+	 * This method performs a validity check on the fields.
+	 */
+	@Override
+	public void propertyChange(PropertyChangeEvent event) {
+		checkOk((String) event.getNewValue());
+		super.propertyChange(event);
 	}
 }

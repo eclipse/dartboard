@@ -25,31 +25,35 @@ public class CommandLineTools {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(CommandLineTools.class);
 
-	private CommandLineTools() { }
+	/**
+	 * Contains possible dart installation locations
+	 */
+	//TODO: Add more possible paths (also for macOs, Windows)
+	public static final String[] POSSIBLE_DART_LOCATIONS = {"/usr/lib/dart"};
 	
+	private CommandLineTools() { }
+
 	public static Optional<String> getDartSDKLocation() {
-		return getLocation("dart");
-	}
-
-	protected static Optional<String> getLocation(String program) {
-		String[] commands = new String[] { "/usr/bin/sh", "-c", "which " + program };
-
-		return execute(commands);
-	}
-
-	public static Optional<String> execute(String... commands) {
-		try(BufferedReader reader 
-				= new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(commands).getInputStream()))){
-			
-			String output = reader.readLine();
-
-			return Optional.ofNullable(output);
-		} catch (IOException exception) {
-			LOG.error(exception.getMessage());
+		for (String string : POSSIBLE_DART_LOCATIONS) {
+			Optional<String> result = getPath(string);
+			if(result.isPresent()) {
+				return Optional.of(string);
+			}
 		}
-
 		return Optional.empty();
+	}
+	
+	private static Optional<String> getPath(String location) {
+		ProcessBuilder builder = new ProcessBuilder("/usr/bin/command", "-v", location + "/bin/dart");
 
+		builder.redirectErrorStream(true);
+
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(builder.start().getInputStream()))) {
+			return Optional.ofNullable(reader.readLine());
+		} catch (IOException e) {
+			LOG.error(e.getMessage());
+		}
+		return Optional.empty();
 	}
 
 }

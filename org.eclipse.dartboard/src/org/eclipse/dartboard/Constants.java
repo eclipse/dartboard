@@ -18,13 +18,28 @@ public abstract class Constants {
 	private Constants() {
 	}
 
+	/**
+	 * Preferences key for the Dart SDK location
+	 */
 	public static final String PREFERENCES_SDK_LOCATION = "sdk_location";
 
-	public static final String PREFERENCES_KEY = "com.vogella.dart.preferences";
+	/**
+	 * Plugin ID of the plugin
+	 */
+	public static final String PLUGIN_ID = "org.eclipse.dartboard";
 
+	/**
+	 * Key for the main class of a launch configuration
+	 */
 	public static final String LAUNCH_MAIN_CLASS = "main_class";
 
+	/**
+	 * Key for the selected project of a launch configuration
+	 */
 	public static final String LAUNCH_SELECTED_PROJECT = "selected_project";
 
+	/**
+	 * The console name for the dart console
+	 */
 	public static final String CONSOLE_NAME = "Dart Terminal";
 }

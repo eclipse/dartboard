@@ -13,22 +13,42 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preference;
 
+import java.util.Optional;
+
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.CommandLineTools;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 
 	@Override
 	public void initializeDefaultPreferences() {
-		IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
-
-		CommandLineTools.getDartSDKLocation().ifPresent(location -> {
-			preferences.put(Constants.PREFERENCES_SDK_LOCATION, location);
-		});
-
+		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
+		
+		if(scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION).isEmpty()) {
+			Optional<String> dartSDKLocation = CommandLineTools.getDartSDKLocation();
+			if(dartSDKLocation.isPresent()) {
+				scopedPreferenceStore.setDefault(Constants.PREFERENCES_SDK_LOCATION, dartSDKLocation.get());
+			} else {
+				MessageDialog.openError(null, "The Dart SDK must be installed to use Dartboard.", "Could not find the Dart SDK in any of the following locations: " + getSearchedLocations());
+			}
+		}
 	}
 
+	/**
+	 * Appends all locations in {@link CommandLineTools#POSSIBLE_DART_LOCATIONS} into a list separated by line breaks.
+	 * @return A {@link String} of all searched Dart SDK location
+	 */
+	private String getSearchedLocations() {
+		StringBuilder builder = new StringBuilder();
+		for(String string : CommandLineTools.POSSIBLE_DART_LOCATIONS) {
+			builder.append("\n");
+			builder.append("- ");
+			builder.append(string);
+		}
+		return builder.toString();
+	}
 }

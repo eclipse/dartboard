@@ -16,18 +16,19 @@ package org.eclipse.dartboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.lsp4e.server.ProcessStreamConnectionProvider;
 import org.eclipse.lsp4e.server.StreamConnectionProvider;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class FlutterLanguageServerStreamProvider extends ProcessStreamConnectionProvider
 		implements StreamConnectionProvider {
 
 	public FlutterLanguageServerStreamProvider() {
-		IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
-
-		String dartLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, "");
+		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
+		
+		
+		String dartLocation = scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION);
 
 		List<String> commands = new ArrayList<>();
 		commands.add(dartLocation + "/bin/dart");

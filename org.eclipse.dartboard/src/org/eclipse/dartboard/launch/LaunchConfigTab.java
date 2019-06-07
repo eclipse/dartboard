@@ -18,7 +18,6 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -32,6 +31,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
@@ -39,8 +39,8 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Text textMainClass;
 	private Combo comboProject;
 
-	private IEclipsePreferences preferences = InstanceScope.INSTANCE.getNode(Constants.PREFERENCES_KEY);
-
+	private ScopedPreferenceStore preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
+	
 	@Override
 	public void createControl(Composite parent) {
 		Composite comp = new Group(parent, SWT.BORDER);
@@ -87,7 +87,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String defaultLocation = preferences.get(Constants.PREFERENCES_SDK_LOCATION, null);
+			String defaultLocation = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
 			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
