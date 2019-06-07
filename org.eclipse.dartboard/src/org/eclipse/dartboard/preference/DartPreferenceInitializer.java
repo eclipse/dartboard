@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.CommandLineTools;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
@@ -33,7 +34,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			if(dartSDKLocation.isPresent()) {
 				scopedPreferenceStore.setDefault(Constants.PREFERENCES_SDK_LOCATION, dartSDKLocation.get());
 			} else {
-				MessageDialog.openError(null, "The Dart SDK must be installed to use Dartboard.", "Could not find the Dart SDK in any of the following locations: " + getSearchedLocations());
+				MessageDialog.openError(null, Messages.Preference_SDKNotFound_Title, Messages.Preference_SDKNotFound_Body + getSearchedLocations());
 			}
 		}
 	}
@@ -45,8 +46,8 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 	private String getSearchedLocations() {
 		StringBuilder builder = new StringBuilder();
 		for(String string : CommandLineTools.POSSIBLE_DART_LOCATIONS) {
-			builder.append("\n");
-			builder.append("- ");
+			builder.append("\n"); //$NON-NLS-1$
+			builder.append("- "); //$NON-NLS-1$
 			builder.append(string);
 		}
 		return builder.toString();

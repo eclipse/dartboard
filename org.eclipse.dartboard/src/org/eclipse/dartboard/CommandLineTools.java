@@ -29,7 +29,7 @@ public class CommandLineTools {
 	 * Contains possible dart installation locations
 	 */
 	//TODO: Add more possible paths (also for macOs, Windows)
-	public static final String[] POSSIBLE_DART_LOCATIONS = {"/usr/lib/dart"};
+	public static final String[] POSSIBLE_DART_LOCATIONS = {"/usr/lib/dart"}; //$NON-NLS-1$
 	
 	private CommandLineTools() { }
 
@@ -44,7 +44,7 @@ public class CommandLineTools {
 	}
 	
 	private static Optional<String> getPath(String location) {
-		ProcessBuilder builder = new ProcessBuilder("/usr/bin/command", "-v", location + "/bin/dart");
+		ProcessBuilder builder = new ProcessBuilder("/usr/bin/command", "-v", location + "/bin/dart"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 
 		builder.redirectErrorStream(true);
 

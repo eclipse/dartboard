@@ -20,6 +20,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.Messages;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -49,7 +50,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(comp);
 
 		Label labelProject = new Label(comp, SWT.NONE);
-		labelProject.setText("Project: ");
+		labelProject.setText(Messages.Launch_Project);
 		GridDataFactory.swtDefaults().applyTo(labelProject);
 
 		comboProject = new Combo(comp, SWT.READ_ONLY | SWT.DROP_DOWN);
@@ -60,20 +61,20 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		comboProject.addModifyListener((event) -> updateLaunchConfigurationDialog());
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
-		labelSdkLocation.setText("Dart SDK Location: ");
+		labelSdkLocation.setText(Messages.Preference_SDKLocation);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
 		textSdkLocation = new Text(comp, SWT.BORDER);
-		textSdkLocation.setMessage("The location the dart sdk is installed to");
+		textSdkLocation.setMessage(Messages.Launch_SDKLocation_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
 		textSdkLocation.addModifyListener((event) -> updateLaunchConfigurationDialog());
 
 		Label labelMainClass = new Label(comp, SWT.NONE);
-		labelMainClass.setText("Main class: ");
+		labelMainClass.setText(Messages.Launch_MainClass);
 		GridDataFactory.swtDefaults().applyTo(labelMainClass);
 
 		textMainClass = new Text(comp, SWT.BORDER);
-		textMainClass.setMessage("Main class");
+		textMainClass.setMessage(Messages.Launch_MainClass_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textMainClass);
 		textMainClass.addModifyListener((event) -> updateLaunchConfigurationDialog());
 	}
@@ -91,11 +92,11 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
-			String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart");
+			String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart"); //$NON-NLS-1$
 			textMainClass.setText(mainClass);
 
 			// String selectedProject =
-			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, ""));
+			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
 			this.setDirty(true);
 		} catch (CoreException e) {
 			// ignore here
@@ -111,7 +112,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public String getName() {
-		return "Dart Configuration";
+		return Messages.Launch_PageTitle;
 	}
 
 	private IProject[] getProjectsInWorkspace() {

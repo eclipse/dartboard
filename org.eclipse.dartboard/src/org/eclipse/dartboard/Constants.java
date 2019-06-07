@@ -21,25 +21,21 @@ public abstract class Constants {
 	/**
 	 * Preferences key for the Dart SDK location
 	 */
-	public static final String PREFERENCES_SDK_LOCATION = "sdk_location";
+	public static final String PREFERENCES_SDK_LOCATION = "sdk_location"; //$NON-NLS-1$
 
 	/**
 	 * Plugin ID of the plugin
 	 */
-	public static final String PLUGIN_ID = "org.eclipse.dartboard";
+	public static final String PLUGIN_ID = "org.eclipse.dartboard"; //$NON-NLS-1$
 
 	/**
 	 * Key for the main class of a launch configuration
 	 */
-	public static final String LAUNCH_MAIN_CLASS = "main_class";
+	public static final String LAUNCH_MAIN_CLASS = "main_class"; //$NON-NLS-1$
 
 	/**
 	 * Key for the selected project of a launch configuration
 	 */
-	public static final String LAUNCH_SELECTED_PROJECT = "selected_project";
+	public static final String LAUNCH_SELECTED_PROJECT = "selected_project"; //$NON-NLS-1$
 
-	/**
-	 * The console name for the dart console
-	 */
-	public static final String CONSOLE_NAME = "Dart Terminal";
 }

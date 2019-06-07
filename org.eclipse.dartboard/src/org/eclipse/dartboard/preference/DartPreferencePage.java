@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.util.PropertyChangeEvent;
@@ -77,7 +78,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			//TODO: Add version label?
 			setValid(true);
 		} else {
-			dartSDKLocationEditor.setErrorMessage("Not a valid SDK location");
+			dartSDKLocationEditor.setErrorMessage(Messages.Preference_SDKNotFound_Message);
 			dartSDKLocationEditor.showErrorMessage();
 			setValid(false);
 		}
@@ -91,7 +92,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return an {@link Optional} of a {@link String} containing the version of the Dart SDK or {@link Optional#empty()} if the Dart SDK version could not be obtained
 	 */
 	private Optional<String> getVersion(String location) {
-		ProcessBuilder builder = new ProcessBuilder(location + "/bin/dart", "--version");
+		ProcessBuilder builder = new ProcessBuilder(location + "/bin/dart", "--version"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		builder.redirectErrorStream(true);
 
@@ -108,7 +109,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	@Override
 	protected void createFieldEditors() {
-		dartSDKLocationEditor = new DirectoryFieldEditor(Constants.PREFERENCES_SDK_LOCATION, "Dart SDK &Location:", getFieldEditorParent());
+		dartSDKLocationEditor = new DirectoryFieldEditor(Constants.PREFERENCES_SDK_LOCATION, Messages.Preference_SDKLocation, getFieldEditorParent());
 		addField(dartSDKLocationEditor);
 	}
 	

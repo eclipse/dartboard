@@ -31,12 +31,12 @@ public class FlutterLanguageServerStreamProvider extends ProcessStreamConnection
 		String dartLocation = scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION);
 
 		List<String> commands = new ArrayList<>();
-		commands.add(dartLocation + "/bin/dart");
-		commands.add(dartLocation + "/bin/snapshots/analysis_server.dart.snapshot");
-		commands.add("--lsp");
+		commands.add(dartLocation + "/bin/dart"); //$NON-NLS-1$
+		commands.add(dartLocation + "/bin/snapshots/analysis_server.dart.snapshot"); //$NON-NLS-1$
+		commands.add("--lsp"); //$NON-NLS-1$
 
 		setCommands(commands);
 
-		setWorkingDirectory(System.getProperty("user.dir"));
+		setWorkingDirectory(System.getProperty("user.dir")); //$NON-NLS-1$
 	}
 }

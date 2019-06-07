@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.Messages;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleFactory;
@@ -40,7 +40,7 @@ public class DartConsoleFactory implements IConsoleFactory {
 	@Override
 	public void openConsole() {
 		IConsoleManager consoleManager = ConsolePlugin.getDefault().getConsoleManager();
-		IOConsole console = new IOConsole(Constants.CONSOLE_NAME, null);
+		IOConsole console = new IOConsole(Messages.Console_Name, null);
 		IOConsoleOutputStream outputSteam = console.newOutputStream();
 
 		try {

@@ -22,6 +22,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.launch.console.DartConsoleFactory;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -34,29 +35,29 @@ import org.slf4j.LoggerFactory;
 public class LaunchConfig extends LaunchConfigurationDelegate {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LaunchConfig.class);
-	
+
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 
-		if (!mode.equalsIgnoreCase("run")) {
+		if (!mode.equalsIgnoreCase("run")) { //$NON-NLS-1$
 			Display.getDefault().asyncExec(() -> {
-				MessageDialog.openError(null, "Debug is not yet supported.",
-						"Debug launch is not yet supported. Please use the standard run config.");
+				MessageDialog.openError(null, Messages.Launch_DebugNotSupported_Title,
+						Messages.Launch_DebugNotSupported_Body);
 			});
 		}
 
-		String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart");
-		String sdk = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, "");
-		String projectName = configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "");
+		String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart"); //$NON-NLS-1$
+		String sdk = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, ""); //$NON-NLS-1$
+		String projectName = configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, ""); //$NON-NLS-1$
 		IProject project = getProject(projectName);
 		if (!project.exists()) {
-			MessageDialog.openError(null, "No project selected", "Please select a project in the run configuration.");
+			MessageDialog.openError(null, Messages.Launch_NoProjectSelected_Title, Messages.Launch_NoProjectSelected_Body);
 			return;
 		}
 
 		String location = project.getLocation().toOSString();
-		ProcessBuilder processBuilder = new ProcessBuilder(sdk + "/bin/dart", location + "/" + mainClass);
+		ProcessBuilder processBuilder = new ProcessBuilder(sdk + "/bin/dart", location + "/" + mainClass); //$NON-NLS-1$ //$NON-NLS-2$
 
 		try {
 			Process process = processBuilder.start();
