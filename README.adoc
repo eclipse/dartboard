@@ -1,30 +1,35 @@
-= image:https://www.dartlang.org/assets/shared/dart/logo/default-c7182d85b1eed8662f1fa9e6286f286412872e2208a5c972f507534a2bbebebe.svg[Dart Logo,26,26] Dart Plugin for Eclipse
+= Dartboard
 
-An eclipse plugin for https://www.dartlang.org/[Dart] and https://flutter.io[Flutter] development.
-Dart is a programming language mostly used in the Flutter project.
+Dartboard is an Eclipse plugin for https://www.dartlang.org/[Dart] and https://flutter.io[Flutter] development.
 
 == Features
 
-- Rich text editting with first class `.dart` support leveraging the Language Server Protocol
+Thanks to the language server protocol and the language server provided by the Dart team Dartboard already contains many features.
+
+=== Rich Text Editing
+
+The language server provides the necessary analysis and TextMate grammars provide syntax highlighting to enrich the development experience.
+
+image:https://user-images.githubusercontent.com/5540255/59055777-f47fd100-8896-11e9-83dc-07fa3517e303.png[Syntax Highlight]
+
 - Running _Dart_ programs directly from the IDE
+
+image:https://user-images.githubusercontent.com/5540255/59127089-f7e28d80-8966-11e9-9f6f-23c275c97928.gif[Dart Console]
+
 - All features from the classic https://www.eclipse.org/eclipseide/[Eclipse IDE]
-
-=== Demo
-
-image:https://user-images.githubusercontent.com/5540255/50854146-94870c00-1384-11e9-9866-ca39cffe4dba.jpeg[Dart development in Eclipse]
 
 === Planned features
 
 - First class support for the https://www.dartlang.org/tools/pub[Pub package manager] - https://github.com/vogellacompany/eclipse-dart/issues/12[Issue#12]
-- _TODO_
+- The ability to choose from templates to create new projects using the https://github.com/dart-lang/stagehand[Stagehand CLI] under the hood - https://github.com/jonas-jonas/eclipse-dart/issues/16[Issue#16]
 
 == Usage
 
-To use this plugin you will need atleast Dart 2.2.
+To use this plugin you will need at least Dart 2.2.
 You can download it from the https://www.dartlang.org/tools/sdk#install[Dart download page].
 
 Currently there is no eclipse update site for this plugin.
-The only way to obtain the plugin is by cloning this repo and building it yourself.
+The only way to obtain the plugin is by cloning this repository and building it yourself.
 See the link:#get-started[Get Started] section below.
 
 == Development
@@ -35,7 +40,7 @@ See the https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/ls
 === Get Started
 
 - Download and install the latest https://www.dartlang.org/tools/sdk#install[Dart SDK]. 
-Atleast version 2.2 is required.
+At least version 2.2 is required.
 Check by running `dart --version` after installation.
 - Clone this repo `git clone git@github.com:vogellacompany/eclipse-dart.git`
 - Change to the cloned directory `cd eclipse-dart` and run `mvn clean verify`
@@ -66,7 +71,7 @@ Install the plugins:
 For logging we use the logback library.
 You can install these from the `Install new software...` dialog:
 
-- `m2e - slf4j over logback logging (Optiona)`
+- `m2e - slf4j over logback logging (Optional)`
 
 == Get Involved
 
@@ -76,4 +81,4 @@ Code contributions are welcome via https://github.com/vogellacompany/eclipse-dar
 
 Code quality analysis is available on https://sonarcloud.io/dashboard?id=vogellacompany_eclipse-dart[SonarCloud].
 
-CI is currently not public.
+CI is available at https://ci.eclipse.org/dartboard/[Eclipse Foundation Jenkins]
