@@ -22,27 +22,28 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CommandLineTools {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CommandLineTools.class);
 
 	/**
 	 * Contains possible dart installation locations
 	 */
-	//TODO: Add more possible paths (also for macOs, Windows)
-	public static final String[] POSSIBLE_DART_LOCATIONS = {"/usr/lib/dart"}; //$NON-NLS-1$
-	
-	private CommandLineTools() { }
+	// TODO: Add more possible paths (also for macOs, Windows)
+	public static final String[] POSSIBLE_DART_LOCATIONS = { "/usr/lib/dart" }; //$NON-NLS-1$
+
+	private CommandLineTools() {
+	}
 
 	public static Optional<String> getDartSDKLocation() {
 		for (String string : POSSIBLE_DART_LOCATIONS) {
 			Optional<String> result = getPath(string);
-			if(result.isPresent()) {
+			if (result.isPresent()) {
 				return Optional.of(string);
 			}
 		}
 		return Optional.empty();
 	}
-	
+
 	private static Optional<String> getPath(String location) {
 		ProcessBuilder builder = new ProcessBuilder("/usr/bin/command", "-v", location + "/bin/dart"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 

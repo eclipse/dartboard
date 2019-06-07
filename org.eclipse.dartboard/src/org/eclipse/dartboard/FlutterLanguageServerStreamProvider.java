@@ -25,9 +25,9 @@ public class FlutterLanguageServerStreamProvider extends ProcessStreamConnection
 		implements StreamConnectionProvider {
 
 	public FlutterLanguageServerStreamProvider() {
-		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
-		
-		
+		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
+				Constants.PLUGIN_ID);
+
 		String dartLocation = scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION);
 
 		List<String> commands = new ArrayList<>();

@@ -41,7 +41,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Combo comboProject;
 
 	private ScopedPreferenceStore preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
-	
+
 	@Override
 	public void createControl(Composite parent) {
 		Composite comp = new Group(parent, SWT.BORDER);

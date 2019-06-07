@@ -52,7 +52,8 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 		String projectName = configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, ""); //$NON-NLS-1$
 		IProject project = getProject(projectName);
 		if (!project.exists()) {
-			MessageDialog.openError(null, Messages.Launch_NoProjectSelected_Title, Messages.Launch_NoProjectSelected_Body);
+			MessageDialog.openError(null, Messages.Launch_NoProjectSelected_Title,
+					Messages.Launch_NoProjectSelected_Body);
 			return;
 		}
 

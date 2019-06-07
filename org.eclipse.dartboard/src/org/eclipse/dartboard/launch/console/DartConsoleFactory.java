@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 public class DartConsoleFactory implements IConsoleFactory {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DartConsoleFactory.class);
-	
+
 	private InputStream inputStream;
 
 	public DartConsoleFactory(InputStream inputStream) {
