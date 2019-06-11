@@ -13,6 +13,8 @@
  *******************************************************************************/
 package org.eclipse.dartboard;
 
+import org.eclipse.dartboard.launch.LaunchConfig;
+
 public abstract class Constants {
 
 	private Constants() {
@@ -38,4 +40,8 @@ public abstract class Constants {
 	 */
 	public static final String LAUNCH_SELECTED_PROJECT = "selected_project"; //$NON-NLS-1$
 
+	/**
+	 * The ID of {@link LaunchConfig} inside the IDE
+	 */
+	public static final String LAUNCH_CONFIGURATION_ID = "org.eclipse.dartboard.launch"; //$NON-NLS-1$
 }
