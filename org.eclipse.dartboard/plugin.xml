@@ -100,5 +100,61 @@
             label="Dart Console">
       </consoleFactory>
    </extension>
+   <extension
+         id="org.eclipse.dartboard.dartprojectnature"
+         name="Dart Project Nature"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run
+               class="org.eclipse.dartboard.nature.DartProjectNature">
+         </run>
+      </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.core.expressions.definitions">
+      <definition
+            id="org.eclipse.dartboard.hasNature">
+         <adapt
+               type="org.eclipse.core.resources.IProject">
+            <test
+                  property="org.eclipse.core.resources.projectNature"
+                  value="org.eclipse.dartboard.dartprojectnature">
+            </test>
+         </adapt>
+      </definition>
+   </extension>
+   <extension
+         id="org.eclipse.dartboard.dartprojectnature.command"
+         name="Convert to Dart Project"
+         point="org.eclipse.ui.commands">
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.eclipse.dartboard.nature.DartProjectNatureHandler"
+            commandId="org.eclipse.dartboard.dartprojectnature.command">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.projectConfigure">
+         <command
+               commandId="org.eclipse.dartboard.dartprojectnature.command"
+               label="Convert to Dart Project"
+               mnemonic="D"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <not>
+                  <reference
+                        definitionId="org.eclipse.dartboard.hasNature">
+                  </reference>
+               </not>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
 
 </plugin>

@@ -18,6 +18,8 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.tm4e.languageconfiguration,
  org.eclipse.debug.ui,
  org.eclipse.ui.console,
- ch.qos.logback.classic
+ ch.qos.logback.classic,
+ org.eclipse.core.expressions,
+ org.eclipse.core.resources
 Import-Package: org.slf4j,
  org.slf4j.spi
