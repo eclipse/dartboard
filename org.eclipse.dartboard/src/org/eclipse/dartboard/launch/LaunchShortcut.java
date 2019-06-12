@@ -52,7 +52,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
 
-		ILaunchConfigurationType type = manager.getLaunchConfigurationType("org.eclipse.dartboard.launch"); //$NON-NLS-1$
+		ILaunchConfigurationType type = manager.getLaunchConfigurationType(Constants.LAUNCH_CONFIGURATION_ID);
 
 		Set<String> modes = new HashSet<String>();
 		modes.add(mode);

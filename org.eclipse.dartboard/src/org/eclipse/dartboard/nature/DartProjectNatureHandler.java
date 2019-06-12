@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IAdapterManager;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.dartboard.Constants;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -61,7 +62,7 @@ public class DartProjectNatureHandler extends AbstractHandler {
 					String[] newNatures = new String[natures.length + 1];
 					System.arraycopy(natures, 0, newNatures, 0, natures.length);
 
-					newNatures[natures.length] = DartProjectNature.NATURE_ID;
+					newNatures[natures.length] = Constants.NATURE_ID;
 
 					// validate the natures
 					IWorkspace workspace = ResourcesPlugin.getWorkspace();

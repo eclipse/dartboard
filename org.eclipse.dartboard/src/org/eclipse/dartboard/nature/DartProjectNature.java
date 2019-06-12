@@ -30,11 +30,6 @@ import org.eclipse.swt.widgets.Display;
 public class DartProjectNature implements IProjectNature {
 
 	/**
-	 * The ID used to identify this project nature
-	 */
-	public static final String NATURE_ID = "org.eclipse.dartboard.dartprojectnature"; //$NON-NLS-1$
-
-	/**
 	 * The current project this nature instance is being applied to
 	 */
 	private IProject project;
