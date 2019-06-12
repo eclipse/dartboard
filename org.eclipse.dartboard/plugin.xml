@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?eclipse version="3.4"?>
+<?eclipse version="3.4" ?>
 <!--
     Copyright (c) 2019 vogella GmbH and others.
    
@@ -13,92 +13,104 @@
     Contributors:
         Jonas Hungershausen - initial API and implementation
  -->
-
 <plugin>
-   <extension
-         point="org.eclipse.ui.editors">
-      <editorContentTypeBinding
-            contentTypeId="org.eclipse.dartboard"
-            editorId="org.eclipse.ui.genericeditor.GenericEditor">
-      </editorContentTypeBinding>
-   </extension>
-   <extension
-         point="org.eclipse.core.contenttype.contentTypes">
-      <content-type
-            base-type="org.eclipse.core.runtime.text"
-            file-extensions="dart"
-            id="org.eclipse.dartboard"
-            name="Flutter Language Server"
-            priority="normal">
-      </content-type>
-   </extension>
-   <extension
-         point="org.eclipse.lsp4e.languageServer">
-      <server
-            class="org.eclipse.dartboard.FlutterLanguageServerStreamProvider"
-            id="org.eclipse.dartboard.server1"
-            label="org.eclipse.dartboard.server1">
-      </server>
-      <contentTypeMapping
-            contentType="org.eclipse.dartboard"
-            id="org.eclipse.dartboard.server1">
-      </contentTypeMapping>
-   </extension>
-   <extension
-         point="org.eclipse.tm4e.registry.grammars">
-      <grammar
-            path="assets/dart.json"
-            scopeName="source.dart">
-      </grammar>
-      <scopeNameContentTypeBinding
-            contentTypeId="org.eclipse.dartboard"
-            scopeName="source.dart">
-      </scopeNameContentTypeBinding>
-   </extension>
-   <extension
-         point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
-      <languageConfiguration
-            contentTypeId="org.eclipse.dartboard"
-            path="assets/dart-language-configuration.json">
-      </languageConfiguration>
-   </extension>
-   <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="org.eclipse.dartboard.launch.LaunchConfig"
-            id="org.eclipse.dartboard.launch"
-            modes="run, debug"
-            name="Run Dart Program">
-      </launchConfigurationType>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="org.eclipse.dartboard.launch.LaunchTabGroup"
-            id="org.eclipse.dartboard.launchTabGroups"
-            type="org.eclipse.dartboard.launch">
-      </launchConfigurationTabGroup>
-   </extension>
-   <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="org.eclipse.dartboard.preference.DartPreferencePage"
-            id="org.eclipse.dartboard.preferencePage"
-            name="Dart">
-      </page>
-   </extension>
-   <extension
-         point="org.eclipse.core.runtime.preferences">
-      <initializer
-            class="org.eclipse.dartboard.preference.DartPreferenceInitializer">
-      </initializer>
-   </extension>
-   <extension
-         point="org.eclipse.ui.console.consoleFactories">
-      <consoleFactory
-            class="org.eclipse.dartboard.launch.console.DartConsoleFactory"
-            label="Dart Console">
-      </consoleFactory>
-   </extension>
-
+    <extension point="org.eclipse.ui.editors">
+        <editorContentTypeBinding contentTypeId="org.eclipse.dartboard" editorId="org.eclipse.ui.genericeditor.GenericEditor"></editorContentTypeBinding>
+    </extension>
+    <extension point="org.eclipse.core.contenttype.contentTypes">
+        <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Flutter Language Server" priority="normal"></content-type>
+    </extension>
+    <extension point="org.eclipse.lsp4e.languageServer">
+        <server class="org.eclipse.dartboard.FlutterLanguageServerStreamProvider" id="org.eclipse.dartboard.server1" label="org.eclipse.dartboard.server1"></server>
+        <contentTypeMapping contentType="org.eclipse.dartboard" id="org.eclipse.dartboard.server1"></contentTypeMapping>
+    </extension>
+    <extension point="org.eclipse.tm4e.registry.grammars">
+        <grammar path="assets/dart.json" scopeName="source.dart"></grammar>
+        <scopeNameContentTypeBinding contentTypeId="org.eclipse.dartboard" scopeName="source.dart"></scopeNameContentTypeBinding>
+    </extension>
+    <extension point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
+        <languageConfiguration contentTypeId="org.eclipse.dartboard" path="assets/dart-language-configuration.json"></languageConfiguration>
+    </extension>
+    <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+        <launchConfigurationType delegate="org.eclipse.dartboard.launch.LaunchConfig" id="org.eclipse.dartboard.launch" modes="run, debug" name="Run Dart Program"></launchConfigurationType>
+    </extension>
+    <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+        <launchConfigurationTabGroup class="org.eclipse.dartboard.launch.LaunchTabGroup" id="org.eclipse.dartboard.launchTabGroups" type="org.eclipse.dartboard.launch"></launchConfigurationTabGroup>
+    </extension>
+    <extension point="org.eclipse.ui.preferencePages">
+        <page class="org.eclipse.dartboard.preference.DartPreferencePage" id="org.eclipse.dartboard.preferencePage" name="Dart"></page>
+    </extension>
+    <extension point="org.eclipse.core.runtime.preferences">
+        <initializer class="org.eclipse.dartboard.preference.DartPreferenceInitializer"></initializer>
+    </extension>
+    <extension point="org.eclipse.ui.console.consoleFactories">
+        <consoleFactory class="org.eclipse.dartboard.launch.console.DartConsoleFactory" label="Dart Console"></consoleFactory>
+    </extension>
+    <extension id="org.eclipse.dartboard.dartprojectnature" name="Dart Project Nature" point="org.eclipse.core.resources.natures">
+        <runtime>
+            <run class="org.eclipse.dartboard.nature.DartProjectNature"></run>
+        </runtime>
+    </extension>
+    <extension id="org.eclipse.dartboard.dartprojectnature.command" name="Convert to Dart Project" point="org.eclipse.ui.commands"></extension>
+    <extension point="org.eclipse.ui.handlers">
+        <handler class="org.eclipse.dartboard.nature.DartProjectNatureHandler" commandId="org.eclipse.dartboard.dartprojectnature.command"></handler>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution allPopups="false" locationURI="popup:org.eclipse.ui.projectConfigure">
+        <command commandId="org.eclipse.dartboard.dartprojectnature.command" label="Convert to Dart Project" mnemonic="D" style="push">
+        <visibleWhen>
+        <iterate
+             ifEmpty="false"
+             operator="or">
+          <adapt
+                type="org.eclipse.core.resources.IProject">
+             <not>
+                <test
+                      property="org.eclipse.core.resources.projectNature"
+                      value="org.eclipse.dartboard.dartprojectnature">
+                </test>
+             </not>
+          </adapt>
+       </iterate>
+                </visibleWhen>
+            </command>
+        </menuContribution>
+    </extension>
+    <extension point="org.eclipse.debug.ui.launchShortcuts">
+        <shortcut class="org.eclipse.dartboard.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" modes="run">
+     <contextualLaunch>
+        <enablement>
+           <iterate
+                 ifEmpty="false"
+                 operator="or">
+              <adapt
+                    type="org.eclipse.core.resources.IProject">
+                 <test
+                       property="org.eclipse.core.resources.projectNature"
+                       value="org.eclipse.dartboard.dartprojectnature">
+                 </test>
+              </adapt>
+           </iterate>
+        </enablement>
+     </contextualLaunch>
+            
+        </shortcut>
+        <shortcut id="org.eclipse.dartboard.launch_file" class="org.eclipse.dartboard.launch.LaunchFileShortcut" label="Run File..." modes="run">
+            <contextualLaunch>
+                <enablement>
+                    <with variable="selection">
+                        <count value="1" />
+                        <iterate>
+                            <or>
+                                <and>
+                                    <instanceof value="org.eclipse.core.resources.IFile" />
+                                    <test property="org.eclipse.debug.ui.matchesPattern" value="*.dart" />
+                                </and>
+                            </or>
+                        </iterate>
+                    </with>
+                </enablement>
+            </contextualLaunch>
+        </shortcut>
+    </extension>
 </plugin>

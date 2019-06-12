@@ -19,6 +19,10 @@ public class Messages extends NLS {
 	public static String Preference_SDKNotFound_Title;
 	public static String Preference_SDKNotFound_Body;
 	public static String Preference_SDKNotFound_Message;
+	public static String ProjectNature_DeletePubspec_Title;
+	public static String ProjectNature_DeletePubspec_Message;
+	public static String Launch_NoConfigurationFound_Title;
+	public static String Launch_NoConfigurationFound_Body;
 
 	static {
 		NLS.initializeMessages("assets.messages", Messages.class);
