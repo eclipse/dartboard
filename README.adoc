@@ -23,27 +23,29 @@ image:https://user-images.githubusercontent.com/5540255/59127089-f7e28d80-8966-1
 - First class support for the https://www.dartlang.org/tools/pub[Pub package manager] - https://github.com/vogellacompany/eclipse-dart/issues/12[Issue#12]
 - The ability to choose from templates to create new projects using the https://github.com/dart-lang/stagehand[Stagehand CLI] under the hood - https://github.com/jonas-jonas/eclipse-dart/issues/16[Issue#16]
 
-== Usage
+== Installation
 
 To use this plugin you will need at least Dart 2.2.
 You can download it from the https://www.dartlang.org/tools/sdk#install[Dart download page].
 
-Currently there is no eclipse update site for this plugin.
-The only way to obtain the plugin is by cloning this repository and building it yourself.
-See the link:#get-started[Get Started] section below.
+Check by running `dart --version` after installation.
+
+Install the latest build for Eclipse from the https://download.eclipse.org/dartboard/repository/ update site via Help->Install new software.
+
+Configure the Dart SDK via Windows->Preferences-> Dart 
+
+Restart Eclipse to apply the changes, this is only necessary as the plug-in in still in its early stage.
+
 
 == Development
 
-It is based on the https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server[Dart language server].
+The Eclipse tooling is based on the https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server[Dart language server].
 See the https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md[Dart Language Server Readme] for the current status of the server.
 
 === Get Started
 
-- Download and install the latest https://www.dartlang.org/tools/sdk#install[Dart SDK]. 
-At least version 2.2 is required.
-Check by running `dart --version` after installation.
-- Clone this repo `git clone git@github.com:vogellacompany/eclipse-dart.git`
-- Change to the cloned directory `cd eclipse-dart` and run `mvn clean verify`
+- Clone this repo `git clone git@github.com:eclipse/dartboard.git`
+- Change to the cloned directory `dartboard` and run `mvn clean verify`
 - Add the local update site from `org.eclipse.dartboard.update/target/repository/` via the *Help*-> *Install New Software...* menu entry in the Eclipse IDE
 - Install the listed plugin
 - Create or import a `.dart` file and start editing it
