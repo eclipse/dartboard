@@ -21,10 +21,10 @@ import org.eclipse.lsp4e.server.ProcessStreamConnectionProvider;
 import org.eclipse.lsp4e.server.StreamConnectionProvider;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-public class FlutterLanguageServerStreamProvider extends ProcessStreamConnectionProvider
+public class DartLanguageServerStreamProvider extends ProcessStreamConnectionProvider
 		implements StreamConnectionProvider {
 
-	public FlutterLanguageServerStreamProvider() {
+	public DartLanguageServerStreamProvider() {
 		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
 				Constants.PLUGIN_ID);
 

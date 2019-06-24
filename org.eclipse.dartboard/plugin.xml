@@ -18,11 +18,11 @@
         <editorContentTypeBinding contentTypeId="org.eclipse.dartboard" editorId="org.eclipse.ui.genericeditor.GenericEditor"></editorContentTypeBinding>
     </extension>
     <extension point="org.eclipse.core.contenttype.contentTypes">
-        <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Flutter Language Server" priority="normal"></content-type>
+        <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Dart" priority="normal"></content-type>
     </extension>
     <extension point="org.eclipse.lsp4e.languageServer">
-        <server class="org.eclipse.dartboard.FlutterLanguageServerStreamProvider" id="org.eclipse.dartboard.server1" label="org.eclipse.dartboard.server1"></server>
-        <contentTypeMapping contentType="org.eclipse.dartboard" id="org.eclipse.dartboard.server1"></contentTypeMapping>
+        <server class="org.eclipse.dartboard.DartLanguageServerStreamProvider" id="org.eclipse.dartboard.server" label="Dart Language Server"></server>
+        <contentTypeMapping contentType="org.eclipse.dartboard" id="org.eclipse.dartboard.server"></contentTypeMapping>
     </extension>
     <extension point="org.eclipse.tm4e.registry.grammars">
         <grammar path="assets/dart.json" scopeName="source.dart"></grammar>
