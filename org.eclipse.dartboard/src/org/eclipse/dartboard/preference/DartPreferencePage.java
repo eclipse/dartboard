@@ -22,6 +22,7 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
+import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.ui.IWorkbench;
@@ -127,7 +128,9 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		checkOk((String) event.getNewValue());
+		if (FieldEditor.VALUE.equals(event.getProperty())) {
+			checkOk((String) event.getNewValue());
+		}
 		super.propertyChange(event);
 	}
 }
