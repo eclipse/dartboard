@@ -24,6 +24,8 @@ import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.util.PropertyChangeEvent;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
@@ -115,9 +117,15 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	@Override
 	protected void createFieldEditors() {
+		Composite parent = getFieldEditorParent();
 		dartSDKLocationEditor = new DirectoryFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
-				Messages.Preference_SDKLocation, getFieldEditorParent());
+				Messages.Preference_SDKLocation, parent);
 		addField(dartSDKLocationEditor);
+
+		Text textControl = dartSDKLocationEditor.getTextControl(parent);
+		textControl.addModifyListener((event) -> {
+			checkOk(textControl.getText());
+		});
 	}
 
 	/**
