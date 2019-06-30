@@ -77,7 +77,7 @@
         </menuContribution>
     </extension>
     <extension point="org.eclipse.debug.ui.launchShortcuts">
-        <shortcut class="org.eclipse.dartboard.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" modes="run">
+        <shortcut class="org.eclipse.dartboard.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" icon="platform:/plugin/org.eclipse.pde.ui/icons/obj16/run_exc.png" modes="run">
      <contextualLaunch>
         <enablement>
            <iterate
@@ -95,7 +95,7 @@
      </contextualLaunch>
             
         </shortcut>
-        <shortcut id="org.eclipse.dartboard.launch_file" class="org.eclipse.dartboard.launch.LaunchFileShortcut" label="Run File..." modes="run">
+        <shortcut id="org.eclipse.dartboard.launch_file" class="org.eclipse.dartboard.launch.LaunchFileShortcut" label="Run File..." icon="platform:/plugin/org.eclipse.pde.ui/icons/obj16/run_exc.png" modes="run">
             <contextualLaunch>
                 <enablement>
                     <with variable="selection">
@@ -113,7 +113,13 @@
             </contextualLaunch>
         </shortcut>
     </extension>
-    <extension
+	<extension
+		point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage
+			id="org.eclipse.dartboard.launch.image"
+			configTypeID="org.eclipse.dartboard.launch" icon="platform:/plugin/org.eclipse.pde.ui/icons/obj16/run_exc.png" />
+	</extension>
+  <extension
           point="org.eclipse.ui.newWizards">
         <category
              id="org.eclipse.dartboard.eclipse.wizards"
