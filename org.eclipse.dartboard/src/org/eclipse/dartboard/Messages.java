@@ -24,6 +24,23 @@ public class Messages extends NLS {
 	public static String Launch_NoConfigurationFound_Title;
 	public static String Launch_NoConfigurationFound_Body;
 
+	public static String NewProject_windowTitle;
+	public static String NewProject_title;
+	public static String NewProject_description;
+	public static String NewProject_errorMessage;
+	public static String NewProject_internalError;
+	public static String NewProject_caseVariantExistsError;
+
+	public static String NewProject_group_label;
+	public static String NewProject_sdk_version_label;
+
+	public static String NewFile_windowTitle;
+	public static String NewFile_title;
+	public static String NewFile_description;
+	public static String NewFile_creating;
+	public static String NewFile_container_doesnot_exist;
+	public static String NewFile_opening_file;
+
 	static {
 		NLS.initializeMessages("assets.messages", Messages.class);
 	}
