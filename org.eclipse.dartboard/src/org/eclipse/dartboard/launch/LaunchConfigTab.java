@@ -47,8 +47,8 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Image image;
 
 	public LaunchConfigTab() {
-		ImageDescriptor descriptor = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.dartboard", //$NON-NLS-1$
-				"icons/dart_16.png"); //$NON-NLS-1$
+		ImageDescriptor descriptor = AbstractUIPlugin.imageDescriptorFromPlugin("org.eclipse.pde.ui", //$NON-NLS-1$
+				"/icons/obj16/run_exc.png"); //$NON-NLS-1$
 		image = descriptor != null ? descriptor.createImage() : null;
 	}
 
