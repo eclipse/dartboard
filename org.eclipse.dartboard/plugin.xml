@@ -117,13 +117,13 @@
           point="org.eclipse.ui.newWizards">
         <category
              id="org.eclipse.dartboard.eclipse.wizards"
-             name="Google Dart"></category>
+             name="Dart"></category>
         <wizard
              category="org.eclipse.dartboard.eclipse.wizards"
              class="org.eclipse.dartboard.project.DartProjectWizard"
-             icon="$nl$/icons/dart_16.png"
+             icon="platform:/plugin/org.eclipse.ui.ide/icons/full/etool16/newprj_wiz.png"
              id="org.eclipse.dartboard.dart.newproject"
-             name="Google Dart Project"
+             name="Dart Project"
              project="true">
             <description>
               Create a new Dart project.
@@ -132,9 +132,9 @@
         <wizard
              category="org.eclipse.dartboard.eclipse.wizards"
              class="org.eclipse.dartboard.project.DartFileWizard"
-             icon="$nl$/icons/dart_file_16.png"
+             icon="platform:/plugin/org.eclipse.ui.ide/icons/full/etool16/newfile_wiz.png"
              id="org.eclipse.dartboard.dart.newfile"
-             name="Google Dart File">
+             name="Dart File">
             <description>
              Create a new Dart file
           </description>

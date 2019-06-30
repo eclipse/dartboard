@@ -50,17 +50,16 @@ public class DartFileWizard extends Wizard implements INewWizard {
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.selection = selection;
-		setWindowTitle(Messages.NewFile_windowTitle);
+		setWindowTitle(Messages.NewFile_WindowTitle);
 		setNeedsProgressMonitor(true);
 	}
 
 	@Override
 	public void addPages() {
 		dartFilePage = new DartFilePage(DartFilePage.class.getSimpleName(), selection);
-		dartFilePage.setTitle(Messages.NewFile_title);
-		dartFilePage.setDescription(Messages.NewFile_description);
+		dartFilePage.setTitle(Messages.NewFile_Title);
+		dartFilePage.setDescription(Messages.NewFile_Description);
 		dartFilePage.setFileExtension("dart"); //$NON-NLS-1$
-		dartFilePage.setFileName("NewDart"); //$NON-NLS-1$
 		addPage(dartFilePage);
 	}
 
@@ -90,28 +89,27 @@ public class DartFileWizard extends Wizard implements INewWizard {
 
 	private void doFinish(String containerName, String fileName, IProgressMonitor monitor) throws CoreException {
 		// create a dart file
-		monitor.beginTask(NLS.bind(Messages.NewFile_creating, fileName), 2);
+		monitor.beginTask(NLS.bind(Messages.NewFile_Creating, fileName), 2);
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IResource resource = root.findMember(new Path(containerName));
 		if (!resource.exists() || !(resource instanceof IContainer)) {
-			StatusUtil.throwCoreException(NLS.bind(Messages.NewFile_container_doesnot_exist, containerName));
+			StatusUtil.throwCoreException(NLS.bind(Messages.NewFile_Container_Doesnot_Exist, containerName));
 		}
 		IContainer container = (IContainer) resource;
 		final IFile file = container.getFile(new Path(fileName));
 		try {
-			String contents = "void main() {\r\n" + "    print('Hello World');\r\n" + "}"; //$NON-NLS-1$//$NON-NLS-2$//$NON-NLS-3$
-			InputStream stream = new ByteArrayInputStream(contents.getBytes());
-			if (file.exists()) {
-				file.setContents(stream, true, true, monitor);
-			} else {
-				file.create(stream, true, monitor);
+			try (InputStream stream = new ByteArrayInputStream("".getBytes())) { //$NON-NLS-1$
+				if (file.exists()) {
+					file.setContents(stream, true, true, monitor);
+				} else {
+					file.create(stream, true, monitor);
+				}
 			}
-			stream.close();
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
 		}
 		monitor.worked(1);
-		monitor.setTaskName(Messages.NewFile_opening_file);
+		monitor.setTaskName(Messages.NewFile_OpeningFile);
 		getShell().getDisplay().asyncExec(() -> {
 			IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 			try {

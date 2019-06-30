@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.Messages;
 
 public class ProjectUtil {
 	public static IStatus addProjectNature(IProject project, IProgressMonitor monitor) throws ExecutionException {
@@ -32,7 +33,7 @@ public class ProjectUtil {
 				throw new OperationCanceledException();
 			}
 			if (project == null)
-				throw new ExecutionException("Project shouldn't be a null.Unable to create a new dart project"); //$NON-NLS-1$
+				throw new ExecutionException(Messages.ProjectUtil_NullCheck);
 			if (!project.hasNature(Constants.NATURE_ID)) {
 				IProjectDescription description = project.getDescription();
 				String[] natures = description.getNatureIds();

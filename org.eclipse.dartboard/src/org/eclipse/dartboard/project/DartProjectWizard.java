@@ -55,15 +55,15 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
 		this.selection = selection;
-		setWindowTitle(Messages.NewProject_windowTitle);
+		setWindowTitle(Messages.NewProject_WindowTitle);
 		setNeedsProgressMonitor(true);
 	}
 
 	@Override
 	public void addPages() {
 		dartProjectPage = new DartProjectPage(DartProjectPage.class.getSimpleName());
-		dartProjectPage.setTitle(Messages.NewProject_title);
-		dartProjectPage.setDescription(Messages.NewProject_description);
+		dartProjectPage.setTitle(Messages.NewProject_Title);
+		dartProjectPage.setDescription(Messages.NewProject_Description);
 		addPage(dartProjectPage);
 	}
 
@@ -83,7 +83,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 		// create the new project operation
 		IRunnableWithProgress operation = monitor -> {
 			CreateProjectOperation projectOperation = new CreateProjectOperation(description,
-					Messages.NewProject_windowTitle);
+					Messages.NewProject_WindowTitle);
 			try {
 				projectOperation.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
 				ProjectUtil.addProjectNature(newProjectHandle, monitor);
@@ -105,17 +105,17 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 				StatusAdapter status;
 				if (cause.getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
 					status = new StatusAdapter(StatusUtil.newStatus(IStatus.WARNING,
-							NLS.bind(Messages.NewProject_caseVariantExistsError, newProjectHandle.getName()), cause));
+							NLS.bind(Messages.NewProject_CaseVariantExistsError, newProjectHandle.getName()), cause));
 				} else {
 					status = new StatusAdapter(StatusUtil.newStatus(cause.getStatus().getSeverity(),
-							Messages.NewProject_errorMessage, cause));
+							Messages.NewProject_ErrorMessage, cause));
 				}
-				status.setProperty(IStatusAdapterConstants.TITLE_PROPERTY, Messages.NewProject_errorMessage);
+				status.setProperty(IStatusAdapterConstants.TITLE_PROPERTY, Messages.NewProject_ErrorMessage);
 				StatusManager.getManager().handle(status, StatusManager.BLOCK);
 			} else {
 				StatusAdapter status = new StatusAdapter(new Status(IStatus.WARNING, Constants.PLUGIN_ID, 0,
-						NLS.bind(Messages.NewProject_internalError, t.getMessage()), t));
-				status.setProperty(IStatusAdapterConstants.TITLE_PROPERTY, Messages.NewProject_errorMessage);
+						NLS.bind(Messages.NewProject_InternalError, t.getMessage()), t));
+				status.setProperty(IStatusAdapterConstants.TITLE_PROPERTY, Messages.NewProject_ErrorMessage);
 				StatusManager.getManager().handle(status, StatusManager.LOG | StatusManager.BLOCK);
 			}
 			return null;

@@ -38,12 +38,12 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 	private void createAdditionalControls(Composite parent) {
 		Group dartGroup = new Group(parent, SWT.NONE);
 		dartGroup.setFont(parent.getFont());
-		dartGroup.setText(Messages.NewProject_group_label);
+		dartGroup.setText(Messages.NewProject_Group_Label);
 		dartGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		dartGroup.setLayout(new GridLayout(2, false));
 
 		Label label = new Label(dartGroup, SWT.NONE);
-		label.setText(Messages.NewProject_sdk_version_label);
+		label.setText(Messages.NewProject_SDK_Version_Label);
 
 		Combo combo = new Combo(dartGroup, SWT.READ_ONLY | SWT.BORDER);
 		GridData textData = new GridData(SWT.FILL, SWT.CENTER, true, false);
@@ -51,3 +51,4 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 		combo.setLayoutData(textData);
 	}
 }
+
