@@ -32,7 +32,7 @@ public class Messages extends NLS {
 	public static String NewProject_CaseVariantExistsError;
 
 	public static String NewProject_Group_Label;
-	public static String NewProject_SDK_Version_Label;
+	public static String NewProject_SDK_Not_Found;
 
 	public static String NewFile_WindowTitle;
 	public static String NewFile_Title;

@@ -13,20 +13,27 @@
  *******************************************************************************/
 package org.eclipse.dartboard.project;
 
+import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DartProjectPage extends WizardNewProjectCreationPage {
 
+	private ScopedPreferenceStore preferences;
+
 	public DartProjectPage(String pageName) {
 		super(pageName);
+		preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
 	}
 
 	@Override
@@ -42,13 +49,24 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 		dartGroup.setLayoutData(new GridData(SWT.FILL, SWT.TOP, true, false));
 		dartGroup.setLayout(new GridLayout(2, false));
 
-		Label label = new Label(dartGroup, SWT.NONE);
-		label.setText(Messages.NewProject_SDK_Version_Label);
+		Label labelSdkLocation = new Label(dartGroup, SWT.NONE);
+		labelSdkLocation.setText(Messages.Preference_SDKLocation);
+		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
-		Combo combo = new Combo(dartGroup, SWT.READ_ONLY | SWT.BORDER);
-		GridData textData = new GridData(SWT.FILL, SWT.CENTER, true, false);
-		textData.horizontalIndent = 0;
-		combo.setLayoutData(textData);
+		Label sdkLocation = new Label(dartGroup, SWT.NONE);
+		GridDataFactory.fillDefaults().grab(true, false).applyTo(sdkLocation);
+		sdkLocation.setText(preferences.getString(Constants.PREFERENCES_SDK_LOCATION));
+	}
+
+	@Override
+	protected boolean validatePage() {
+		boolean isValid = super.validatePage();
+		if (isValid) {
+			if ("".equals(preferences.getString(Constants.PREFERENCES_SDK_LOCATION))) { //$NON-NLS-1$
+				setMessage(Messages.NewProject_SDK_Not_Found, IMessageProvider.WARNING);
+				// not making as invalid.Since its the temporary solution
+			}
+		}
+		return isValid;
 	}
 }
-
