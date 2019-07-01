@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.dartboard.launch.console.DartConsoleFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class LaunchUtil {
 	public static void launchDartFile(String dartSdk, String dartFile) {
 		ProcessBuilder processBuilder = new ProcessBuilder(dartSdk + "/bin/dart", dartFile);//$NON-NLS-1$
 
-		Thread thread = new Thread(() -> {
+		Job job = Job.create("Running " + dartFile, (runnable) -> { //$NON-NLS-1$
 			Process process;
 			try {
 				process = processBuilder.start();
@@ -33,9 +34,7 @@ public class LaunchUtil {
 				LOG.error("Could not start Dart process", e); //$NON-NLS-1$
 			}
 		});
-
-		thread.setDaemon(true);
-		thread.start();
+		job.schedule();
 	}
 
 	/**

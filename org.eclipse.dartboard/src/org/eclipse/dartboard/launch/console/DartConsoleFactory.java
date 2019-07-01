@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
@@ -66,7 +67,10 @@ public class DartConsoleFactory implements IConsoleFactory {
 	 * @param outputStream - An {@link OutputStream} the data should be written to
 	 */
 	private void copy(InputStream inputStream, OutputStream outputStream) {
-		Thread thread = new Thread(() -> {
+
+		// TODO: This shows up in the progress widget which is suboptimal. This is not a
+		// task the user should see.
+		Job job = Job.create("Transferring inputStream to outputStream", (runnable) -> { //$NON-NLS-1$
 			try {
 				int data;
 				while((data = inputStream.read()) != -1) {
@@ -76,7 +80,8 @@ public class DartConsoleFactory implements IConsoleFactory {
 				e.printStackTrace();
 			}
 		});
-		thread.start();
+		job.setPriority(Job.LONG);
+		job.schedule();
 	}
 
 }
