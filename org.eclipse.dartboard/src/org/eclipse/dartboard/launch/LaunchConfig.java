@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.eclipse.dartboard.launch;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IProject;
@@ -23,7 +24,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
-import org.eclipse.dartboard.launch.console.DartConsoleFactory;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
@@ -57,12 +57,8 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 			return;
 		}
 
-		String location = project.getLocation().toOSString();
-		ProcessBuilder processBuilder = new ProcessBuilder(sdk + "/bin/dart", location + "/" + mainClass); //$NON-NLS-1$ //$NON-NLS-2$
-
 		try {
-			Process process = processBuilder.start();
-			new DartConsoleFactory(process.getInputStream()).openConsole();
+			LaunchUtil.launchDartFile(sdk, project.getLocation().toOSString() + File.separatorChar + mainClass);
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
 		}

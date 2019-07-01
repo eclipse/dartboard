@@ -20,7 +20,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
-import org.eclipse.dartboard.launch.console.DartConsoleFactory;
 import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -81,11 +80,9 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 					Messages.NewProject_SDK_Not_Found);
 			return;
 		}
-		ProcessBuilder processBuilder = new ProcessBuilder(sdk + "/bin/dart", file.toOSString()); //$NON-NLS-1$
 
 		try {
-			Process process = processBuilder.start();
-			new DartConsoleFactory(process.getInputStream()).openConsole();
+			LaunchUtil.launchDartFile(sdk, file);
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
 		}

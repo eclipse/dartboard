@@ -18,6 +18,7 @@ import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.ui.console.ConsolePlugin;
 import org.eclipse.ui.console.IConsole;
 import org.eclipse.ui.console.IConsoleFactory;
@@ -33,18 +34,25 @@ public class DartConsoleFactory implements IConsoleFactory {
 
 	private InputStream inputStream;
 
-	public DartConsoleFactory(InputStream inputStream) {
+	private InputStream errorStream;
+
+	public DartConsoleFactory(InputStream inputStream, InputStream errorStream) {
 		this.inputStream = inputStream;
+		this.errorStream = errorStream;
 	}
 
 	@Override
 	public void openConsole() {
 		IConsoleManager consoleManager = ConsolePlugin.getDefault().getConsoleManager();
 		IOConsole console = new IOConsole(Messages.Console_Name, null);
-		IOConsoleOutputStream outputSteam = console.newOutputStream();
+		IOConsoleOutputStream outputStream = console.newOutputStream();
+		IOConsoleOutputStream errorOutputStream = console.newOutputStream();
+		errorOutputStream.setColor(new Color(null, 255, 0, 0));
 
 		try {
-			IOUtils.copy(inputStream, outputSteam);
+			IOUtils.copy(inputStream, outputStream);
+			IOUtils.copy(errorStream, errorOutputStream);
+
 		} catch (IOException ioException) {
 			LOG.error(ioException.getMessage());
 		}
