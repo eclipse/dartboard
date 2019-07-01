@@ -23,7 +23,9 @@ import org.eclipse.dartboard.launch.console.DartConsoleFactory;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,9 +63,10 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 
 	@Override
 	public void launch(IEditorPart editor, String mode) {
-		// TODO: Can't seem to trigger this part. If I understand correctly, this is
-		// triggered when a launch config is triggered from an active editor. But
-		// somehow the option is not shown for dart editors.
+		IEditorInput editorInput = editor.getEditorInput();
+		if (editorInput instanceof FileEditorInput) {
+			launch(((FileEditorInput) editorInput).getPath(), null);
+		}
 	}
 
 	protected void launch(IPath file, String sdk) {
