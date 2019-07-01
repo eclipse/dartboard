@@ -156,4 +156,11 @@
                 id="org.eclipse.dartboard.dart.newfile"/>
         </perspectiveExtension>
     </extension>
+    <extension
+          point="org.eclipse.tm4e.ui.themes">
+       <themeAssociation
+             scopeName="source.dart"
+             themeId="org.eclipse.tm4e.ui.themes.EclipseLight">
+       </themeAssociation>
+    </extension>
 </plugin>
