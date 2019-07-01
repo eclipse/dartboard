@@ -14,7 +14,6 @@
 package org.eclipse.dartboard.launch;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
@@ -29,12 +28,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LaunchConfig extends LaunchConfigurationDelegate {
-
-	private static final Logger LOG = LoggerFactory.getLogger(LaunchConfig.class);
 
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
@@ -57,11 +52,7 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 			return;
 		}
 
-		try {
-			LaunchUtil.launchDartFile(sdk, project.getLocation().toOSString() + File.separatorChar + mainClass);
-		} catch (IOException e) {
-			LOG.error(e.getMessage());
-		}
+		LaunchUtil.launchDartFile(sdk, project.getLocation().toOSString() + File.separatorChar + mainClass);
 
 	}
 

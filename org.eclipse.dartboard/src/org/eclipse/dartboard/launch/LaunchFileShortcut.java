@@ -13,8 +13,6 @@
  *******************************************************************************/
 package org.eclipse.dartboard.launch;
 
-import java.io.IOException;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
@@ -29,8 +27,6 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@link ILaunchShortcut} used to launch a single *.dart file.
@@ -47,8 +43,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class LaunchFileShortcut implements ILaunchShortcut {
-
-	private static final Logger LOG = LoggerFactory.getLogger(LaunchFileShortcut.class);
 
 	private ScopedPreferenceStore preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
 
@@ -81,10 +75,6 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 			return;
 		}
 
-		try {
-			LaunchUtil.launchDartFile(sdk, file);
-		} catch (IOException e) {
-			LOG.error(e.getMessage());
-		}
+		LaunchUtil.launchDartFile(sdk, file);
 	}
 }
