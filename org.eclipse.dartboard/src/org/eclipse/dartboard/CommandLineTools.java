@@ -29,7 +29,7 @@ public class CommandLineTools {
 	 * Contains possible dart installation locations
 	 */
 	// TODO: Add more possible paths (also for macOs, Windows)
-	public static final String[] POSSIBLE_DART_LOCATIONS = { "/usr/lib/dart" }; //$NON-NLS-1$
+	public static final String[] POSSIBLE_DART_LOCATIONS = { "/usr/lib/dart", "/opt/dart-sdk" }; //$NON-NLS-1$ //$NON-NLS-2$
 
 	private CommandLineTools() {
 	}
