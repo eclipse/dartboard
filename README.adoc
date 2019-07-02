@@ -1,6 +1,6 @@
 = Dartboard
 
-Dartboard is an Eclipse plugin for https://www.dartlang.org/[Dart] and https://flutter.io[Flutter] development.
+Dartboard is an Eclipse plugin for https://www.dart.dev/[Dart] and https://flutter.dev[Flutter] development.
 
 == Features
 
