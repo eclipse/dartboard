@@ -12,6 +12,7 @@ public class Messages extends NLS {
 	public static String Launch_NoProjectSelected_Body;
 	public static String Launch_Project;
 	public static String Preference_SDKLocation;
+	public static String Preference_SDKVersion;
 	public static String Launch_SDKLocation_Message;
 	public static String Launch_MainClass;
 	public static String Launch_MainClass_Message;
@@ -19,6 +20,8 @@ public class Messages extends NLS {
 	public static String Preference_SDKNotFound_Title;
 	public static String Preference_SDKNotFound_Body;
 	public static String Preference_SDKNotFound_Message;
+	public static String Preference_RestartRequired_Title;
+	public static String Preference_RestartRequired_Message;
 	public static String ProjectNature_DeletePubspec_Title;
 	public static String ProjectNature_DeletePubspec_Message;
 	public static String Launch_NoConfigurationFound_Title;
