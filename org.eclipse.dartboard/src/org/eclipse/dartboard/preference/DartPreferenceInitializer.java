@@ -13,17 +13,35 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preference;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.CommandLineTools;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * A {@link AbstractPreferenceInitializer} that contains a hook to initialize
+ * all preference values.
+ * 
+ * @author Jonas Hungershausen
+ *
+ */
 public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
+
+	private static final Logger LOG = LoggerFactory.getLogger(DartPreferenceInitializer.class);
+
+	private static boolean warned = false;
 
 	@Override
 	public void initializeDefaultPreferences() {
@@ -31,29 +49,55 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 				Constants.PLUGIN_ID);
 
 		if (scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION).isEmpty()) {
-			Optional<String> dartSDKLocation = CommandLineTools.getDartSDKLocation();
-			if (dartSDKLocation.isPresent()) {
-				scopedPreferenceStore.setDefault(Constants.PREFERENCES_SDK_LOCATION, dartSDKLocation.get());
-			} else {
+			Optional<Path> binLocation = getDartLocation();
+			if (binLocation.isPresent()) {
+				Path sdkPath = binLocation.get().getParent();
+				scopedPreferenceStore.setDefault(Constants.PREFERENCES_SDK_LOCATION, sdkPath.toString());
+			} else if (!warned) {
 				MessageDialog.openError(null, Messages.Preference_SDKNotFound_Title,
-						Messages.Preference_SDKNotFound_Body + getSearchedLocations());
+						Messages.Preference_SDKNotFound_Body);
 			}
 		}
 	}
 
 	/**
-	 * Appends all locations in {@link CommandLineTools#POSSIBLE_DART_LOCATIONS}
-	 * into a list separated by line breaks.
+	 * Returns a {@link Path} containing the location of the Dart SDK folder.
 	 * 
-	 * @return A {@link String} of all searched Dart SDK location
+	 * This method finds the location of the Dart SDK on the system, if installed.
+	 * On *nix based systems it tries to locate the Dart binary by using the
+	 * {@code which} command. Typically the output is a symbolic link to the actual
+	 * binary. Since the Dart SDK installation folder contains more binaries that we
+	 * need, we resolve the symbolic link and return the path to the /bin directory
+	 * inside the SDK installation folder.
+	 * 
+	 * On Windows this method uses the where command to locate the binary.
+	 * 
+	 * @return - An {@link Optional} of {@link Path} containing the path to the
+	 *         {@code /bin} folder inside the Dart SDK installation directory or
+	 *         empty if the SDK is not found on the host machine.
 	 */
-	private String getSearchedLocations() {
-		StringBuilder builder = new StringBuilder();
-		for (String string : CommandLineTools.POSSIBLE_DART_LOCATIONS) {
-			builder.append("\n"); //$NON-NLS-1$
-			builder.append("- "); //$NON-NLS-1$
-			builder.append(string);
+	public Optional<Path> getDartLocation() {
+		Path path = null; // $NON-NLS-1$
+		String[] command;
+		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+			command = new String[] { "cmd", "/c", "where dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		} else {
+			command = new String[] { "/bin/bash", "-c", "which dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
-		return builder.toString();
+
+		try (BufferedReader reader = new BufferedReader(
+				new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream()))) {
+			String location = reader.readLine();
+			if (location != null) {
+				path = Paths.get(location);
+				path = path.toRealPath().getParent();
+			}
+		} catch (IOException e) {
+			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
+		}
+
+		// TODO: Try different default installs (need to collect them)
+		return Optional.ofNullable(path);
 	}
+
 }

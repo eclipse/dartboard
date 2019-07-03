@@ -13,22 +13,25 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preference;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.Optional;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +50,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	/**
 	 * A {@link DirectoryFieldEditor} used to obtain the Dart SDK location
 	 */
-	private DirectoryFieldEditor dartSDKLocationEditor;
+	private DartSDKLocationFieldEditor dartSDKLocationEditor;
 
 	/**
 	 * Initializes the {@link DartPreferencePage#getPreferenceStore()} to the
@@ -58,74 +61,87 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		setPreferenceStore(new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID));
 	}
 
-	/**
-	 * Called once the "Apply" or "Apply and Close" buttons on the preference page
-	 * are pressed.
-	 */
 	@Override
 	public boolean performOk() {
 		String sdkLocation = dartSDKLocationEditor.getStringValue();
-		checkOk(sdkLocation);
-		return super.performOk();
-	}
-
-	/**
-	 * Checks if the value of {@link DartPreferencePage#dartSDKLocationEditor} is a
-	 * valid Dart SDK location.
-	 * 
-	 * If the check is unsuccessful the page's validity is set to {@code false} to
-	 * prevent clicks on apply. The user then has to choose a different location
-	 * 
-	 * @param location - The location of the Dart SDK that should be checked
-	 */
-	private void checkOk(String location) {
-		Optional<String> optionalVersion = getVersion(location);
-		if (optionalVersion.isPresent()) {
-			getPreferenceStore().setValue(Constants.PREFERENCES_SDK_LOCATION, dartSDKLocationEditor.getStringValue());
-			// TODO: Add version label?
-			setValid(true);
-		} else {
-			dartSDKLocationEditor.setErrorMessage(Messages.Preference_SDKNotFound_Message);
-			dartSDKLocationEditor.showErrorMessage();
+		String oldValue = getPreferenceStore().getString(Constants.PREFERENCES_SDK_LOCATION);
+		// Don't update the preference store if the oldValue matches the new value
+		if (sdkLocation.equals(oldValue)) {
+			return true;
+		}
+		Path path = getPath(sdkLocation);
+		// If the path is not valid, the page should not be able to be validated;
+		// *should* never happen
+		if (path == null) {
 			setValid(false);
+			return false;
 		}
+
+		dartSDKLocationEditor.setStringValue(path.toAbsolutePath().toString());
+
+		boolean ok = super.performOk();
+		boolean result = MessageDialog.openQuestion(null, Messages.Preference_RestartRequired_Title,
+				Messages.Preference_RestartRequired_Message);
+
+		if (result) {
+			try {
+				// Manually save the preference store since it doesn't seem to happen when
+				// restarting the IDE in the following step.
+				save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			PlatformUI.getWorkbench().restart(true);
+		}
+
+		return ok;
 	}
 
 	/**
-	 * Returns the version of the Dart SDK at a given location. The version is
-	 * obtained by executing the Dart SDK binary with the {@code --version} flag.
+	 * Normalizes and transforms the path of a supplied location.
 	 * 
-	 * @param location - The location of the Dart SDK
-	 * @return an {@link Optional} of a {@link String} containing the version of the
-	 *         Dart SDK or {@link Optional#empty()} if the Dart SDK version could
-	 *         not be obtained
+	 * @param location
+	 * @return
 	 */
-	private Optional<String> getVersion(String location) {
-		ProcessBuilder builder = new ProcessBuilder(location + "/bin/dart", "--version"); //$NON-NLS-1$ //$NON-NLS-2$
+	private Path getPath(String location) {
+		Path path = Paths.get(location);
+		if (Files.exists(path)) {
+			try {
+				path = path.toRealPath();
+			} catch (IOException e) {
+				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
+			}
 
-		builder.redirectErrorStream(true);
+			// Sometimes users put in the path to the Dart executable directly, instead of
+			// the directory of the installation. Here we use the parent first (which should
+			// be /bin)
+			if (path.endsWith("dart")) { //$NON-NLS-1$
+				path = path.getParent();
+			}
+			// Sometimes users put in the path when it still contains the /bin portion.
+			// Since we only want the root of the Dart SDK installation we use the parent if
+			// /bin was supplied.
+			if (path.endsWith("bin")) {//$NON-NLS-1$
+				path = path.getParent();
+			}
 
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(builder.start().getInputStream()))) {
-			return Optional.ofNullable(reader.readLine());
-		} catch (IOException e) {
-			LOG.error(e.getMessage());
+			return path;
+		} else {
+			return null;
 		}
-		return Optional.empty();
 	}
 
-	/**
-	 * Creates the editor fields for the page
-	 */
 	@Override
 	protected void createFieldEditors() {
 		Composite parent = getFieldEditorParent();
-		dartSDKLocationEditor = new DirectoryFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
+
+		// Dart SDK location text field/file browser
+		dartSDKLocationEditor = new DartSDKLocationFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
 				Messages.Preference_SDKLocation, parent);
 		addField(dartSDKLocationEditor);
 
-		Text textControl = dartSDKLocationEditor.getTextControl(parent);
-		textControl.addModifyListener((event) -> {
-			checkOk(textControl.getText());
+		dartSDKLocationEditor.addModifyListener((event) -> {
+			setValid(dartSDKLocationEditor.doCheckState());
 		});
 	}
 
@@ -137,8 +153,20 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		if (FieldEditor.VALUE.equals(event.getProperty())) {
-			checkOk((String) event.getNewValue());
+			setValid(dartSDKLocationEditor.doCheckState());
 		}
 		super.propertyChange(event);
+	}
+
+	/**
+	 * Saves the underlying {@link IPersistentPreferenceStore}.
+	 * 
+	 * @throws IOException
+	 */
+	private void save() throws IOException {
+		IPreferenceStore store = getPreferenceStore();
+		if (store instanceof IPersistentPreferenceStore) {
+			((IPersistentPreferenceStore) store).save();
+		}
 	}
 }
