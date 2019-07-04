@@ -60,6 +60,7 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 	@Override
 	public void launch(IEditorPart editor, String mode) {
 		IEditorInput editorInput = editor.getEditorInput();
+		editor.doSave(null);
 		if (editorInput instanceof FileEditorInput) {
 			launch(((FileEditorInput) editorInput).getPath(), null);
 		}
