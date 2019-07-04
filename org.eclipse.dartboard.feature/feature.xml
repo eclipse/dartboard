@@ -12,12 +12,13 @@
     Contributors:
         Jonas Hungershausen - initial API and implementation
  -->
-
 <feature
       id="org.eclipse.dartboard.feature"
-      label="Eclipse Dart Support"
+      label="Dartboard - Dart language support for Eclipse"
       version="1.0.0.qualifier"
-      provider-name="VOGELLA">
+      provider-name="VOGELLA"
+      license-feature="org.eclipse.license"
+      license-feature-version="2.0.0.qualifier">
 
    <description url="http://www.example.com/description">
       Supports developing Dart applications with the Eclipse IDE using the Language Server Protocol.
