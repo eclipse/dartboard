@@ -24,7 +24,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 			}
 
 			try {
-				for (IResource res : project.members(IResource.DEPTH_INFINITE)) {
+				for (IResource res : project.members()) {
 					if ("pubspec.yaml".equals(res.getName()) || "dart".equals(res.getFileExtension())) { //$NON-NLS-1$ //$NON-NLS-2$
 						return true;
 					}
