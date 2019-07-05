@@ -14,6 +14,7 @@
 package org.eclipse.dartboard.launch;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
@@ -25,6 +26,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
@@ -60,9 +62,11 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 	@Override
 	public void launch(IEditorPart editor, String mode) {
 		IEditorInput editorInput = editor.getEditorInput();
-		editor.doSave(null);
-		if (editorInput instanceof FileEditorInput) {
-			launch(((FileEditorInput) editorInput).getPath(), null);
+		// We don't need this check once we create and and run using launch configuration for file
+		if (IDE.saveAllEditors(new IResource[] { editorInput.getAdapter(IResource.class) }, true)) {
+			if (editorInput instanceof FileEditorInput) {
+				launch(((FileEditorInput) editorInput).getPath(), null);
+			}
 		}
 	}
 
