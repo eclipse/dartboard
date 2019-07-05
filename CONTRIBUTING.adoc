@@ -1,0 +1,51 @@
+= Contributing
+
+First off, thank you very much for taking the time to contribute.
+
+The following is a set of guidelines and tips for contributing to Dartboard.
+Feel free to propose changes to anything (even this file!) if you feel it's appropriate.
+
+== General Questions
+
+There is no official message board or support forum.
+If you have trouble using the plugin or just a general question, please use the https://accounts.eclipse.org/mailing-list/dartboard-dev[dartboard-dev] mailing list or https://github.com/eclipse/dartboard/issues/new[open an issue].
+
+== Development Process
+
+Before proposing any change please discuss it on the mailing list or in form of an issue.
+
+Issue tagged https://github.com/eclipse/dartboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22help+wanted%22[`help wanted`] are generally a good starting point for new contributors.
+Just keep in mind that there are also more complex issues tagged with the tag.
+If you have troubles setting everything up or feel overwhelmed feel free to ask.
+
+See https://github.com/eclipse/dartboard/wiki/Development[the wiki] for more information about setup, dependencies and development in general.
+
+== Submitting a Change
+
+Dartboard uses the Eclipse Foundation's GitHub and Jenkins structures.
+
+The project is licensed under the https://www.eclipse.org/legal/epl-2.0/[Eclipse Public License v2.0 (EPL)].
+This requires any contributor of code to the project must have signed the https://www.eclipse.org/legal/ECA.php[Eclipse Contributor Agreement (ECA)].
+Additionally the EPL requires every commit to a repository to be signed off.
+A sign off is done by adding `Signed-Off-By: Your Name <email@example.org>` to the bottom line of a commit.
+
+Make sure that the name/email matches the name/email you have signed the ECA with.
+
+For example:
+
+[source, text]
+----
+Change all versions to 0.1.0
+
+Signed-off-by: Jonas Hungershausen <jonas.hungershausen@vogella.com>
+----
+
+If you are using the Eclipse IDE to commit a change you can enable automatic sign off in the Preferences:
+Team->Git->Commiting->Footer and check `Insert Signed-off-by`.
+This will automatically insert the footer into any new commit.
+
+If you already opened a PR and forgot the sign off, you can amend the commit(s) locally and force-push onto the branch the PR originated from.
+The new commit message will automatically be picked up in the PR and the ECA validation tool will run again.
+
+Any PR merged will be squashed beforehand.
+This means if the commits don't have any significance during the review process, please squash the commits for the PR before opening it.

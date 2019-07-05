@@ -1,10 +1,10 @@
-= Dartboard image:https://img.shields.io/jenkins/build/https/ci.eclipse.org/dartboard/job/dartboard-release.svg?label=release-build&style=flat-square[Jenkins]
+= Dartboard image:https://img.shields.io/jenkins/build/https/ci.eclipse.org/dartboard/job/dartboard-release.svg?label=release-build&style=flat-square[Jenkins] image:https://img.shields.io/badge/version-0.1.0-blue.svg?style=flat-square[Version]
 
 Dartboard is an Eclipse plugin for https://www.dart.dev/[Dart] and https://flutter.dev[Flutter] development.
 
 == Features
 
-Thanks to the language server protocol and the language server provided by the Dart team Dartboard already contains many features.
+Thanks to the language server protocol and the analysis server provided by the Dart team Dartboard already contains many features.
 
 === Rich Text Editing
 
@@ -20,67 +20,35 @@ image:https://user-images.githubusercontent.com/5540255/59127089-f7e28d80-8966-1
 
 === Planned features
 
-- First class support for the https://www.dartlang.org/tools/pub[Pub package manager] - https://github.com/vogellacompany/eclipse-dart/issues/12[Issue#12]
-- The ability to choose from templates to create new projects using the https://github.com/dart-lang/stagehand[Stagehand CLI] under the hood - https://github.com/jonas-jonas/eclipse-dart/issues/16[Issue#16]
+- First class support for the https://www.dartlang.org/tools/pub[Pub package manager] - https://github.com/eclipse/dartboard/issues/12[Issue#12]
+- The ability to choose from templates to create new projects using the https://github.com/dart-lang/stagehand[Stagehand CLI] under the hood - https://github.com/eclipse/dartboard/issues/16[Issue#16]
 
 == Installation
 
 To use this plugin you will need at least Dart 2.2.
-You can download it from the https://www.dartlang.org/tools/sdk#install[Dart download page].
+You can download it from the https://dart.dev/get-dart[Dart download page].
 
-Check by running `dart --version` after installation.
+Check by running `$ dart --version` after installation.
 
-Install the latest build for Eclipse from the https://download.eclipse.org/dartboard/repository/ update site via Help->Install new software.
+Install the latest build for Eclipse from the https://download.eclipse.org/dartboard/release/ update site via Help->Install new software...
 
-Configure the Dart SDK via Windows->Preferences-> Dart 
+Configure the Dart SDK via Windows->Preferences->Dart
 
-Restart Eclipse to apply the changes, this is only necessary as the plug-in in still in its early stage.
-
+_Keep in mind, that all releases at this point are not stable and should not be considered final. Breaking changes can happen very often_
 
 == Development
 
-The Eclipse tooling is based on the https://github.com/dart-lang/sdk/tree/master/pkg/analysis_server[Dart language server].
-See the https://github.com/dart-lang/sdk/blob/master/pkg/analysis_server/tool/lsp_spec/README.md[Dart Language Server Readme] for the current status of the server.
-
-=== Get Started
-
-- Clone this repo `git clone git@github.com:eclipse/dartboard.git`
-- Change to the cloned directory `dartboard` and run `mvn clean verify`
-- Add the local update site from `org.eclipse.dartboard.update/target/repository/` via the *Help*-> *Install New Software...* menu entry in the Eclipse IDE
-- Install the listed plugin
-- Create or import a `.dart` file and start editing it
-
-NOTE: If you have troubles with compilation and/or running try to install the necessary dependencies as described below.
-
-=== Installing the dependencies
-
-For the plugin to work as expected you need to install some dependencies.
-
-Add the update site of the `LSP4E` project: `http://download.eclipse.org/lsp4e/releases/latest/`.
-
-Install the plugins:
-
-- `Language Server Protocol client for Eclipse IDE (Incubation) Source`
-- `Language Server Protocol client for Eclipse IDE (Incubation)`
-
-Add the update site of the `TM4E` project: `http://download.eclipse.org/tm4e/snapshots/`.
-
-Install the plugins:
-
-- `TextMate Core`
-- `TextMate Core Developer Resources`
-
-For logging we use the logback library.
-You can install these from the `Install new software...` dialog:
-
-- `m2e - slf4j over logback logging (Optional)`
+See https://github.com/eclipse/dartboard/blob/master/CONTRIBUTING.adoc[CONTRIBUTING.adoc] and https://github.com/eclipse/dartboard/wiki/Development[the wiki] for instructions on how to contribute to the repository.
 
 == Get Involved
 
-Support is currently available via https://github.com/vogellacompany/eclipse-dart/issues[GitHub issues].
+Support is currently available via https://github.com/eclipse/dartboard/issues[GitHub issues].
 
-Code contributions are welcome via https://github.com/vogellacompany/eclipse-dart/pulls[GitHub pull requests].
+Code contributions are welcome via https://github.com/eclipse/dartboard/pulls[GitHub pull requests].
 
-Code quality analysis is available on https://sonarcloud.io/dashboard?id=vogellacompany_eclipse-dart[SonarCloud].
+//TODO: Add Sonar (cloud?) again
+//Code quality analysis is available on https://sonarcloud.io/dashboard?id=vogellacompany_eclipse-dart[SonarCloud].
 
 CI is available at https://ci.eclipse.org/dartboard/[Eclipse Foundation Jenkins]
+
+Dartboard official Twitter account is https://twitter.com/DartEclipse[@DartEclipse]
