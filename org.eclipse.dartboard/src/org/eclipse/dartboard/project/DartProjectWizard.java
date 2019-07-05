@@ -16,6 +16,7 @@ package org.eclipse.dartboard.project;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResourceStatus;
@@ -26,7 +27,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
-import org.eclipse.dartboard.util.ProjectUtil;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -86,8 +86,11 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 					Messages.NewProject_WindowTitle);
 			try {
 				projectOperation.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
-				ProjectUtil.addProjectNature(newProjectHandle, monitor);
-			} catch (ExecutionException e) {
+				IFile pubspecFile = newProjectHandle.getFile("pubspec.yaml"); //$NON-NLS-1$
+				if (!pubspecFile.exists()) {
+					pubspecFile.create(null, false, null);
+				}
+			} catch (ExecutionException | CoreException e) {
 				throw new InvocationTargetException(e);
 			}
 		};
