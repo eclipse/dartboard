@@ -15,7 +15,7 @@
  <modelVersion>4.0.0</modelVersion>
  <groupId>org.eclipse.dartboard.group</groupId>
  <artifactId>org.eclipse.dartboard.main</artifactId>
- <version>1.0.0-SNAPSHOT</version>
+ <version>0.1.0-SNAPSHOT</version>
  <packaging>pom</packaging>
  <parent>
    <groupId>org.eclipse.dartboard.group</groupId>

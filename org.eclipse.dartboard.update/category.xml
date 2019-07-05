@@ -14,7 +14,7 @@
  -->
 
 <site>
-   <feature url="features/org.eclipse.dartboard.feature_1.0.0.qualifier.jar" id="org.eclipse.dartboard.feature" version="1.0.0.qualifier">
+   <feature url="features/org.eclipse.dartboard.feature_0.1.0.qualifier.jar" id="org.eclipse.dartboard.feature" version="0.1.0.qualifier">
       <category name="Eclipse Dart Support"/>
    </feature>
    <category-def name="Eclipse Dart Support" label="Dart Support for the Eclipse IDE"/>
