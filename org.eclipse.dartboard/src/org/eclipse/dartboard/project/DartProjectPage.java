@@ -61,11 +61,9 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 	@Override
 	protected boolean validatePage() {
 		boolean isValid = super.validatePage();
-		if (isValid) {
-			if ("".equals(preferences.getString(Constants.PREFERENCES_SDK_LOCATION))) { //$NON-NLS-1$
-				setMessage(Messages.NewProject_SDK_Not_Found, IMessageProvider.WARNING);
-				// not making as invalid.Since its the temporary solution
-			}
+		if (isValid && "".equals(preferences.getString(Constants.PREFERENCES_SDK_LOCATION))) { //$NON-NLS-1$
+			setMessage(Messages.NewProject_SDK_Not_Found, IMessageProvider.WARNING);
+			// not making as invalid.Since its the temporary solution
 		}
 		return isValid;
 	}

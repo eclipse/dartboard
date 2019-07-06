@@ -25,7 +25,7 @@ public class LaunchUtil {
 	public static void launchDartFile(String dartSdk, String dartFile) {
 		ProcessBuilder processBuilder = new ProcessBuilder(dartSdk + "/bin/dart", dartFile);//$NON-NLS-1$
 
-		Job job = Job.create("Running " + dartFile, (runnable) -> { //$NON-NLS-1$
+		Job job = Job.create("Running " + dartFile, runnable -> { //$NON-NLS-1$
 			Process process;
 			try {
 				process = processBuilder.start();

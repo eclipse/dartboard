@@ -70,7 +70,7 @@ public class DartConsoleFactory implements IConsoleFactory {
 
 		// TODO: This shows up in the progress widget which is suboptimal. This is not a
 		// task the user should see.
-		Job job = Job.create("Transferring inputStream to outputStream", (runnable) -> { //$NON-NLS-1$
+		Job job = Job.create("Transferring inputStream to outputStream", runnable -> { //$NON-NLS-1$
 			try {
 				int data;
 				while((data = inputStream.read()) != -1) {

@@ -63,10 +63,8 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 	public void launch(IEditorPart editor, String mode) {
 		IEditorInput editorInput = editor.getEditorInput();
 		// We don't need this check once we create and and run using launch configuration for file
-		if (IDE.saveAllEditors(new IResource[] { editorInput.getAdapter(IResource.class) }, true)) {
-			if (editorInput instanceof FileEditorInput) {
-				launch(((FileEditorInput) editorInput).getPath(), null);
-			}
+		if (IDE.saveAllEditors(new IResource[] { editorInput.getAdapter(IResource.class) }, true) && editorInput instanceof FileEditorInput) {
+			launch(((FileEditorInput) editorInput).getPath(), null);
 		}
 	}
 

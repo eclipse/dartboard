@@ -54,7 +54,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 		ILaunchConfigurationType type = manager.getLaunchConfigurationType(Constants.LAUNCH_CONFIGURATION_ID);
 
-		Set<String> modes = new HashSet<String>();
+		Set<String> modes = new HashSet<>();
 		modes.add(mode);
 		try {
 			ILaunchConfiguration launchConfiguration = null;

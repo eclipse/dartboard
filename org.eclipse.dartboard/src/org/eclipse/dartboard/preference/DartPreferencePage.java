@@ -140,7 +140,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				Messages.Preference_SDKLocation, parent);
 		addField(dartSDKLocationEditor);
 
-		dartSDKLocationEditor.addModifyListener((event) -> {
+		dartSDKLocationEditor.addModifyListener(event -> {
 			setValid(dartSDKLocationEditor.doCheckState());
 		});
 	}

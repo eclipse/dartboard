@@ -41,7 +41,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DartPreferenceInitializer.class);
 
-	private static boolean warned = false;
+	private static boolean warned;
 
 	@Override
 	public void initializeDefaultPreferences() {
@@ -79,7 +79,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 	public Optional<Path> getDartLocation() {
 		Path path = null; // $NON-NLS-1$
 		String[] command;
-		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+		if (Platform.OS_WIN32.equals(Platform.getOS())) {
 			command = new String[] { "cmd", "/c", "where dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
 			command = new String[] { "/bin/bash", "-c", "which dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

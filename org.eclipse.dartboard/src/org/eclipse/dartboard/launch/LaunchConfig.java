@@ -35,7 +35,7 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
 
-		if (!mode.equalsIgnoreCase("run")) { //$NON-NLS-1$
+		if (!"run".equalsIgnoreCase(mode)) { //$NON-NLS-1$
 			Display.getDefault().asyncExec(() -> {
 				MessageDialog.openError(null, Messages.Launch_DebugNotSupported_Title,
 						Messages.Launch_DebugNotSupported_Body);

@@ -97,13 +97,11 @@ public class DartFileWizard extends Wizard implements INewWizard {
 		}
 		IContainer container = (IContainer) resource;
 		final IFile file = container.getFile(new Path(fileName));
-		try {
-			try (InputStream stream = new ByteArrayInputStream("".getBytes())) { //$NON-NLS-1$
-				if (file.exists()) {
-					file.setContents(stream, true, true, monitor);
-				} else {
-					file.create(stream, true, monitor);
-				}
+		try (InputStream stream = new ByteArrayInputStream("".getBytes())) { //$NON-NLS-1$
+			if (file.exists()) {
+				file.setContents(stream, true, true, monitor);
+			} else {
+				file.create(stream, true, monitor);
 			}
 		} catch (IOException e) {
 			LOG.error(e.getMessage());
