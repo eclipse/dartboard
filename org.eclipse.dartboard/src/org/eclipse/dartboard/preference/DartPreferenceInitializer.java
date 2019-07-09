@@ -85,14 +85,19 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			command = new String[] { "/bin/bash", "-c", "which dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
-		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream()))) {
-			String location = reader.readLine();
-			if (location != null) {
-				path = Paths.get(location);
-				path = path.toRealPath().getParent();
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			processBuilder.command(command);
+			Process process = processBuilder.start();
+			process.waitFor();
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+				String location = reader.readLine();
+				if (location != null) {
+					path = Paths.get(location);
+					path = path.toRealPath().getParent();
+				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
 		}
 

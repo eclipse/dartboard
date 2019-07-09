@@ -1,6 +1,19 @@
 = Dartboard image:https://img.shields.io/jenkins/build/https/ci.eclipse.org/dartboard/job/dartboard-release.svg?label=release-build&style=flat-square[Jenkins] image:https://img.shields.io/badge/version-0.1.0-blue.svg?style=flat-square[Version]
 
 Dartboard is an Eclipse plugin for https://www.dart.dev/[Dart] and https://flutter.dev[Flutter] development.
+The Dartboard official Twitter account is https://twitter.com/DartEclipse[@DartEclipse]
+
+image:https://user-images.githubusercontent.com/5540255/60813009-0e148100-a193-11e9-95e8-63f08fcea976.png[]
+
+== Installation
+
+Download and install at least Dart 2.2. from the https://dart.dev/get-dart[Dart download page].
+
+Check by running `$ dart --version` after installation.
+
+Install the Eclipse https://marketplace.eclipse.org/content/dartboard[plugin from the Marketplace] or use the http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4711459[image:https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png[]] button.
+
+Alternatively there are p2 updatesites available at https://download.eclipse.org/dartboard/
 
 == Features
 
@@ -18,37 +31,17 @@ image:https://user-images.githubusercontent.com/5540255/59127089-f7e28d80-8966-1
 
 - All features from the classic https://www.eclipse.org/eclipseide/[Eclipse IDE]
 
-=== Planned features
 
-- First class support for the https://www.dartlang.org/tools/pub[Pub package manager] - https://github.com/eclipse/dartboard/issues/12[Issue#12]
-- The ability to choose from templates to create new projects using the https://github.com/dart-lang/stagehand[Stagehand CLI] under the hood - https://github.com/eclipse/dartboard/issues/16[Issue#16]
+== Contributing
 
-== Installation
+There are many ways in which you can participate in the project, for example:
 
-To use this plugin you will need at least Dart 2.2.
-You can download it from the https://dart.dev/get-dart[Dart download page].
+* Submit https://github.com/eclipse/dartboard/issues[bugs and feature requests], and help us verify as they are checked in
+* Review https://github.com/eclipse/dartboard/pulls[source code changes]
 
-Check by running `$ dart --version` after installation.
-
-Install the latest build for Eclipse from the https://download.eclipse.org/dartboard/release/ update site via Help->Install new software...
-
-Configure the Dart SDK via Windows->Preferences->Dart
-
-_Keep in mind, that all releases at this point are not stable and should not be considered final. Breaking changes can happen very often_
-
-== Development
-
-See https://github.com/eclipse/dartboard/blob/master/CONTRIBUTING.adoc[CONTRIBUTING.adoc] and https://github.com/eclipse/dartboard/wiki/Development[the wiki] for instructions on how to contribute to the repository.
-
-== Get Involved
-
-Support is currently available via https://github.com/eclipse/dartboard/issues[GitHub issues].
-
-Code contributions are welcome via https://github.com/eclipse/dartboard/pulls[GitHub pull requests].
-
-//TODO: Add Sonar (cloud?) again
-//Code quality analysis is available on https://sonarcloud.io/dashboard?id=vogellacompany_eclipse-dart[SonarCloud].
+If you are interested in fixing issues or contributing directly to the code base, please see the document https://github.com/eclipse/dartboard/blob/master/CONTRIBUTING.adoc[How to Contribute].
+and https://github.com/eclipse/dartboard/wiki/Development[Development wiki] for instructions on how to contribute to the repository.
 
 CI is available at https://ci.eclipse.org/dartboard/[Eclipse Foundation Jenkins]
 
-Dartboard official Twitter account is https://twitter.com/DartEclipse[@DartEclipse]
+

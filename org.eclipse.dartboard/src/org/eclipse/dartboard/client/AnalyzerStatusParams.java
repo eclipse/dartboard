@@ -12,9 +12,4 @@ public class AnalyzerStatusParams {
 		this.isAnalyzing = isAnalyzing;
 	}
 
-	@Override
-	public String toString() {
-		return AnalyzerStatusParams.class.getName() + " [isAnalyzing=" + isAnalyzing + "]"; //$NON-NLS-1$ //$NON-NLS-2$
-	}
-
 }
