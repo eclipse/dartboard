@@ -11,9 +11,9 @@ Download and install at least Dart 2.2. from the https://dart.dev/get-dart[Dart 
 
 Check by running `$ dart --version` after installation.
 
-Install the latest build for Eclipse from the https://download.eclipse.org/dartboard/release/ update site via Help->Install new software...
+Install the Eclipse https://marketplace.eclipse.org/content/dartboard[plugin from the Marketplace] or use the http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4711459[image:https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png[]] button.
 
-Configure the Dart SDK via Window->Preferences->Dart
+Alternatively there are p2 updatesites available at https://download.eclipse.org/dartboard/
 
 == Features
 
@@ -39,7 +39,7 @@ There are many ways in which you can participate in the project, for example:
 * Submit https://github.com/eclipse/dartboard/issues[bugs and feature requests], and help us verify as they are checked in
 * Review https://github.com/eclipse/dartboard/pulls[source code changes]
 
-If you are interested in fixing issues and contributing directly to the code base, please see the document https://github.com/eclipse/dartboard/blob/master/CONTRIBUTING.adoc[How to Contribute].
+If you are interested in fixing issues or contributing directly to the code base, please see the document https://github.com/eclipse/dartboard/blob/master/CONTRIBUTING.adoc[How to Contribute].
 and https://github.com/eclipse/dartboard/wiki/Development[Development wiki] for instructions on how to contribute to the repository.
 
 CI is available at https://ci.eclipse.org/dartboard/[Eclipse Foundation Jenkins]
