@@ -21,6 +21,7 @@ import java.nio.file.Paths;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.StringUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
@@ -104,6 +105,9 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
+		if (StringUtil.isNullOrEmpty(location)) {
+			return null;
+		}
 		Path path = Paths.get(location);
 		if (Files.exists(path)) {
 			try {
