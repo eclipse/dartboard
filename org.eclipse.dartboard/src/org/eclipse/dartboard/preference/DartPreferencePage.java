@@ -14,7 +14,6 @@
 package org.eclipse.dartboard.preference;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -104,14 +103,19 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
-		Path path = Paths.get(location);
-		if (Files.exists(path)) {
+		if (dartSDKLocationEditor.isValid()) {
+			Path path = null;
 			try {
+				path = Paths.get(location);
 				path = path.toRealPath();
 			} catch (IOException e) {
 				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
 			}
 
+			if (path == null) {
+				return null;
+			}
+			
 			// Sometimes users put in the path to the Dart executable directly, instead of
 			// the directory of the installation. Here we use the parent first (which should
 			// be /bin)
