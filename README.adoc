@@ -11,9 +11,7 @@ Download and install at least Dart 2.2. from the https://dart.dev/get-dart[Dart 
 
 Check by running `$ dart --version` after installation.
 
-Install the Eclipse https://marketplace.eclipse.org/content/dartboard[plugin from the Marketplace] or use the button below. 
-
-http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4711459[image:https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png[]]
+Install the Eclipse https://marketplace.eclipse.org/content/dartboard[plugin from the Marketplace] or use the button below. http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4711459[image:https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png[]]
 
 Alternatively there are p2 updatesites available at https://download.eclipse.org/dartboard/
 
