@@ -21,7 +21,11 @@
         <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Dart" priority="normal"></content-type>
     </extension>
     <extension point="org.eclipse.lsp4e.languageServer">
-        <server class="org.eclipse.dartboard.DartLanguageServerStreamProvider" id="org.eclipse.dartboard.server" label="Dart Language Server"></server>
+        <server
+              class="org.eclipse.dartboard.DartLanguageServerStreamProvider"
+              clientImpl="org.eclipse.dartboard.client.DartLanguageClientImpl"
+              id="org.eclipse.dartboard.server"
+              label="Dart Language Server"></server>
         <contentTypeMapping contentType="org.eclipse.dartboard" id="org.eclipse.dartboard.server"></contentTypeMapping>
     </extension>
     <extension point="org.eclipse.tm4e.registry.grammars">
