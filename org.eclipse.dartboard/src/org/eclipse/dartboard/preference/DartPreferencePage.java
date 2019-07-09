@@ -21,7 +21,6 @@ import java.nio.file.Paths;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
-import org.eclipse.dartboard.util.StringUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
@@ -36,6 +35,8 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.base.Strings;
 
 /**
  * A {@link FieldEditorPreferencePage} that lets the user set various
@@ -105,7 +106,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
-		if (StringUtil.isNullOrEmpty(location)) {
+		if (Strings.isNullOrEmpty(location)) {
 			return null;
 		}
 		Path path = Paths.get(location);
