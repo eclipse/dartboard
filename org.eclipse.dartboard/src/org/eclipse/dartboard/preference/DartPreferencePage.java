@@ -83,7 +83,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				Messages.Preference_RestartRequired_Message);
 		if (result) {
 			Display.getDefault().asyncExec(() -> {
-				PlatformUI.getWorkbench().restart();
+				PlatformUI.getWorkbench().restart(true);
 			});
 		}
 		return ok;
