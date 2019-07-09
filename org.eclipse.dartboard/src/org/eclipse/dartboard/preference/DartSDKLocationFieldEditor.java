@@ -1,14 +1,11 @@
 package org.eclipse.dartboard.preference;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.File;
 
 import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
-
-import com.google.common.base.Strings;
 
 public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
@@ -19,11 +16,9 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 	@Override
 	protected boolean doCheckState() {
-		boolean isValid = true;
 		String location = getTextControl().getText();
-		if (Strings.isNullOrEmpty(location) || !Files.exists(Paths.get(location))) {
-			isValid = false;
-		}
+		File file = new File(location);
+		boolean isValid = file.exists();
 		if (!isValid) {
 			setErrorMessage(Messages.Preference_SDKNotFound_Message);
 			showErrorMessage();

@@ -14,7 +14,6 @@
 package org.eclipse.dartboard.preference;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -35,8 +34,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Strings;
 
 /**
  * A {@link FieldEditorPreferencePage} that lets the user set various
@@ -106,17 +103,19 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
-		if (Strings.isNullOrEmpty(location)) {
-			return null;
-		}
-		Path path = Paths.get(location);
-		if (Files.exists(path)) {
+		if (dartSDKLocationEditor.isValid()) {
+			Path path = null;
 			try {
+				path = Paths.get(location);
 				path = path.toRealPath();
 			} catch (IOException e) {
 				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
 			}
 
+			if (path == null) {
+				return null;
+			}
+			
 			// Sometimes users put in the path to the Dart executable directly, instead of
 			// the directory of the installation. Here we use the parent first (which should
 			// be /bin)
