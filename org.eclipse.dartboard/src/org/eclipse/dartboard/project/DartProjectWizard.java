@@ -15,6 +15,7 @@ package org.eclipse.dartboard.project;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.io.input.NullInputStream;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -88,7 +89,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 				projectOperation.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
 				IFile pubspecFile = newProjectHandle.getFile("pubspec.yaml"); //$NON-NLS-1$
 				if (!pubspecFile.exists()) {
-					pubspecFile.create(null, false, null);
+					pubspecFile.create(new NullInputStream(0), true, null);
 				}
 			} catch (ExecutionException | CoreException e) {
 				throw new InvocationTargetException(e);
