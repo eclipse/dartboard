@@ -41,7 +41,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 
 	private static final Logger LOG = LoggerFactory.getLogger(DartPreferenceInitializer.class);
 
-	private static boolean warned = false;
+	private static boolean warned;
 
 	@Override
 	public void initializeDefaultPreferences() {
@@ -79,20 +79,25 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 	public Optional<Path> getDartLocation() {
 		Path path = null; // $NON-NLS-1$
 		String[] command;
-		if (Platform.getOS().equals(Platform.OS_WIN32)) {
+		if (Platform.OS_WIN32.equals(Platform.getOS())) {
 			command = new String[] { "cmd", "/c", "where dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
 			command = new String[] { "/bin/bash", "-c", "which dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
-		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(Runtime.getRuntime().exec(command).getInputStream()))) {
-			String location = reader.readLine();
-			if (location != null) {
-				path = Paths.get(location);
-				path = path.toRealPath().getParent();
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			processBuilder.command(command);
+			Process process = processBuilder.start();
+			process.waitFor();
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+				String location = reader.readLine();
+				if (location != null) {
+					path = Paths.get(location);
+					path = path.toRealPath().getParent();
+				}
 			}
-		} catch (IOException e) {
+		} catch (IOException | InterruptedException e) {
 			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
 		}
 

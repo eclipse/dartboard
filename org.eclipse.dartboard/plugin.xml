@@ -131,7 +131,7 @@
              name="Dart Project"
              project="true">
             <description>
-              Create a new Dart project.
+              Create a Dart project
           </description>
         </wizard>
         <wizard
@@ -141,7 +141,7 @@
              id="org.eclipse.dartboard.dart.newfile"
              name="Dart File">
             <description>
-             Create a new Dart file
+             Create a Dart file
           </description>
         </wizard>
     </extension>

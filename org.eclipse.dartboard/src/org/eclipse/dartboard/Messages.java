@@ -42,8 +42,6 @@ public class Messages extends NLS {
 	public static String NewFile_Container_Doesnot_Exist;
 	public static String NewFile_OpeningFile;
 
-	public static String ProjectUtil_NullCheck;
-	
 	static {
 		NLS.initializeMessages("assets.messages", Messages.class);
 	}

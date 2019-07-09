@@ -68,7 +68,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 			comboProject.add(project.getName());
 		}
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(comboProject);
-		comboProject.addModifyListener((event) -> updateLaunchConfigurationDialog());
+		comboProject.addModifyListener(event -> updateLaunchConfigurationDialog());
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
 		labelSdkLocation.setText(Messages.Preference_SDKLocation);
@@ -77,7 +77,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		textSdkLocation = new Text(comp, SWT.BORDER);
 		textSdkLocation.setMessage(Messages.Launch_SDKLocation_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
-		textSdkLocation.addModifyListener((event) -> updateLaunchConfigurationDialog());
+		textSdkLocation.addModifyListener(event -> updateLaunchConfigurationDialog());
 
 		Label labelMainClass = new Label(comp, SWT.NONE);
 		labelMainClass.setText(Messages.Launch_MainClass);
@@ -86,7 +86,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		textMainClass = new Text(comp, SWT.BORDER);
 		textMainClass.setMessage(Messages.Launch_MainClass_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textMainClass);
-		textMainClass.addModifyListener((event) -> updateLaunchConfigurationDialog());
+		textMainClass.addModifyListener(event -> updateLaunchConfigurationDialog());
 	}
 
 	@Override
@@ -107,7 +107,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 			// String selectedProject =
 			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
-			this.setDirty(true);
+			setDirty(true);
 		} catch (CoreException e) {
 			// ignore here
 		}
