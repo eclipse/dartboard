@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.dartboard.launch.console.DartConsoleFactory;
+import org.eclipse.dartboard.launch.console.DartConsoleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class LaunchUtil {
 			Process process;
 			try {
 				process = processBuilder.start();
-				new DartConsoleFactory(process.getInputStream(), process.getErrorStream()).openConsole();
+				DartConsoleManager.getInstance().openConsole(process.getInputStream(), process.getErrorStream());
 			} catch (IOException e) {
 				LOG.error("Could not start Dart process", e); //$NON-NLS-1$
 			}
