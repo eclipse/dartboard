@@ -5,6 +5,8 @@ The Dartboard official Twitter account is https://twitter.com/DartEclipse[@DartE
 
 image:https://user-images.githubusercontent.com/5540255/60813009-0e148100-a193-11e9-95e8-63f08fcea976.png[]
 
+_Dart and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC._
+
 == Installation
 
 Download and install at least Dart 2.2. from the https://dart.dev/get-dart[Dart download page].
