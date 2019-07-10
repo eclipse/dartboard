@@ -28,6 +28,7 @@ import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
@@ -90,9 +91,11 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			PlatformUI.getWorkbench().restart(true);
+		
+			Display.getDefault().asyncExec(() -> {
+				PlatformUI.getWorkbench().restart(true);
+			});
 		}
-
 		return ok;
 	}
 
@@ -169,7 +172,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	private void save() throws IOException {
 		IPreferenceStore store = getPreferenceStore();
-		if (store instanceof IPersistentPreferenceStore) {
+		if (store.needsSaving() && store instanceof IPersistentPreferenceStore) {
 			((IPersistentPreferenceStore) store).save();
 		}
 	}
