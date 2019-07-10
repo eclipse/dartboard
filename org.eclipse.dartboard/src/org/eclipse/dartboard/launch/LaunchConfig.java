@@ -52,7 +52,7 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 			return;
 		}
 
-		LaunchUtil.launchDartFile(sdk, project.getLocation().toOSString() + File.separatorChar + mainClass);
+		LaunchUtil.launchDartFile(launch, sdk, project.getLocation().toOSString() + File.separatorChar + mainClass);
 
 	}
 

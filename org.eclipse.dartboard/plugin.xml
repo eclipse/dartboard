@@ -47,9 +47,6 @@
     <extension point="org.eclipse.core.runtime.preferences">
         <initializer class="org.eclipse.dartboard.preference.DartPreferenceInitializer"></initializer>
     </extension>
-    <extension point="org.eclipse.ui.console.consoleFactories">
-        <consoleFactory class="org.eclipse.dartboard.launch.console.DartConsoleFactory" label="Dart Console"></consoleFactory>
-    </extension>
     <extension point="org.eclipse.ui.menus">
         <menuContribution allPopups="false" locationURI="popup:org.eclipse.ui.projectConfigure">
         <command commandId="org.eclipse.dartboard.dartprojectnature.command" label="Convert to Dart Project" mnemonic="D" style="push">
