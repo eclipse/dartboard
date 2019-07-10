@@ -25,6 +25,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
+import org.eclipse.jface.preference.IPersistentPreferenceStore;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -81,7 +83,16 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		boolean ok = super.performOk();
 		boolean result = MessageDialog.openQuestion(null, Messages.Preference_RestartRequired_Title,
 				Messages.Preference_RestartRequired_Message);
+
 		if (result) {
+			try {
+				// Manually save the preference store since it doesn't seem to happen when
+				// restarting the IDE in the following step.
+				save();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		
 			Display.getDefault().asyncExec(() -> {
 				PlatformUI.getWorkbench().restart(true);
 			});
@@ -148,5 +159,17 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			setValid(dartSDKLocationEditor.doCheckState());
 		}
 		super.propertyChange(event);
+	}
+
+	/**
+	 * Saves the underlying {@link IPersistentPreferenceStore}.
+	 * 
+	 * @throws IOException
+	 */
+	private void save() throws IOException {
+		IPreferenceStore store = getPreferenceStore();
+		if (store.needsSaving() && store instanceof IPersistentPreferenceStore) {
+			((IPersistentPreferenceStore) store).save();
+		}
 	}
 }
