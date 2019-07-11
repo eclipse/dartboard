@@ -14,7 +14,6 @@
 package org.eclipse.dartboard.launch;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.dartboard.Constants;
@@ -32,7 +31,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.Window;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IFileEditorInput;
 
 /**
  * A {@link ILaunchShortcut} used to launch a project as a dart program.
@@ -47,7 +48,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 	@Override
 	public void launch(ISelection selection, String mode) {
-		// Get the active project from the
 		IProject selected = null;
 		if (selection instanceof StructuredSelection) {
 			Object firstElement = ((StructuredSelection) selection).getFirstElement();
@@ -61,15 +61,13 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 	@Override
 	public void launch(IEditorPart editor, String mode) {
-		IResource resource = editor.getEditorInput().getAdapter(IResource.class);
-
-		if (resource == null) {
-			MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
-					Messages.Launch_ConfigurationRequired_Body);
-			return;
+		IProject project = null;
+		IEditorInput editorInput = editor.getEditorInput();
+		if (editorInput instanceof IFileEditorInput) {
+			project = ((IFileEditorInput) editorInput).getFile().getProject();
 		}
 
-		launchProject(resource.getProject(), mode);
+		launchProject(project, mode);
 	}
 
 	private void launchProject(IProject project, String mode) {
