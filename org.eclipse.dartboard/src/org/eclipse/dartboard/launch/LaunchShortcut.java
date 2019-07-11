@@ -13,9 +13,6 @@
  *******************************************************************************/
 package org.eclipse.dartboard.launch;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -86,8 +83,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 		ILaunchConfigurationType type = manager.getLaunchConfigurationType(Constants.LAUNCH_CONFIGURATION_ID);
 
-		Set<String> modes = new HashSet<>();
-		modes.add(mode);
 		try {
 			// Find first launch configuration for selected project.
 			ILaunchConfiguration launchConfiguration = null;
@@ -97,7 +92,9 @@ public class LaunchShortcut implements ILaunchShortcut {
 				}
 			}
 
-			if (launchConfiguration == null) {
+			if (launchConfiguration != null) {
+				DebugUITools.launch(launchConfiguration, mode);
+			} else {
 				ILaunchConfigurationWorkingCopy copy = type.newInstance(null, manager.generateLaunchConfigurationName(
 						LaunchConfigurationsMessages.CreateLaunchConfigurationAction_New_configuration_2));
 
@@ -111,9 +108,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 				}
 			}
 
-			if (launchConfiguration != null) {
-				DebugUITools.launch(launchConfiguration, mode);
-			}
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
