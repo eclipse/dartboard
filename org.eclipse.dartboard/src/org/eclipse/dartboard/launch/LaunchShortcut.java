@@ -19,6 +19,7 @@ import java.util.Set;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.PlatformUIUtil;
@@ -27,8 +28,8 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
-import org.eclipse.debug.internal.ui.DebugUIPlugin;
 import org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationsMessages;
+import org.eclipse.debug.ui.DebugUITools;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
@@ -53,16 +54,9 @@ public class LaunchShortcut implements ILaunchShortcut {
 		IProject selected = null;
 		if (selection instanceof StructuredSelection) {
 			Object firstElement = ((StructuredSelection) selection).getFirstElement();
-			if (firstElement instanceof IResource) {
-				selected = ((IResource) firstElement).getProject();
+			if (firstElement instanceof IAdaptable) {
+				selected = ((IAdaptable) firstElement).getAdapter(IProject.class);
 			}
-		}
-
-		// Shouldn't happen
-		if (selected == null) {
-			MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
-					Messages.Launch_ConfigurationRequired_Body);
-			return;
 		}
 
 		launchProject(selected, mode);
@@ -78,12 +72,16 @@ public class LaunchShortcut implements ILaunchShortcut {
 			return;
 		}
 
-		IProject project = resource.getProject();
-
-		launchProject(project, mode);
+		launchProject(resource.getProject(), mode);
 	}
 
 	private void launchProject(IProject project, String mode) {
+		if (project == null) {
+			MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
+					Messages.Launch_ConfigurationRequired_Body);
+			return;
+		}
+
 		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
 
 		ILaunchConfigurationType type = manager.getLaunchConfigurationType(Constants.LAUNCH_CONFIGURATION_ID);
@@ -103,21 +101,21 @@ public class LaunchShortcut implements ILaunchShortcut {
 				ILaunchConfigurationWorkingCopy copy = type.newInstance(null, manager.generateLaunchConfigurationName(
 						LaunchConfigurationsMessages.CreateLaunchConfigurationAction_New_configuration_2));
 
-				int result = DebugUIPlugin.openLaunchConfigurationEditDialog(PlatformUIUtil.getActiveShell(), copy,
-						Constants.LAUNCH_GROUP, null, true);
+				copy.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, project.getName());
+
+				int result = DebugUITools.openLaunchConfigurationDialog(PlatformUIUtil.getActiveShell(), copy,
+						Constants.LAUNCH_GROUP, null);
 
 				if (result == Window.OK) {
 					launchConfiguration = copy.doSave();
-				} else {
-					MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
-							Messages.Launch_ConfigurationRequired_Body);
-					return;
 				}
 			}
-			launchConfiguration.launch(mode, null);
+
+			if (launchConfiguration != null) {
+				DebugUITools.launch(launchConfiguration, mode);
+			}
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
-
 	}
 }
