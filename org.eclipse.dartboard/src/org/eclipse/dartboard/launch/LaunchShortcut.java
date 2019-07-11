@@ -21,14 +21,19 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
+import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.internal.ui.DebugUIPlugin;
+import org.eclipse.debug.internal.ui.launchConfigurations.LaunchConfigurationsMessages;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.window.Window;
 import org.eclipse.ui.IEditorPart;
 
 /**
@@ -39,6 +44,7 @@ import org.eclipse.ui.IEditorPart;
  * @author Jonas Hungershausen
  *
  */
+@SuppressWarnings("restriction")
 public class LaunchShortcut implements ILaunchShortcut {
 
 	@Override
@@ -54,8 +60,8 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 		// Shouldn't happen
 		if (selected == null) {
-			MessageDialog.openError(null, Messages.Launch_NoConfigurationFound_Title,
-					Messages.Launch_NoConfigurationFound_Body);
+			MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
+					Messages.Launch_ConfigurationRequired_Body);
 			return;
 		}
 
@@ -67,8 +73,8 @@ public class LaunchShortcut implements ILaunchShortcut {
 		IResource resource = editor.getEditorInput().getAdapter(IResource.class);
 
 		if (resource == null) {
-			MessageDialog.openError(null, Messages.Launch_NoConfigurationFound_Title,
-					Messages.Launch_NoConfigurationFound_Body);
+			MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
+					Messages.Launch_ConfigurationRequired_Body);
 			return;
 		}
 
@@ -93,23 +99,25 @@ public class LaunchShortcut implements ILaunchShortcut {
 				}
 			}
 
-			if (launchConfiguration != null) {
-				launchConfiguration.launch(mode, null);
-				return;
+			if (launchConfiguration == null) {
+				ILaunchConfigurationWorkingCopy copy = type.newInstance(null, manager.generateLaunchConfigurationName(
+						LaunchConfigurationsMessages.CreateLaunchConfigurationAction_New_configuration_2));
+
+				int result = DebugUIPlugin.openLaunchConfigurationEditDialog(PlatformUIUtil.getActiveShell(), copy,
+						Constants.LAUNCH_GROUP, null, true);
+
+				if (result == Window.OK) {
+					launchConfiguration = copy.doSave();
+				} else {
+					MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
+							Messages.Launch_ConfigurationRequired_Body);
+					return;
+				}
 			}
+			launchConfiguration.launch(mode, null);
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
 
-		MessageDialog.openError(null, Messages.Launch_NoConfigurationFound_Title,
-				Messages.Launch_NoConfigurationFound_Body);
-
-		// TODO: If we reached this part, without launching the project, no launch
-		// config is available.
-		// We should open the launch config manager with the prefilled project setting
-		// of the config page
-
-		// Open LaunchConfig Manager
-		// Precreate a new launch config with the selected project preselected
 	}
 }

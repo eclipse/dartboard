@@ -22,8 +22,8 @@ public class Messages extends NLS {
 	public static String Preference_SDKNotFound_Message;
 	public static String Preference_RestartRequired_Title;
 	public static String Preference_RestartRequired_Message;
-	public static String Launch_NoConfigurationFound_Title;
-	public static String Launch_NoConfigurationFound_Body;
+	public static String Launch_ConfigurationRequired_Title;
+	public static String Launch_ConfigurationRequired_Body;
 
 	public static String NewProject_WindowTitle;
 	public static String NewProject_Title;
