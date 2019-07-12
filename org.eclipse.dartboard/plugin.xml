@@ -169,4 +169,14 @@
              type="java.lang.Object">
        </propertyTester>
     </extension>
+    <extension
+          point="org.eclipse.debug.ui.launchGroups">
+       <launchGroup
+             bannerImage="platform:/plugin/org.eclipse.debug.ui/icons/full/wizban/run_wiz.png"
+             id="org.eclipse.dartboard.launchGroup"
+             image="platform:/plugin/org.eclipse.debug.ui/icons/full/etool16/run_exc.png"
+             label="Dart Launch Group"
+             mode="run">
+       </launchGroup>
+    </extension>
 </plugin>
