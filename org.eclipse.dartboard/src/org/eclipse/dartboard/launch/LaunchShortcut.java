@@ -72,7 +72,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 	private void launchProject(IProject project, String mode) {
 		if (project == null) {
-			MessageDialog.openError(null, Messages.Launch_ConfigurationRequired_Title,
+			MessageDialog.openError(PlatformUIUtil.getActiveShell(), Messages.Launch_ConfigurationRequired_Title,
 					Messages.Launch_ConfigurationRequired_Body);
 			return;
 		}
