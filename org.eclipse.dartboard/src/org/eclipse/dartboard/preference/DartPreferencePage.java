@@ -14,6 +14,7 @@
 package org.eclipse.dartboard.preference;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -122,7 +123,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			// Sometimes users put in the path to the Dart executable directly, instead of
 			// the directory of the installation. Here we use the parent first (which should
 			// be /bin)
-			if (path.endsWith("dart")) { //$NON-NLS-1$
+			if (path.endsWith("dart") && !Files.isDirectory(path)) { //$NON-NLS-1$
 				path = path.getParent();
 			}
 			// Sometimes users put in the path when it still contains the /bin portion.
