@@ -20,6 +20,7 @@ import java.nio.file.Paths;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
@@ -33,8 +34,6 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@link FieldEditorPreferencePage} that lets the user set various
@@ -44,8 +43,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class DartPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
-
-	private static final Logger LOG = LoggerFactory.getLogger(DartPreferencePage.class);
 
 	/**
 	 * A {@link DirectoryFieldEditor} used to obtain the Dart SDK location
@@ -89,7 +86,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// restarting the IDE in the following step.
 				save();
 			} catch (IOException e) {
-				e.printStackTrace();
+				Logger.log(e);
 			}
 		
 			Display.getDefault().asyncExec(() -> {
@@ -112,7 +109,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				path = Paths.get(location);
 				path = path.toRealPath();
 			} catch (IOException e) {
-				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
+				Logger.log("Couldn't follow symlink", e); //$NON-NLS-1$
 			}
 
 			if (path == null) {

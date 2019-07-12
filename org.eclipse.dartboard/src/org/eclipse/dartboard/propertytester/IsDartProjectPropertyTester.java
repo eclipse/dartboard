@@ -5,6 +5,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.dartboard.util.Logger;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
 
@@ -30,7 +31,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 					}
 				}
 			} catch (CoreException e) {
-				e.printStackTrace();
+				Logger.log(e);
 			}
 		}
 
