@@ -11,7 +11,12 @@
  *******************************************************************************/
 package org.eclipse.dartboard.util;
 
+import java.lang.reflect.Field;
+
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.dartboard.Constants;
 import org.eclipse.ui.PlatformUI;
+import org.osgi.framework.Bundle;
 
 @SuppressWarnings("restriction")
 public class Logger {
@@ -20,6 +25,18 @@ public class Logger {
 	private static org.eclipse.e4.core.services.log.Logger getLogger() {
 		if (logger == null) {
 			logger = PlatformUI.getWorkbench().getService(org.eclipse.e4.core.services.log.Logger.class);
+			Bundle bundle = Platform.getBundle("org.eclipse.e4.ui.workbench"); //$NON-NLS-1$
+			if (bundle != null) {
+				try {
+					final Class<?> loggerClass = bundle
+							.loadClass("org.eclipse.e4.ui.internal.workbench.WorkbenchLogger"); //$NON-NLS-1$
+					final Field field = loggerClass.getDeclaredField("bundleName"); //$NON-NLS-1$
+					field.setAccessible(true);
+					field.set(logger, Constants.PLUGIN_ID);
+				} catch (Exception e) {
+					logError(e);
+				}
+			}
 		}
 		return logger;
 	}
