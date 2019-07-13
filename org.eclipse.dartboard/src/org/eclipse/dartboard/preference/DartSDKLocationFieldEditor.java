@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -35,14 +36,45 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 		return isValid;
 	}
 
+	/**
+	 * Checks if a given path is the root directory of a Dart SDK installation.
+	 * 
+	 * Returns false if the path does not exist or the given location can not be
+	 * converted to a {@link Path}.
+	 * 
+	 * Similarly if the Path is not a directory, false is returned.
+	 * 
+	 * If the location is a symbolic link but it can not be resolved, false is
+	 * returned.
+	 * 
+	 * If the process to test the version string returned by the Dart executable can
+	 * not be executed, false is returned.
+	 * 
+	 * Finally, if the returned version string does not start with "Dart VM
+	 * version", false is returned.
+	 * 
+	 * @param location - A {@link String} that should be checked to be a Dart SDK
+	 *                 root directory.
+	 * @return <code>false</code> if the location is not a Dart SDK root directory,
+	 *         <code>true</code> otherwise.
+	 */
 	@SuppressWarnings("nls")
 	private boolean isValidDartSDK(String location) {
-		Path path = Paths.get(location);
-		// If the entered file doesn't exist, there is no need to run it
-		// Similarly if the file is not a directory
-		if (!Files.exists(path)) {
+		Path path = null;
+		// On Windows if a certain wrong combination of characters are entered a
+		// InvalidPathException is thrown. In that case we can assume that the location
+		// entered is not a valid Dart SDK directory either.
+		try {
+			path = Paths.get(location).resolve("bin/dart");
+		} catch (InvalidPathException e) {
 			return false;
 		}
+		// If the entered file doesn't exist, there is no need to run it
+		// Similarly if the file is a directory it can't be the dart executable
+		if (!Files.exists(path) || Files.isDirectory(path)) {
+			return false;
+		}
+		// Follow symbolic links
 		try {
 			path = path.toRealPath();
 		} catch (IOException e1) {
@@ -50,18 +82,12 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 			return false;
 		}
 
-		String executablePath = null;
-		if (path.endsWith("bin/dart")) {
-			executablePath = path.toAbsolutePath().toString();
-		} else if (path.endsWith("bin")) {
-			executablePath = path.toAbsolutePath().toString() + "/dart";
-		} else {
-			executablePath = path.toAbsolutePath().toString() + "/bin/dart";
-		}
+		String executablePath = path.toAbsolutePath().toString();
 
+		System.out.println(executablePath);
 		String[] commands;
 		if (Platform.OS_WIN32.equals(Platform.getOS())) {
-			commands = new String[] { "cmd", "/c", executablePath + " --version" };
+			commands = new String[] { "cmd", executablePath + " --version" };
 		} else {
 			commands = new String[] { "/bin/bash", "-c", executablePath + " --version" };
 		}

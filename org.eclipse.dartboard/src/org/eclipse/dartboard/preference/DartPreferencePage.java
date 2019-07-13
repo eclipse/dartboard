@@ -76,6 +76,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			setValid(false);
 			return false;
 		}
+		System.err.println(path);
 
 		dartSDKLocationEditor.setStringValue(path.toAbsolutePath().toString());
 
@@ -109,29 +110,13 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		if (dartSDKLocationEditor.isValid()) {
 			Path path = null;
 			try {
-				path = Paths.get(location);
-				path = path.toRealPath();
+				path = Paths.get(location + "/bin/dart"); //$NON-NLS-1$
+				// Since we append /bin/dart to resolve the symbolic links, we need to get 2
+				// levels up here.
+				path = path.toRealPath().toAbsolutePath().getParent().getParent();
 			} catch (IOException e) {
 				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
 			}
-
-			if (path == null) {
-				return null;
-			}
-			
-			// Sometimes users put in the path to the Dart executable directly, instead of
-			// the directory of the installation. Here we use the parent first (which should
-			// be /bin)
-			if (path.endsWith("dart")) { //$NON-NLS-1$
-				path = path.getParent();
-			}
-			// Sometimes users put in the path when it still contains the /bin portion.
-			// Since we only want the root of the Dart SDK installation we use the parent if
-			// /bin was supplied.
-			if (path.endsWith("bin")) {//$NON-NLS-1$
-				path = path.getParent();
-			}
-
 			return path;
 		} else {
 			return null;
