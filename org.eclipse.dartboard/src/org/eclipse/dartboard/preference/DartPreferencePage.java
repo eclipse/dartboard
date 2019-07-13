@@ -13,10 +13,12 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preference;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
@@ -106,10 +108,12 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
+
 		if (dartSDKLocationEditor.isValid()) {
 			Path path = null;
 			try {
-				path = Paths.get(location + "/bin/dart"); //$NON-NLS-1$
+				boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
+				path = Paths.get(location + "bin" + File.separator + (isWindows ? "dart.exe" : "dart")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				// Since we append /bin/dart to resolve the symbolic links, we need to get 2
 				// levels up here.
 				path = path.toRealPath().toAbsolutePath().getParent().getParent();

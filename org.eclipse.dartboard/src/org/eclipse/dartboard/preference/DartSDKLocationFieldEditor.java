@@ -61,12 +61,13 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 	 */
 	@SuppressWarnings("nls")
 	private boolean isValidDartSDK(String location) {
+		boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
 		Path path = null;
 		// On Windows if a certain wrong combination of characters are entered a
 		// InvalidPathException is thrown. In that case we can assume that the location
 		// entered is not a valid Dart SDK directory either.
 		try {
-			path = Paths.get(location).resolve("bin" + File.separator + "dart");
+			path = Paths.get(location).resolve("bin" + File.separator + (isWindows ? "dart.exe" : "dart"));
 		} catch (InvalidPathException e) {
 			return false;
 		}
@@ -83,7 +84,6 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 			return false;
 		}
 
-		boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
 
 		String executablePath = path.toAbsolutePath().toString();
 
