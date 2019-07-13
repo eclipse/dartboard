@@ -6,17 +6,14 @@ import java.io.IOException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.Logger;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.Launch;
 import org.eclipse.debug.core.model.IProcess;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LaunchUtil {
-
-	private static final Logger LOG = LoggerFactory.getLogger(LaunchUtil.class);
 
 	/**
 	 * Passes a supplied file path to the Dart binary at a supplied SDK location.
@@ -54,7 +51,7 @@ public class LaunchUtil {
 				IProcess runtimeProcess = DebugPlugin.newProcess(launch, process, Messages.Console_Name);
 				launch.addProcess(runtimeProcess); // adding also opens an Eclipse console for the process
 			} catch (IOException e) {
-				LOG.error("Could not start Dart process", e); //$NON-NLS-1$
+				Logger.logError("Could not start Dart process", e); //$NON-NLS-1$
 			}
 		});
 		job.schedule();

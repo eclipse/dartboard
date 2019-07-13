@@ -70,7 +70,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 				return;
 			}
 		} catch (CoreException e) {
-			Logger.log(e);
+			Logger.logError(e);
 		}
 
 		MessageDialog.openError(null, Messages.Launch_NoConfigurationFound_Title,

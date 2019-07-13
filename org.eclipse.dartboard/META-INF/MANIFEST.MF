@@ -6,7 +6,6 @@ Bundle-Version: 0.1.0.qualifier
 Bundle-Vendor: Eclipse Dartboard project
 Automatic-Module-Name: org.eclipse.dartboard
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-Activator: org.eclipse.dartboard.DartBoardPlugin
 Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.lsp4e;bundle-version="0.9.0",
  org.eclipse.lsp4j;bundle-version="0.6.0",
@@ -26,5 +25,4 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.tm4e.ui,
  com.google.guava;bundle-version="21.0.0",
  org.eclipse.lsp4j.jsonrpc
-Import-Package: org.slf4j,
- org.slf4j.spi
+Import-Package: org.eclipse.e4.core.services.log

@@ -25,10 +25,9 @@ import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.Logger;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@link AbstractPreferenceInitializer} that contains a hook to initialize
@@ -38,8 +37,6 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
-
-	private static final Logger LOG = LoggerFactory.getLogger(DartPreferenceInitializer.class);
 
 	private static boolean warned;
 
@@ -98,7 +95,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 				}
 			}
 		} catch (IOException | InterruptedException e) {
-			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
+			Logger.logError("Could not locate Dart SDK location.", e); //$NON-NLS-1$
 		}
 
 		// TODO: Try different default installs (need to collect them)

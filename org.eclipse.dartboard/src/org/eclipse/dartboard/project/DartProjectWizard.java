@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.Logger;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -41,11 +42,8 @@ import org.eclipse.ui.statushandlers.IStatusAdapterConstants;
 import org.eclipse.ui.statushandlers.StatusAdapter;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DartProjectWizard extends Wizard implements INewWizard {
-	private static final Logger LOG = LoggerFactory.getLogger(DartProjectWizard.class);
 
 	private DartProjectPage dartProjectPage;
 	private IProject newProject;
@@ -100,7 +98,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 		try {
 			getContainer().run(true, true, operation);
 		} catch (InterruptedException e) {
-			LOG.error(e.getMessage());
+			Logger.logError(e);
 			return null;
 		} catch (InvocationTargetException e) {
 			Throwable t = e.getTargetException();

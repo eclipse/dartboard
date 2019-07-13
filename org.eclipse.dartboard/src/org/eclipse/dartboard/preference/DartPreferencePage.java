@@ -86,7 +86,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// restarting the IDE in the following step.
 				save();
 			} catch (IOException e) {
-				Logger.log(e);
+				Logger.logError(e);
 			}
 		
 			Display.getDefault().asyncExec(() -> {
@@ -109,7 +109,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				path = Paths.get(location);
 				path = path.toRealPath();
 			} catch (IOException e) {
-				Logger.log("Couldn't follow symlink", e); //$NON-NLS-1$
+				Logger.logError("Couldn't follow symlink", e); //$NON-NLS-1$
 			}
 
 			if (path == null) {

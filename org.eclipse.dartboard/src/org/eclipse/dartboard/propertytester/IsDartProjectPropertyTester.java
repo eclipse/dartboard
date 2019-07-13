@@ -31,7 +31,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 					}
 				}
 			} catch (CoreException e) {
-				Logger.log(e);
+				Logger.logError(e);
 			}
 		}
 
