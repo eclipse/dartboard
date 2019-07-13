@@ -14,7 +14,6 @@
 package org.eclipse.dartboard.preference;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -77,7 +76,6 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			setValid(false);
 			return false;
 		}
-		System.err.println(path);
 
 		dartSDKLocationEditor.setStringValue(path.toAbsolutePath().toString());
 
