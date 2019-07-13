@@ -17,7 +17,7 @@ import org.eclipse.ui.PlatformUI;
 public class Logger {
 	static org.eclipse.e4.core.services.log.Logger logger;
 
-	public static org.eclipse.e4.core.services.log.Logger getLogger() {
+	private static org.eclipse.e4.core.services.log.Logger getLogger() {
 		if (logger == null) {
 			logger = PlatformUI.getWorkbench().getService(org.eclipse.e4.core.services.log.Logger.class);
 		}
