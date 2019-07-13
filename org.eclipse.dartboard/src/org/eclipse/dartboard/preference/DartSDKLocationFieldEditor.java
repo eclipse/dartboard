@@ -1,6 +1,7 @@
 package org.eclipse.dartboard.preference;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
@@ -65,7 +66,7 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 		// InvalidPathException is thrown. In that case we can assume that the location
 		// entered is not a valid Dart SDK directory either.
 		try {
-			path = Paths.get(location).resolve("bin/dart");
+			path = Paths.get(location).resolve("bin" + File.separator + "dart");
 		} catch (InvalidPathException e) {
 			return false;
 		}
