@@ -82,12 +82,13 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 			return false;
 		}
 
+		boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
+
 		String executablePath = path.toAbsolutePath().toString();
 
-		System.out.println(executablePath);
 		String[] commands;
-		if (Platform.OS_WIN32.equals(Platform.getOS())) {
-			commands = new String[] { "cmd", executablePath + " --version" };
+		if (isWindows) {
+			commands = new String[] { "cmd", executablePath + ".exe --version" };
 		} else {
 			commands = new String[] { "/bin/bash", "-c", executablePath + " --version" };
 		}
