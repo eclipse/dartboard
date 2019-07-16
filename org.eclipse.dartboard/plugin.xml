@@ -69,7 +69,7 @@
         </menuContribution>
     </extension>
     <extension point="org.eclipse.debug.ui.launchShortcuts">
-        <shortcut class="org.eclipse.dartboard.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" icon="platform:/plugin/org.eclipse.pde.ui/icons/obj16/run_exc.png" modes="run">
+        <shortcut class="org.eclipse.dartboard.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" icon="assets/img/dart_16.png" modes="run">
      <contextualLaunch>
         <enablement>
            <with
@@ -91,7 +91,7 @@
      </contextualLaunch>
             
         </shortcut>
-        <shortcut id="org.eclipse.dartboard.launch_file" class="org.eclipse.dartboard.launch.LaunchFileShortcut" label="Run File..." icon="platform:/plugin/org.eclipse.pde.ui/icons/obj16/run_exc.png" modes="run">
+        <shortcut id="org.eclipse.dartboard.launch_file" class="org.eclipse.dartboard.launch.LaunchFileShortcut" label="Run File..." icon="assets/img/dart_16.png" modes="run">
             <contextualLaunch>
                 <enablement>
                     <with variable="selection">
@@ -113,7 +113,7 @@
 		point="org.eclipse.debug.ui.launchConfigurationTypeImages">
 		<launchConfigurationTypeImage
 			id="org.eclipse.dartboard.launch.image"
-			configTypeID="org.eclipse.dartboard.launch" icon="platform:/plugin/org.eclipse.pde.ui/icons/obj16/run_exc.png" />
+			configTypeID="org.eclipse.dartboard.launch" icon="assets/img/dart_16.png" />
 	</extension>
   <extension
           point="org.eclipse.ui.newWizards">
@@ -123,7 +123,7 @@
         <wizard
              category="org.eclipse.dartboard.eclipse.wizards"
              class="org.eclipse.dartboard.project.DartProjectWizard"
-             icon="platform:/plugin/org.eclipse.ui.ide/icons/full/etool16/newprj_wiz.png"
+             icon="assets/img/dart_16.png"
              id="org.eclipse.dartboard.dart.newproject"
              name="Dart Project"
              project="true">
@@ -134,7 +134,7 @@
         <wizard
              category="org.eclipse.dartboard.eclipse.wizards"
              class="org.eclipse.dartboard.project.DartFileWizard"
-             icon="platform:/plugin/org.eclipse.ui.ide/icons/full/etool16/newfile_wiz.png"
+             icon="assets/img/dart_16.png"
              id="org.eclipse.dartboard.dart.newfile"
              name="Dart File">
             <description>
@@ -174,7 +174,7 @@
        <launchGroup
              bannerImage="platform:/plugin/org.eclipse.debug.ui/icons/full/wizban/run_wiz.png"
              id="org.eclipse.dartboard.launchGroup"
-             image="platform:/plugin/org.eclipse.debug.ui/icons/full/etool16/run_exc.png"
+             image="assets/img/dart_16.png"
              label="Dart Launch Group"
              mode="run">
        </launchGroup>
