@@ -13,11 +13,12 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preference;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
@@ -107,32 +108,18 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
+
 		if (dartSDKLocationEditor.isValid()) {
 			Path path = null;
 			try {
-				path = Paths.get(location);
-				path = path.toRealPath();
+				boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
+				path = Paths.get(location + "bin" + File.separator + (isWindows ? "dart.exe" : "dart")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				// Since we append /bin/dart to resolve the symbolic links, we need to get 2
+				// levels up here.
+				path = path.toRealPath().toAbsolutePath().getParent().getParent();
 			} catch (IOException e) {
 				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
 			}
-
-			if (path == null) {
-				return null;
-			}
-			
-			// Sometimes users put in the path to the Dart executable directly, instead of
-			// the directory of the installation. Here we use the parent first (which should
-			// be /bin)
-			if (path.endsWith("dart") && !Files.isDirectory(path)) { //$NON-NLS-1$
-				path = path.getParent();
-			}
-			// Sometimes users put in the path when it still contains the /bin portion.
-			// Since we only want the root of the Dart SDK installation we use the parent if
-			// /bin was supplied.
-			if (path.endsWith("bin")) {//$NON-NLS-1$
-				path = path.getParent();
-			}
-
 			return path;
 		} else {
 			return null;
