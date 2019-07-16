@@ -47,3 +47,4 @@ and https://github.com/eclipse/dartboard/wiki/Development[Development wiki] for 
 CI is available at https://ci.eclipse.org/dartboard/[Eclipse Foundation Jenkins]
 
 
+test
