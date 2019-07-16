@@ -89,7 +89,7 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 		String[] commands;
 		if (isWindows) {
-			commands = new String[] { "cmd", "/c", executablePath + " --version" };
+			commands = new String[] { "cmd", "/c", executablePath, "--version" };
 		} else {
 			commands = new String[] { "/bin/bash", "-c", executablePath + " --version" };
 		}
