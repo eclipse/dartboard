@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Messages;
@@ -16,6 +17,8 @@ import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.google.common.collect.Lists;
 
 public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
@@ -61,11 +64,11 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 	 */
 	@SuppressWarnings("nls")
 	private boolean isValidDartSDK(String location) {
-		// See https://github.com/eclipse/dartboard/issues/103
-		if (location.equalsIgnoreCase("/") || location.equalsIgnoreCase("/usr")) {
+		if (location.isEmpty()) {
 			return false;
 		}
 		boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
+
 		Path path = null;
 		// On Windows if a certain wrong combination of characters are entered a
 		// InvalidPathException is thrown. In that case we can assume that the location
@@ -75,9 +78,13 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 		} catch (InvalidPathException e) {
 			return false;
 		}
+
+		// See https://github.com/eclipse/dartboard/issues/103
+		List<String> blacklist = Lists.newArrayList("/bin/dart", "/usr/bin/dart");
 		// If the entered file doesn't exist, there is no need to run it
 		// Similarly if the file is a directory it can't be the dart executable
-		if (!Files.exists(path) || Files.isDirectory(path)) {
+		if (!Files.exists(path) || Files.isDirectory(path)
+				|| (!isWindows && blacklist.contains(path.toString().toLowerCase()))) {
 			return false;
 		}
 		// Follow symbolic links
@@ -114,5 +121,4 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 	protected void addModifyListener(ModifyListener listener) {
 		getTextControl().addModifyListener(listener);
 	}
-
 }
