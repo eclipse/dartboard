@@ -61,6 +61,10 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 	 */
 	@SuppressWarnings("nls")
 	private boolean isValidDartSDK(String location) {
+		// See https://github.com/eclipse/dartboard/issues/103
+		if (location.equalsIgnoreCase("/") || location.equalsIgnoreCase("/usr")) {
+			return false;
+		}
 		boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
 		Path path = null;
 		// On Windows if a certain wrong combination of characters are entered a
@@ -83,7 +87,6 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 			LOG.error("Couldn't follow symlink", e1);
 			return false;
 		}
-
 
 		String executablePath = path.toAbsolutePath().toString();
 
