@@ -172,7 +172,7 @@
     <extension
           point="org.eclipse.debug.ui.launchGroups">
        <launchGroup
-             bannerImage="icons/dart@4x.png"
+             bannerImage="icons/banner.png"
              id="org.eclipse.dartboard.launchGroup"
              image="icons/dart.png"
              label="Dart Launch Group"
