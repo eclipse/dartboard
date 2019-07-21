@@ -5,7 +5,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.dartboard.Constants;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
 
@@ -26,7 +25,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 
 			try {
 				for (IResource res : project.members()) {
-					if (Constants.PUBSPEC.equals(res.getName()) || "dart".equals(res.getFileExtension())) { //$NON-NLS-1$
+					if ("pubspec.yaml".equals(res.getName()) || "dart".equals(res.getFileExtension())) { //$NON-NLS-1$ //$NON-NLS-2$
 						return true;
 					}
 				}

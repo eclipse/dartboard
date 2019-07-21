@@ -58,7 +58,6 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 						Messages.Preference_SDKNotFound_Body);
 			}
 		}
-		scopedPreferenceStore.setDefault(Constants.PREFERENCES_SYNC_PUB, true);
 	}
 
 	/**

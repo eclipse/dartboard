@@ -25,8 +25,6 @@ public abstract class Constants {
 	 */
 	public static final String PREFERENCES_SDK_LOCATION = "sdk_location"; //$NON-NLS-1$
 
-	public static final String PREFERENCES_SYNC_PUB = "auto_pub_sync"; //$NON-NLS-1$
-
 	/**
 	 * Plugin ID of the plugin
 	 */
@@ -52,6 +50,8 @@ public abstract class Constants {
 	 */
 	public static final String LAUNCH_GROUP = "org.eclipse.dartboard.launchGroup"; //$NON-NLS-1$
 
-	public static final String PUBSPEC = "pubspec.yaml"; //$NON-NLS-1$
-
+	/**
+	 * The ID used to identify this project nature
+	 */
+	public static final String NATURE_ID = "org.eclipse.dartboard.dartprojectnature"; //$NON-NLS-1$
 }
