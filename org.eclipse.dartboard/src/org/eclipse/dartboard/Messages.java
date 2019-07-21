@@ -13,6 +13,7 @@ public class Messages extends NLS {
 	public static String Launch_Project;
 	public static String Preference_SDKLocation;
 	public static String Preference_SDKVersion;
+	public static String Preference_PubAutoSync;
 	public static String Launch_SDKLocation_Message;
 	public static String Launch_MainClass;
 	public static String Launch_MainClass_Message;
@@ -41,6 +42,9 @@ public class Messages extends NLS {
 	public static String NewFile_Creating;
 	public static String NewFile_Container_Doesnot_Exist;
 	public static String NewFile_OpeningFile;
+	public static String PubSync_Job_Name;
+	public static String PubSync_Task_ResolvingDependencies;
+	public static String PubSync_Task_PrecompilingExecutables;
 
 	static {
 		NLS.initializeMessages("assets.messages", Messages.class);
