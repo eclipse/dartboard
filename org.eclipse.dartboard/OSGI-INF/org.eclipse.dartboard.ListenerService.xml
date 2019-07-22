@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" activate="registerListeners" immediate="true" name="org.eclipse.dartboard.ListenerService">
+   <implementation class="org.eclipse.dartboard.ListenerService"/>
+</scr:component>

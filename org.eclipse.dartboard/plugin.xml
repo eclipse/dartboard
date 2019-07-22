@@ -179,10 +179,4 @@
              mode="run">
        </launchGroup>
     </extension>
-    <extension
-          point="org.eclipse.ui.startup">
-       <startup
-             class="org.eclipse.dartboard.StartupListener">
-       </startup>
-    </extension>
 </plugin>
