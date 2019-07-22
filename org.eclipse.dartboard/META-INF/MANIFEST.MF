@@ -24,10 +24,6 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.ui.ide,
  org.eclipse.tm4e.ui,
  com.google.guava;bundle-version="21.0.0",
- org.eclipse.lsp4j.jsonrpc,
- org.eclipse.e4.core.di
-Import-Package: org.eclipse.e4.core.services.events,
- org.eclipse.e4.ui.workbench,
- org.osgi.service.event,
- org.slf4j,
+ org.eclipse.lsp4j.jsonrpc
+Import-Package: org.slf4j,
  org.slf4j.spi
