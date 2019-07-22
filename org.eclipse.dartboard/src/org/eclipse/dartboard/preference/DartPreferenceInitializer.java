@@ -105,5 +105,4 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		// TODO: Try different default installs (need to collect them)
 		return Optional.ofNullable(path);
 	}
-
 }

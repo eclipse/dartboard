@@ -116,7 +116,6 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @return
 	 */
 	private Path getPath(String location) {
-
 		if (dartSDKLocationEditor.isValid()) {
 			Path path = null;
 			try {
