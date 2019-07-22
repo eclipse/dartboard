@@ -14,8 +14,12 @@
         Jonas Hungershausen - initial API and implementation
  -->
 <plugin>
-    <extension point="org.eclipse.ui.editors">
-        <editorContentTypeBinding contentTypeId="org.eclipse.dartboard" editorId="org.eclipse.ui.genericeditor.GenericEditor"></editorContentTypeBinding>
+    <extension
+          point="org.eclipse.ui.editors">
+       <editorContentTypeBinding
+             contentTypeId="org.eclipse.dartboard"
+             editorId="org.eclipse.ui.genericeditor.GenericEditor">
+       </editorContentTypeBinding>
     </extension>
     <extension point="org.eclipse.core.contenttype.contentTypes">
         <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Dart" priority="normal"></content-type>
@@ -178,5 +182,21 @@
              label="Dart Launch Group"
              mode="run">
        </launchGroup>
+    </extension>
+    <extension
+          id="org.eclipse.dartboard.workbench.model"
+          point="org.eclipse.e4.workbench.model">
+       <processor
+             apply="always"
+             beforefragment="true"
+             class="org.eclipse.dartboard.WorkbechModelProcessor"/>
+    </extension>
+    <extension
+          point="org.eclipse.tm4e.ui.snippets">
+       <snippet
+             name="org.eclipse.dartboard.sample.dart"
+             path="assets/snippets/sample.dart"
+             scopeName="source.dart">
+       </snippet>
     </extension>
 </plugin>
