@@ -45,6 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DartProjectWizard extends Wizard implements INewWizard {
+
 	private static final Logger LOG = LoggerFactory.getLogger(DartProjectWizard.class);
 
 	private DartProjectPage dartProjectPage;

@@ -24,5 +24,4 @@ public class LaunchTabGroup extends AbstractLaunchConfigurationTabGroup {
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
 		setTabs(new ILaunchConfigurationTab[] { new LaunchConfigTab(), new CommonTab() });
 	}
-
 }

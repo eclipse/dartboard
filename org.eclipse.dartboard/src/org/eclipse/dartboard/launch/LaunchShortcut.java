@@ -105,7 +105,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 					launchConfiguration = copy.doSave();
 				}
 			}
-
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}

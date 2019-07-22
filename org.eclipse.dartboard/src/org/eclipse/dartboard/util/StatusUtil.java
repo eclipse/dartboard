@@ -90,5 +90,4 @@ public class StatusUtil {
 			break;
 		}
 	}
-
 }

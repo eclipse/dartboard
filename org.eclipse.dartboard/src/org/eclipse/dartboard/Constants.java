@@ -49,9 +49,4 @@ public abstract class Constants {
 	 * The ID of the Dart launch group
 	 */
 	public static final String LAUNCH_GROUP = "org.eclipse.dartboard.launchGroup"; //$NON-NLS-1$
-
-	/**
-	 * The ID used to identify this project nature
-	 */
-	public static final String NATURE_ID = "org.eclipse.dartboard.dartprojectnature"; //$NON-NLS-1$
 }

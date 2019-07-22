@@ -34,7 +34,6 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
-
 		if (!"run".equalsIgnoreCase(mode)) { //$NON-NLS-1$
 			Display.getDefault().asyncExec(() -> {
 				MessageDialog.openError(null, Messages.Launch_DebugNotSupported_Title,
@@ -53,7 +52,6 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 		}
 
 		LaunchUtil.launchDartFile(launch, sdk, project.getLocation().toOSString() + File.separatorChar + mainClass);
-
 	}
 
 	public IProject getProject(String name) {
@@ -61,5 +59,4 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 		IWorkspaceRoot root = workspace.getRoot();
 		return root.getProject(name);
 	}
-
 }
