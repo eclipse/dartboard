@@ -184,14 +184,6 @@
        </launchGroup>
     </extension>
     <extension
-          id="org.eclipse.dartboard.workbench.model"
-          point="org.eclipse.e4.workbench.model">
-       <processor
-             apply="always"
-             beforefragment="true"
-             class="org.eclipse.dartboard.WorkbechModelProcessor"/>
-    </extension>
-    <extension
           point="org.eclipse.tm4e.ui.snippets">
        <snippet
              name="org.eclipse.dartboard.sample.dart"
