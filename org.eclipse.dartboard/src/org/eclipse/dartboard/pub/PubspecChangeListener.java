@@ -28,6 +28,7 @@ public class PubspecChangeListener implements IResourceChangeListener {
 
 	public PubspecChangeListener() {
 		preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
+		pub = PubService.getInstance();
 	}
 
 	@Override

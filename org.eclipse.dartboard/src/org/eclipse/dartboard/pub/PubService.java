@@ -36,7 +36,6 @@ import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.DartUtil;
 import org.eclipse.dartboard.util.StatusUtil;
-import org.eclipse.e4.core.di.annotations.Creatable;
 import org.eclipse.osgi.util.NLS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,11 +50,14 @@ import org.slf4j.LoggerFactory;
  * @see PubspecChangeListener
  * 
  */
-@Creatable
-@Singleton
 public class PubService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PubService.class);
+
+	private static PubService instance;
+
+	private PubService() {
+	}
 
 	/**
 	 * A {@link Map} holding an {@link IProject} and a {@link Job} as ideally there
@@ -152,5 +154,20 @@ public class PubService {
 		// cancelable instantly we wait for 1 second before starting them.
 		pubSync.schedule(1000);
 		pubGetJobs.put(project, pubSync);
+	}
+
+	/**
+	 * Returns an instance of {@link PubService}
+	 * 
+	 * If {@link #instance} is null, a new instance is created.
+	 * 
+	 * @return The instance of {@link PubService} defined in {@link #instance}
+	 */
+	public static PubService getInstance() {
+		// TODO: Turn this class into a @Inject'able service?
+		if (instance == null) {
+			instance = new PubService();
+		}
+		return instance;
 	}
 }
