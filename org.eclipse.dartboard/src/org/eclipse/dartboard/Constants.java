@@ -25,7 +25,15 @@ public abstract class Constants {
 	 */
 	public static final String PREFERENCES_SDK_LOCATION = "sdk_location"; //$NON-NLS-1$
 
+	/**
+	 * Preferences key for the option to automatically sync pub dependencies on pubspec.yaml file save.
+	 */
 	public static final String PREFERENCES_SYNC_PUB = "auto_pub_sync"; //$NON-NLS-1$
+
+	/**
+	 * Preferences key for the --offline flag to pub get operations
+	 */
+	public static final String PREFERENCES_OFFLINE_PUB = "offline_pub"; //$NON-NLS-1$
 
 	/**
 	 * Plugin ID of the plugin

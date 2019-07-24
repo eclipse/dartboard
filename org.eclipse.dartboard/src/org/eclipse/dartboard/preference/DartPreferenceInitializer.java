@@ -20,11 +20,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.DartUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
@@ -59,6 +59,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			}
 		}
 		scopedPreferenceStore.setDefault(Constants.PREFERENCES_SYNC_PUB, true);
+		scopedPreferenceStore.setDefault(Constants.PREFERENCES_OFFLINE_PUB, false);
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 	public Optional<Path> getDartLocation() {
 		Path path = null; // $NON-NLS-1$
 		String[] command;
-		if (Platform.OS_WIN32.equals(Platform.getOS())) {
+		if (DartUtil.IS_WINDOWS) {
 			command = new String[] { "cmd", "/c", "where dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
 			command = new String[] { "/bin/bash", "-c", "which dart" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

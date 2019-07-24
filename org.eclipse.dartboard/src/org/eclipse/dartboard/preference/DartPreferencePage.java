@@ -56,6 +56,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	private DartSDKLocationFieldEditor dartSDKLocationEditor;
 
 	private BooleanFieldEditor autoPubSyncEditor;
+	private BooleanFieldEditor useOfflinePub;
 
 	public DartPreferencePage() {
 		super(GRID);
@@ -101,7 +102,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
+
 			Display.getDefault().asyncExec(() -> {
 				PlatformUI.getWorkbench().restart(true);
 			});
@@ -145,9 +146,12 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		dartSDKLocationEditor.addModifyListener(event -> {
 			setValid(dartSDKLocationEditor.doCheckState());
 		});
-		autoPubSyncEditor = new BooleanFieldEditor(Constants.PREFERENCES_SYNC_PUB, Messages.Preference_PubAutoSync,
-				parent);
+		autoPubSyncEditor = new BooleanFieldEditor(Constants.PREFERENCES_SYNC_PUB,
+				Messages.Preference_PubAutoSync_Label, parent);
 		addField(autoPubSyncEditor);
+		useOfflinePub = new BooleanFieldEditor(Constants.PREFERENCES_OFFLINE_PUB, Messages.Preference_PubOffline_Label,
+				parent);
+		addField(useOfflinePub);
 	}
 
 	/**
