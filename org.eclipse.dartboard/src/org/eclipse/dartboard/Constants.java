@@ -60,6 +60,9 @@ public abstract class Constants {
 	 */
 	public static final String LAUNCH_GROUP = "org.eclipse.dartboard.launchGroup"; //$NON-NLS-1$
 
+	/**
+	 * Name of the pubspec file
+	 */
 	public static final String PUBSPEC = "pubspec.yaml"; //$NON-NLS-1$
 
 }
