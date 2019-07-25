@@ -81,15 +81,21 @@
                     style="push">
               </command>
               <visibleWhen>
-                 <iterate>
-                    <adapt
-                          type="org.eclipse.core.resources.IResource">
-                       <test
-                             forcePluginActivation="true"
-                             property="org.eclipse.dartboard.isDartProject">
-                       </test>
-                    </adapt>
-                 </iterate>
+                 <with
+                       variable="selection">
+                    <count
+                          value="1">
+                    </count>
+                    <iterate>
+                       <adapt
+                             type="org.eclipse.core.resources.IResource">
+                          <test
+                                forcePluginActivation="true"
+                                property="org.eclipse.dartboard.isDartProject">
+                          </test>
+                       </adapt>
+                    </iterate>
+                 </with>
               </visibleWhen>
            </menu>
         </menuContribution>
