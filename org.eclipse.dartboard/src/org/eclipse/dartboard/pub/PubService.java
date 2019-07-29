@@ -16,9 +16,7 @@ package org.eclipse.dartboard.pub;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Singleton;
@@ -33,15 +31,11 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
-import org.eclipse.dartboard.util.DartUtil;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.osgi.util.NLS;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.common.base.Strings;
 
 /**
  * A {@link Singleton} service that exposes various Pub functions.
@@ -89,24 +83,16 @@ public class PubService {
 			pubGetJobs.remove(project);
 		}
 
-		List<String> commands = new ArrayList<>();
-		commands.add(DartUtil.getTool("pub")); //$NON-NLS-1$
-		commands.add("get"); //$NON-NLS-1$
-
-		// Use --offline flag if applicable
-		if (offline) {
-			commands.add("--offline"); //$NON-NLS-1$
-		}
-
 		Job pubSync = Job.create(NLS.bind(Messages.PubSync_Job_Name, project.getName()), (monitor) -> {
 			IPath location = project.getLocation();
 			if (location == null) {
 				return StatusUtil.createError(NLS.bind(Messages.PubSync_CouldNotDeterminePath, project.getName()));
 			}
 
-			ProcessBuilder builder = new ProcessBuilder(commands);
-			builder.environment().put(Constants.PUB_ENVIRONMENT_VARIABLE, getUpdatePubEnviroment(builder));
-			builder.directory(location.makeAbsolute().toFile());
+			ProcessBuilder builder = PubUtil
+					.getPubProcessBuilder("get", offline ? "--offline" : "--no-offline") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+					.directory(location.makeAbsolute().toFile());
+
 			Process process = null;
 			try {
 				process = builder.start();
@@ -173,22 +159,5 @@ public class PubService {
 			instance = new PubService();
 		}
 		return instance;
-	}
-
-	/**
-	 * Returns a String containing the current PUB_ENVIRONMENT plus
-	 * {@link Constants#PLUGIN_ID}.
-	 * 
-	 * @param builder - The {@link ProcessBuilder} off of which the environment
-	 *                variables are gotten
-	 * @return the pub environment variable plus the id of the plugin
-	 */
-	private String getUpdatePubEnviroment(ProcessBuilder builder) {
-		String pubEnv = builder.environment().get(Constants.PUB_ENVIRONMENT_VARIABLE);
-		if (Strings.isNullOrEmpty(pubEnv)) {
-			return Constants.PLUGIN_ID;
-		} else {
-			return pubEnv += Constants.PLUGIN_ID;
-		}
 	}
 }
