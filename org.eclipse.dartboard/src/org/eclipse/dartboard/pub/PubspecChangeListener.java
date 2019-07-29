@@ -3,8 +3,6 @@ package org.eclipse.dartboard.pub;
 import static org.eclipse.core.resources.IResourceDelta.ADDED;
 import static org.eclipse.dartboard.Constants.PUBSPEC;
 
-import javax.inject.Inject;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -23,7 +21,6 @@ public class PubspecChangeListener implements IResourceChangeListener {
 
 	private ScopedPreferenceStore preferences;
 
-	@Inject
 	private PubService pub;
 
 	public PubspecChangeListener() {

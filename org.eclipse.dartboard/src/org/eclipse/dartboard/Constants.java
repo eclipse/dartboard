@@ -65,4 +65,9 @@ public abstract class Constants {
 	 */
 	public static final String PUBSPEC = "pubspec.yaml"; //$NON-NLS-1$
 
+	/**
+	 * Name of the PUB_ENVIRONMENT variable used by pub 
+	 */
+	public static final String PUB_ENVIRONMENT_VARIABLE = "PUB_ENVIRONMENT"; //$NON-NLS-1$
+
 }
