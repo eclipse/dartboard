@@ -4,10 +4,8 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
@@ -25,10 +23,10 @@ public class PubGetHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		ISelection sel = HandlerUtil.getCurrentSelection(event);
-		if (sel instanceof IStructuredSelection) {
-			IResource res = Adapters.adapt(((IStructuredSelection) sel).getFirstElement(), IResource.class);
-			pub.get(res.getProject(), preferences.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
+		IStructuredSelection sel = HandlerUtil.getCurrentStructuredSelection(event);
+		Object firstElement = sel.getFirstElement();
+		if (firstElement instanceof IResource) {
+			pub.get(((IResource) firstElement).getProject(), preferences.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
 		}
 		return null;
 	}
