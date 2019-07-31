@@ -191,4 +191,10 @@
              scopeName="source.dart">
        </snippet>
     </extension>
+    <extension
+          point="org.eclipse.ui.genericeditor.icons">
+        <icon
+             contentTypeId="org.eclipse.dartboard"
+             icon="icons/dart_file.png"/>
+    </extension>
 </plugin>
