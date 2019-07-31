@@ -242,4 +242,10 @@
              icon="platform:/plugin/org.eclipse.pde.ui/icons/elcl16/refresh.png">
        </image>
     </extension>
+    <extension
+          point="org.eclipse.ui.startup">
+       <startup
+             class="org.eclipse.dartboard.ListenerService">
+       </startup>
+    </extension>
 </plugin>

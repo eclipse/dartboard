@@ -15,14 +15,12 @@ package org.eclipse.dartboard;
 
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.dartboard.pub.PubspecChangeListener;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
+import org.eclipse.ui.IStartup;
 
-@Component(immediate = true)
-public class ListenerService {
+public class ListenerService implements IStartup {
 
-	@Activate
-	public void registerListeners() {
+	@Override
+	public void earlyStartup() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new PubspecChangeListener());
 	}
 
