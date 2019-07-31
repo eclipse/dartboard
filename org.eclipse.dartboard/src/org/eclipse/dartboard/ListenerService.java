@@ -23,5 +23,4 @@ public class ListenerService implements IStartup {
 	public void earlyStartup() {
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(new PubspecChangeListener());
 	}
-
 }
