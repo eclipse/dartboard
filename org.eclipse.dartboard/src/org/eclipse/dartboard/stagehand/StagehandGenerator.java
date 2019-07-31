@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public class StagehandGenerator {
 
-	private final static Logger LOG = LoggerFactory.getLogger(StagehandGenerator.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StagehandGenerator.class);
 
 	public static void generate(StagehandTemplate generator, IProject project) {
 		if (project == null) {
@@ -40,7 +40,6 @@ public class StagehandGenerator {
 					LOG.error("Could not create pubspec.yaml file", e); //$NON-NLS-1$
 				}
 			}
-			return;
 		} else {
 
 			Job stagehandJob = Job.create(

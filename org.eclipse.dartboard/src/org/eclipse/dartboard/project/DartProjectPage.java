@@ -112,8 +112,6 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 				useStagehandButton.setEnabled(true);
 			});
 		}).schedule();
-
-
 	}
 
 	public StagehandTemplate getGenerator() {

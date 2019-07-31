@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 public class DartUtil {
 
-	private final static Logger LOG = LoggerFactory.getLogger(DartUtil.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DartUtil.class);
 
 	private DartUtil() {
 	}
@@ -109,7 +109,7 @@ public class DartUtil {
 	public static Optional<Path> getLocation(String program) {
 		Path path = null;
 		String[] command;
-		if (DartUtil.IS_WINDOWS) {
+		if (IS_WINDOWS) {
 			command = new String[] { "cmd", "/c", "where " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
 			command = new String[] { "/bin/bash", "-c", "which " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$

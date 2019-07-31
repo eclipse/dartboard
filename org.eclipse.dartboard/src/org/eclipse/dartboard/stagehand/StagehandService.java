@@ -15,13 +15,22 @@ import com.google.gson.Gson;
 
 public class StagehandService {
 
-	private final static Logger LOG = LoggerFactory.getLogger(StagehandService.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StagehandService.class);
 
+	/**
+	 * A local cache that should not be refreshed (hence it's static)
+	 */
 	private static List<StagehandTemplate> stagehandTemplates;
 
+	/**
+	 * The timeout in seconds to wait until the activation process is considered
+	 * stuck
+	 */
 	private static final int STAGEHAND_ACTIVATE_TIMEOUT = 30;
 
 	public static List<StagehandTemplate> getStagehandTemplates() {
+		// The actual gathering process should only be run once (if the cache is not
+		// populated already)
 		if (stagehandTemplates != null) {
 			return stagehandTemplates;
 		}
