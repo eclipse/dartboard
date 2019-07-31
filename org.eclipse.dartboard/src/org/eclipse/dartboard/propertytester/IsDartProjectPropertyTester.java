@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
 
-	private final static Logger LOG = LoggerFactory.getLogger(IsDartProjectPropertyTester.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IsDartProjectPropertyTester.class);
 
 	private static final String IS_DART_PROJECT_PROPERTY = "isDartProject"; //$NON-NLS-1$
 

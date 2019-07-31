@@ -43,13 +43,10 @@ public class PubspecChangeListener implements IResourceChangeListener {
 					@Override
 					public boolean visit(IResourceDelta delta) throws CoreException {
 						IResource resource = delta.getResource();
-						if (resource.getType() == IResource.FILE && resource.getName().equals(PUBSPEC)) {
-							// Check if the File's contents were changed or if the file was added to the
-							// workspace.
-							if (delta.getKind() == ADDED || isContentChanged(delta)) {
-								boolean offline = preferences.getBoolean(Constants.PREFERENCES_OFFLINE_PUB);
-								pub.get(resource.getProject(), offline);
-							}
+						if (resource.getType() == IResource.FILE && PUBSPEC.equals(resource.getName())
+								&& (delta.getKind() == ADDED || isContentChanged(delta))) {
+							boolean offline = preferences.getBoolean(Constants.PREFERENCES_OFFLINE_PUB);
+							pub.get(resource.getProject(), offline);
 						}
 						return true;
 					}

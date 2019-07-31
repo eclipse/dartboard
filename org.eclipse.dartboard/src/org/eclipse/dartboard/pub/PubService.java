@@ -83,7 +83,7 @@ public class PubService {
 			pubGetJobs.remove(project);
 		}
 
-		Job pubSync = Job.create(NLS.bind(Messages.PubSync_Job_Name, project.getName()), (monitor) -> {
+		Job pubSync = Job.create(NLS.bind(Messages.PubSync_Job_Name, project.getName()), monitor -> {
 			IPath location = project.getLocation();
 			if (location == null) {
 				return StatusUtil.createError(NLS.bind(Messages.PubSync_CouldNotDeterminePath, project.getName()));
