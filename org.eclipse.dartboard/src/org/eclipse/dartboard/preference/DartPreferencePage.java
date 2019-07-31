@@ -23,6 +23,7 @@ import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
@@ -54,6 +55,13 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	private DartSDKLocationFieldEditor dartSDKLocationEditor;
 
+	private BooleanFieldEditor autoPubSyncEditor;
+	private BooleanFieldEditor useOfflinePub;
+
+	public DartPreferencePage() {
+		super(GRID);
+	}
+
 	/**
 	 * Initializes the {@link DartPreferencePage#getPreferenceStore()} to the
 	 * default preference store of the plugin
@@ -67,6 +75,8 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	public boolean performOk() {
 		String sdkLocation = dartSDKLocationEditor.getStringValue();
 		String oldValue = getPreferenceStore().getString(Constants.PREFERENCES_SDK_LOCATION);
+
+		boolean ok = super.performOk();
 		// Don't update the preference store if the oldValue matches the new value
 		if (sdkLocation.equals(oldValue)) {
 			return true;
@@ -81,7 +91,6 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 		dartSDKLocationEditor.setStringValue(path.toAbsolutePath().toString());
 
-		boolean ok = super.performOk();
 		boolean result = MessageDialog.openQuestion(null, Messages.Preference_RestartRequired_Title,
 				Messages.Preference_RestartRequired_Message);
 
@@ -93,7 +102,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		
+
 			Display.getDefault().asyncExec(() -> {
 				PlatformUI.getWorkbench().restart(true);
 			});
@@ -137,6 +146,12 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		dartSDKLocationEditor.addModifyListener(event -> {
 			setValid(dartSDKLocationEditor.doCheckState());
 		});
+		autoPubSyncEditor = new BooleanFieldEditor(Constants.PREFERENCES_SYNC_PUB,
+				Messages.Preference_PubAutoSync_Label, parent);
+		addField(autoPubSyncEditor);
+		useOfflinePub = new BooleanFieldEditor(Constants.PREFERENCES_OFFLINE_PUB, Messages.Preference_PubOffline_Label,
+				parent);
+		addField(useOfflinePub);
 	}
 
 	/**

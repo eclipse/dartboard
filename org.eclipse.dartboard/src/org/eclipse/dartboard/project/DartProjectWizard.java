@@ -88,7 +88,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 					Messages.NewProject_WindowTitle);
 			try {
 				projectOperation.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
-				IFile pubspecFile = newProjectHandle.getFile("pubspec.yaml"); //$NON-NLS-1$
+				IFile pubspecFile = newProjectHandle.getFile(Constants.PUBSPEC); // $NON-NLS-1$
 				if (!pubspecFile.exists()) {
 					pubspecFile.create(new NullInputStream(0), true, null);
 				}

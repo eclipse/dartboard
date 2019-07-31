@@ -18,8 +18,13 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.dartboard.Constants;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
+
+	private static final Logger LOG = LoggerFactory.getLogger(IsDartProjectPropertyTester.class);
 
 	private static final String IS_DART_PROJECT_PROPERTY = "isDartProject"; //$NON-NLS-1$
 
@@ -35,15 +40,18 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 			if (project == null) {
 				return false;
 			}
+			if (project.findMember(Constants.PUBSPEC) != null) {
+				return true;
+			}
 
 			try {
 				for (IResource res : project.members()) {
-					if ("pubspec.yaml".equals(res.getName()) || "dart".equals(res.getFileExtension())) { //$NON-NLS-1$ //$NON-NLS-2$
+					if ("dart".equals(res.getFileExtension())) { //$NON-NLS-1$
 						return true;
 					}
 				}
 			} catch (CoreException e) {
-				e.printStackTrace();
+				LOG.error("Couldn't list members of project " + project.getName(), e); //$NON-NLS-1$
 			}
 		}
 

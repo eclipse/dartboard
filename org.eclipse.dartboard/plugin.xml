@@ -71,6 +71,34 @@
                 </visibleWhen>
             </command>
         </menuContribution>
+        <menuContribution
+              locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+           <menu
+                 id="org.eclipse.dartboard.pubmenuentry"
+                 label="Pub">
+              <command
+                    commandId="org.eclipse.dartboard.commands.pubget"
+                    style="push">
+              </command>
+              <visibleWhen>
+                 <with
+                       variable="selection">
+                    <count
+                          value="1">
+                    </count>
+                    <iterate>
+                       <adapt
+                             type="org.eclipse.core.resources.IResource">
+                          <test
+                                forcePluginActivation="true"
+                                property="org.eclipse.dartboard.isDartProject">
+                          </test>
+                       </adapt>
+                    </iterate>
+                 </with>
+              </visibleWhen>
+           </menu>
+        </menuContribution>
     </extension>
     <extension point="org.eclipse.debug.ui.launchShortcuts">
         <shortcut class="org.eclipse.dartboard.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" icon="icons/dart.png" modes="run">
@@ -190,5 +218,34 @@
              path="assets/snippets/sample.dart"
              scopeName="source.dart">
        </snippet>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             description="Get the current package&apos;s dependencies."
+             id="org.eclipse.dartboard.commands.pubget"
+             name="Get dependencies">
+       </command>
+    </extension>
+    <extension
+          point="org.eclipse.ui.handlers">
+       <handler
+             class="org.eclipse.dartboard.pub.PubGetHandler"
+             commandId="org.eclipse.dartboard.commands.pubget">
+       </handler>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commandImages">
+       <image
+             commandId="org.eclipse.dartboard.commands.pubget"
+             disabledIcon="platform:/plugin/org.eclipse.pde.ui/icons/dlcl16/refresh.png"
+             icon="platform:/plugin/org.eclipse.pde.ui/icons/elcl16/refresh.png">
+       </image>
+    </extension>
+    <extension
+          point="org.eclipse.ui.startup">
+       <startup
+             class="org.eclipse.dartboard.ListenerService">
+       </startup>
     </extension>
 </plugin>
