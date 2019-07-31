@@ -49,6 +49,9 @@ public class Messages extends NLS {
 
 	public static String NewProject_Group_Label;
 	public static String NewProject_SDK_Not_Found;
+	public static String NewProject_Stagehand_Title;
+	public static String NewProject_Stagehand_UseStagehandButtonText;
+	public static String NewProject_Stagehand_FetchStagehand;
 
 	public static String NewFile_WindowTitle;
 	public static String NewFile_Title;
@@ -62,6 +65,10 @@ public class Messages extends NLS {
 	public static String PubSync_CouldNotDeterminePath;
 	public static String PubSync_CouldNotStartProcess;
 	public static String Error_CouldNotRefreshResource;
+
+	public static String Stagehand_GeneratorJob_Name;
+	public static String Stagehand_GeneratorJobFail_Title;
+	public static String Stagehand_GeneratorJobFail_Body;
 
 	static {
 		NLS.initializeMessages("assets.messages", Messages.class);

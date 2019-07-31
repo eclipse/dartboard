@@ -13,14 +13,24 @@
  *******************************************************************************/
 package org.eclipse.dartboard.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DartUtil {
+
+	private final static Logger LOG = LoggerFactory.getLogger(DartUtil.class);
 
 	private DartUtil() {
 	}
@@ -74,5 +84,54 @@ public class DartUtil {
 			return result + ".bat"; //$NON-NLS-1$
 		}
 		return result;
+	}
+
+	/**
+	 * Returns a {@link Path} containing the location of the Dart SDK folder.
+	 * 
+	 * This method finds the location of the Dart SDK on the system, if installed.
+	 * On *nix based systems it tries to locate the Dart binary by using the
+	 * {@code which} command. Typically the output is a symbolic link to the actual
+	 * binary. Since the Dart SDK installation folder contains more binaries that we
+	 * need, we resolve the symbolic link and return the path to the /bin directory
+	 * inside the SDK installation folder.
+	 * 
+	 * On Windows this method uses the where command to locate the binary.
+	 * 
+	 * @return - An {@link Optional} of {@link Path} containing the path to the
+	 *         {@code /bin} folder inside the Dart SDK installation directory or
+	 *         empty if the SDK is not found on the host machine.
+	 */
+	public static Optional<Path> getDartLocation() {
+		return getLocation("dart"); //$NON-NLS-1$
+	}
+
+	public static Optional<Path> getLocation(String program) {
+		Path path = null;
+		String[] command;
+		if (DartUtil.IS_WINDOWS) {
+			command = new String[] { "cmd", "/c", "where " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		} else {
+			command = new String[] { "/bin/bash", "-c", "which " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		}
+
+		try {
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			processBuilder.command(command);
+			Process process = processBuilder.start();
+			process.waitFor();
+			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+				String location = reader.readLine();
+				if (location != null) {
+					path = Paths.get(location);
+					path = path.toRealPath().getParent();
+				}
+			}
+		} catch (IOException | InterruptedException e) {
+			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
+		}
+
+		// TODO: Try different default installs (need to collect them)
+		return Optional.ofNullable(path);
 	}
 }
