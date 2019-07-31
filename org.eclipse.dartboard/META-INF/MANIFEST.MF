@@ -27,5 +27,3 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  org.eclipse.lsp4j.jsonrpc
 Import-Package: org.slf4j,
  org.slf4j.spi
-Service-Component: OSGI-INF/org.eclipse.dartboard.ListenerService.xml
-Bundle-ActivationPolicy: lazy
