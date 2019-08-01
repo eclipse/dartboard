@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.PubUtil;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.osgi.util.NLS;
 import org.slf4j.Logger;

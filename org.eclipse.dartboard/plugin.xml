@@ -248,4 +248,25 @@
              class="org.eclipse.dartboard.ListenerService">
        </startup>
     </extension>
+    <extension
+          point="org.eclipse.ui.importWizards">
+       <wizard
+             category="org.eclipse.dartboard.import.category"
+             class="org.eclipse.ui.internal.wizards.datatransfer.SmartImportWizard"
+             icon="icons/dart.png"
+             id="org.eclipse.dartboard.import.wizard"
+             name="Dart Project">
+       </wizard>
+       <category
+             id="org.eclipse.dartboard.import.category"
+             name="Dart">
+       </category>
+    </extension>
+    <extension
+          point="org.eclipse.ui.ide.projectConfigurators">
+       <projectConfigurator
+             class="org.eclipse.dartboard.project.DartProjectConfigurator"
+             label="Dart Project">
+       </projectConfigurator>
+    </extension>
 </plugin>

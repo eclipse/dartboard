@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.eclipse.dartboard.pub.PubUtil;
+import org.eclipse.dartboard.util.PubUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

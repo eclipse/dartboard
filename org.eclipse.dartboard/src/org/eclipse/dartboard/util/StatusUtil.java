@@ -22,6 +22,9 @@ import org.eclipse.jface.dialogs.IMessageProvider;
 
 public class StatusUtil {
 
+	private StatusUtil() {
+	}
+
 	public static IStatus newStatus(int severity, String message, Throwable exception) {
 		String statusMessage = message;
 		if (message == null || message.trim().isEmpty()) {
