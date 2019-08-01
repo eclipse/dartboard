@@ -1,7 +1,6 @@
-package org.eclipse.dartboard.pub;
+package org.eclipse.dartboard.util;
 
 import org.eclipse.dartboard.Constants;
-import org.eclipse.dartboard.util.DartUtil;
 
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;

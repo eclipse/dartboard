@@ -11,7 +11,7 @@
  * Contributors:
  *     Jonas Hungershausen
  *******************************************************************************/
-package org.eclipse.dartboard.launch;
+package org.eclipse.dartboard.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +30,10 @@ import org.slf4j.LoggerFactory;
 public class LaunchUtil {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LaunchUtil.class);
+
+	private LaunchUtil() {
+
+	}
 
 	/**
 	 * Passes a supplied file path to the Dart binary at a supplied SDK location.

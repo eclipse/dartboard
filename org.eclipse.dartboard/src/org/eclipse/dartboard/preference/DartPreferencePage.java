@@ -55,9 +55,6 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	private DartSDKLocationFieldEditor dartSDKLocationEditor;
 
-	private BooleanFieldEditor autoPubSyncEditor;
-	private BooleanFieldEditor useOfflinePub;
-
 	public DartPreferencePage() {
 		super(GRID);
 	}
@@ -82,7 +79,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			return true;
 		}
 		Path path = getPath(sdkLocation);
-		// If the path is not valid, the page should not be able to be validated;
+		// If the path is not valid, the page should not be able to be validated
 		// *should* never happen
 		if (path == null) {
 			setValid(false);
@@ -100,7 +97,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// restarting the IDE in the following step.
 				save();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOG.error("Could not save IDE preferences", e); //$NON-NLS-1$
 			}
 
 			Display.getDefault().asyncExec(() -> {
@@ -146,11 +143,11 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		dartSDKLocationEditor.addModifyListener(event -> {
 			setValid(dartSDKLocationEditor.doCheckState());
 		});
-		autoPubSyncEditor = new BooleanFieldEditor(Constants.PREFERENCES_SYNC_PUB,
+		BooleanFieldEditor autoPubSyncEditor = new BooleanFieldEditor(Constants.PREFERENCES_SYNC_PUB,
 				Messages.Preference_PubAutoSync_Label, parent);
 		addField(autoPubSyncEditor);
-		useOfflinePub = new BooleanFieldEditor(Constants.PREFERENCES_OFFLINE_PUB, Messages.Preference_PubOffline_Label,
-				parent);
+		BooleanFieldEditor useOfflinePub = new BooleanFieldEditor(Constants.PREFERENCES_OFFLINE_PUB,
+				Messages.Preference_PubOffline_Label, parent);
 		addField(useOfflinePub);
 	}
 

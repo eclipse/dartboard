@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.LaunchUtil;
 import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.dialogs.MessageDialog;

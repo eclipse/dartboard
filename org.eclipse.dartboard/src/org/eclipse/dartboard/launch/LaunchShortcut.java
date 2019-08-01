@@ -34,6 +34,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A {@link ILaunchShortcut} used to launch a project as a dart program.
@@ -45,6 +47,8 @@ import org.eclipse.ui.IFileEditorInput;
  */
 @SuppressWarnings("restriction")
 public class LaunchShortcut implements ILaunchShortcut {
+
+	private static final Logger LOG = LoggerFactory.getLogger(LaunchShortcut.class);
 
 	@Override
 	public void launch(ISelection selection, String mode) {
@@ -82,7 +86,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 		ILaunchConfigurationType type = manager.getLaunchConfigurationType(Constants.LAUNCH_CONFIGURATION_ID);
 
 		try {
-			// Find first launch configuration for selected project.
+			// Find last launch configuration for selected project.
 			ILaunchConfiguration launchConfiguration = null;
 			for (ILaunchConfiguration conf : manager.getLaunchConfigurations(type)) {
 				if (conf.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "").equalsIgnoreCase(project.getName())) { //$NON-NLS-1$
@@ -102,11 +106,11 @@ public class LaunchShortcut implements ILaunchShortcut {
 						Constants.LAUNCH_GROUP, null);
 
 				if (result == Window.OK) {
-					launchConfiguration = copy.doSave();
+					copy.doSave();
 				}
 			}
 		} catch (CoreException e) {
-			e.printStackTrace();
+			LOG.error("Could not save new launch configuration", e); //$NON-NLS-1$
 		}
 	}
 }

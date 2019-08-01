@@ -103,7 +103,6 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
 		}
 
-		// TODO: Try different default installs (need to collect them)
 		return Optional.ofNullable(path);
 	}
 }

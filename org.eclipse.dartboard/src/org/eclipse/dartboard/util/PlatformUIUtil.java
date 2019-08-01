@@ -21,6 +21,10 @@ import org.eclipse.ui.PlatformUI;
 
 public class PlatformUIUtil {
 
+	private PlatformUIUtil() {
+
+	}
+
 	public static Shell getActiveShell() {
 		IWorkbenchWindow window = getActiveWorkbenchWindow();
 		return window != null ? window.getShell() : null;
