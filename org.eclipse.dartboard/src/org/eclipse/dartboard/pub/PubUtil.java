@@ -26,12 +26,12 @@ public class PubUtil {
 	 *                variables are gotten
 	 * @return the pub environment variable plus the id of the plugin
 	 */
-	private static String getUpdatePubEnviroment(ProcessBuilder builder) {
+	public static String getUpdatePubEnviroment(ProcessBuilder builder) {
 		String pubEnv = builder.environment().get(Constants.PUB_ENVIRONMENT_VARIABLE);
 		if (Strings.isNullOrEmpty(pubEnv)) {
 			return Constants.PLUGIN_ID;
 		} else {
-			return pubEnv += Constants.PLUGIN_ID;
+			return pubEnv + ":" + Constants.PLUGIN_ID; //$NON-NLS-1$
 		}
 	}
 
