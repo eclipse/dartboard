@@ -3,7 +3,7 @@ package org.eclipse.dartboard.test.pub;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.eclipse.dartboard.pub.PubUtil;
+import org.eclipse.dartboard.util.PubUtil;
 import org.junit.Test;
 
 public class PubUtilTest {
