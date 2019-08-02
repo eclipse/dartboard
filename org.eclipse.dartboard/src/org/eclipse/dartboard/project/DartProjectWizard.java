@@ -15,9 +15,7 @@ package org.eclipse.dartboard.project;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.io.input.NullInputStream;
 import org.eclipse.core.commands.ExecutionException;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResourceStatus;
@@ -28,6 +26,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.stagehand.StagehandGenerator;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -88,11 +87,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 					Messages.NewProject_WindowTitle);
 			try {
 				projectOperation.execute(monitor, WorkspaceUndoUtil.getUIInfoAdapter(getShell()));
-				IFile pubspecFile = newProjectHandle.getFile(Constants.PUBSPEC); // $NON-NLS-1$
-				if (!pubspecFile.exists()) {
-					pubspecFile.create(new NullInputStream(0), true, null);
-				}
-			} catch (ExecutionException | CoreException e) {
+			} catch (ExecutionException e) {
 				throw new InvocationTargetException(e);
 			}
 		};
@@ -126,6 +121,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 			return null;
 		}
 		newProject = newProjectHandle;
+		StagehandGenerator.generate(dartProjectPage.getGenerator(), newProject);
 		return newProject;
 	}
 
