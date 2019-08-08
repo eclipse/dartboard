@@ -54,7 +54,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void createControl(Composite parent) {
-		Composite comp = new Group(parent, SWT.BORDER);
+		Composite comp = new Group(parent, SWT.NONE);
 		setControl(comp);
 
 		GridLayoutFactory.swtDefaults().numColumns(2).applyTo(comp);
@@ -74,7 +74,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		labelSdkLocation.setText(Messages.Preference_SDKLocation);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
-		textSdkLocation = new Text(comp, SWT.BORDER);
+		textSdkLocation = new Text(comp, SWT.NONE);
 		textSdkLocation.setMessage(Messages.Launch_SDKLocation_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
 		textSdkLocation.addModifyListener(event -> updateLaunchConfigurationDialog());
@@ -83,7 +83,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		labelMainClass.setText(Messages.Launch_MainClass);
 		GridDataFactory.swtDefaults().applyTo(labelMainClass);
 
-		textMainClass = new Text(comp, SWT.BORDER);
+		textMainClass = new Text(comp, SWT.NONE);
 		textMainClass.setMessage(Messages.Launch_MainClass_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textMainClass);
 		textMainClass.addModifyListener(event -> updateLaunchConfigurationDialog());
