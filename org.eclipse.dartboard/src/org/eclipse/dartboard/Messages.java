@@ -19,6 +19,7 @@ import org.eclipse.osgi.util.NLS;
 public class Messages extends NLS {
 
 	public static String Console_Name;
+	public static String Pub_Console_Name;
 	public static String Launch_DebugNotSupported_Title;
 	public static String Launch_DebugNotSupported_Body;
 	public static String Launch_NoProjectSelected_Title;
