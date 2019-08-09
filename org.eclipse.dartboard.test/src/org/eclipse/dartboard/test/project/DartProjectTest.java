@@ -2,6 +2,7 @@ package org.eclipse.dartboard.test.project;
 
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.eclipse.condition.ProjectExists;
@@ -32,7 +33,7 @@ public class DartProjectTest {
 	public void projectWizard__NewMenuDartProject__CreatesNewProject() {
 		new ShellMenu().getItem("File", "New", "Dart Project").select();
 		new WaitUntil(new ShellIsActive("New Dart Project"));
-		new WaitWhile(new JobIsRunning());
+		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 
 		new LabeledText("Project name:").setText("some-random-project");
 		new FinishButton().click();
