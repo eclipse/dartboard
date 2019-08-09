@@ -107,9 +107,11 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 			templates = StagehandService.getStagehandTemplates();
 
 			Display.getDefault().asyncExec(() -> {
-				templates.forEach(str -> stagehandTemplates.add(str.getDisplayName()));
 				indicator.done();
-				useStagehandButton.setEnabled(true);
+				if (!stagehandTemplates.isDisposed()) {
+					templates.forEach(str -> stagehandTemplates.add(str.getDisplayName()));
+					useStagehandButton.setEnabled(true);
+				}
 			});
 		}).schedule();
 	}
