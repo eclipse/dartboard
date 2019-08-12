@@ -1,3 +1,16 @@
+/*******************************************************************************
+ * Copyright (c) 2019 vogella GmbH and others.
+ *
+ * This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License 2.0
+ * which accompanies this distribution, and is available at
+ * https://www.eclipse.org/legal/epl-2.0/
+ *
+ * SPDX-License-Identifier: EPL-2.0
+ *
+ * Contributors:
+ *     Jonas Hungershausen - initial API and implementation
+ *******************************************************************************/
 package org.eclipse.dartboard.test.preference;
 
 import static org.junit.Assert.assertEquals;
@@ -45,10 +58,10 @@ public class DartPreferencePageTest {
 
 	@Test
 	public void dartPreferencePage__DefaultPreferences__CorrectDefaultsAreDisplayed() throws Exception {
-		assertEquals(preferencePage.isAutoPubSynchronization(), true);
-		assertEquals(preferencePage.isUseOfflinePub(), false);
+		assertEquals(true, preferencePage.isAutoPubSynchronization());
+		assertEquals(false, preferencePage.isUseOfflinePub());
 
-		assertEquals(preferencePage.getSDKLocation(), "/usr/lib/dart");
+		assertEquals("/usr/lib/dart", preferencePage.getSDKLocation());
 	}
 
 	@Test
@@ -67,8 +80,8 @@ public class DartPreferencePageTest {
 		ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
 				"org.eclipse.dartboard");
 
-		assertEquals(preferenceStore.getBoolean(Constants.PREFERENCES_OFFLINE_PUB), true);
-		assertEquals(preferenceStore.getBoolean(Constants.PREFERENCES_SYNC_PUB), false);
+		assertEquals(true, preferenceStore.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
+		assertEquals(false, preferenceStore.getBoolean(Constants.PREFERENCES_SYNC_PUB));
 	}
 
 	public class DartPreferencePage extends PreferencePage {
