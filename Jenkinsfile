@@ -57,17 +57,6 @@ spec:
         }
       }
     }
-    stage('Deploy') {
-      steps {
-        container('jnlp') {
-          sshagent (['projects-storage.eclipse.org-bot-ssh']) {
-            sh 'cp -r org.eclipse.dartboard.update/target/repository org.eclipse.dartboard.update/target/release'
-            sh 'ssh genie.dartboard@projects-storage.eclipse.org rm -rf /home/data/httpd/download.eclipse.org/dartboard/release'
-            sh 'scp -r org.eclipse.dartboard.update/target/release genie.dartboard@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/dartboard/'
-          }
-        }
-      }
-    }
   }
 }
 
