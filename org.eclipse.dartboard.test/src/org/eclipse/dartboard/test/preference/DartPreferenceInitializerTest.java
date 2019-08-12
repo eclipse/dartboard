@@ -39,7 +39,6 @@ public class DartPreferenceInitializerTest {
 	public void preferenceStore__NormalStartup__CorrectDefaultsAreSet() {
 		assertEquals(true, preferenceStore.getBoolean(Constants.PREFERENCES_SYNC_PUB));
 		assertEquals(false, preferenceStore.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
-
 		assertEquals("/usr/lib/dart", preferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION));
 	}
 
