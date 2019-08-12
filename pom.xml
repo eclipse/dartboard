@@ -18,17 +18,17 @@
  <version>0.1.0-SNAPSHOT</version>
  <packaging>pom</packaging>
  <parent>
-   <groupId>org.eclipse.dartboard.group</groupId>
-   <artifactId>org.eclipse.dartboard.releng</artifactId>
-   <version>1.0.0-SNAPSHOT</version>
-     <relativePath>./org.eclipse.dartboard.releng</relativePath>
+  <groupId>org.eclipse.dartboard.group</groupId>
+  <artifactId>org.eclipse.dartboard.releng</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <relativePath>./org.eclipse.dartboard.releng</relativePath>
  </parent>
 
  <modules>
-    <module>org.eclipse.dartboard</module>
-    <module>org.eclipse.dartboard.feature</module>
-    <module>org.eclipse.dartboard.update</module>
-    <module>org.eclipse.dartboard.test</module>
+  <module>org.eclipse.dartboard</module>
+  <module>org.eclipse.dartboard.feature</module>
+  <module>org.eclipse.dartboard.update</module>
+  <module>org.eclipse.dartboard.test</module>
  </modules>
 </project>
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferenceDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
@@ -35,9 +36,11 @@ public class DartPreferencePageTest {
 
 	@After
 	public void tearDown() {
+		DefaultPreferences.resetPreferences();
 		if (preferenceDialog.isOpen()) {
 			preferenceDialog.cancel();
 		}
+
 	}
 
 	@Test

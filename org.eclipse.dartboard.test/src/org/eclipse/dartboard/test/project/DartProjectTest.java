@@ -2,6 +2,7 @@ package org.eclipse.dartboard.test.project;
 
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.reddeer.common.wait.TimePeriod;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
@@ -9,6 +10,7 @@ import org.eclipse.reddeer.eclipse.condition.ProjectExists;
 import org.eclipse.reddeer.eclipse.core.resources.DefaultProject;
 import org.eclipse.reddeer.eclipse.jdt.ui.packageview.PackageExplorerPart;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
+import org.eclipse.reddeer.requirements.cleanworkspace.CleanWorkspaceRequirement;
 import org.eclipse.reddeer.swt.condition.ShellIsActive;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
@@ -16,11 +18,25 @@ import org.eclipse.reddeer.swt.impl.combo.DefaultCombo;
 import org.eclipse.reddeer.swt.impl.menu.ShellMenu;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.workbench.core.condition.JobIsRunning;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 public class DartProjectTest {
+
+	private CleanWorkspaceRequirement cwr = new CleanWorkspaceRequirement();
+
+	@Before
+	public void setup() {
+		DefaultPreferences.resetPreferences();
+	}
+
+	@After
+	public void cleanup() {
+		cwr.fulfill();
+	}
 
 	@Test
 	public void projectWizard__NewMenu__HasDartProjectItem() {

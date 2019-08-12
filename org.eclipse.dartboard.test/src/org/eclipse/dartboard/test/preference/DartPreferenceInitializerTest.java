@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.junit.Before;
@@ -17,6 +18,8 @@ public class DartPreferenceInitializerTest {
 
 	@Before
 	public void setup() {
+		DefaultPreferences.resetPreferences(preferenceStore);
+
 		preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard");
 	}
 
