@@ -24,6 +24,7 @@
   <eclipse-repo.url>http://download.eclipse.org/releases/2019-06</eclipse-repo.url>
   <textmate-repo.url>http://download.eclipse.org/tm4e/snapshots/</textmate-repo.url>
   <lspe-repo.url>http://download.eclipse.org/lsp4e/releases/latest/</lspe-repo.url>
+  <orbit-repo.url>https://download.eclipse.org/tools/orbit/downloads/drops/S20190726194335/repository/</orbit-repo.url>
   <tycho-extras.version>1.2.0</tycho-extras.version>
  </properties>
 
@@ -47,6 +48,11 @@
   <repository>
    <id>license-feature</id>
    <url>http://download.eclipse.org/cbi/updates/license/</url>
+   <layout>p2</layout>
+  </repository>
+  <repository>
+   <id>orbit</id>
+   <url>${orbit-repo.url}</url>
    <layout>p2</layout>
   </repository>
  </repositories>

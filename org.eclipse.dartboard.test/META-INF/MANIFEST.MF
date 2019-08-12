@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dartboard Tests
+Bundle-SymbolicName: org.eclipse.dartboard.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse.org
+Fragment-Host: org.eclipse.dartboard;bundle-version="0.1.0"
+Automatic-Module-Name: org.eclipse.dartboard.test
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.hamcrest.library;bundle-version="1.3.0",
+ org.mockito;bundle-version="2.23.0",
+ org.junit,
+ org.eclipse.reddeer.go;bundle-version="2.6.0",
+ net.bytebuddy.byte-buddy;bundle-version="1.9.0",
+ org.objenesis;bundle-version="2.6.0"
