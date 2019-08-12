@@ -22,7 +22,6 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
@@ -37,7 +36,7 @@ public class DartUtil {
 
 	public static final boolean IS_WINDOWS = Platform.OS_WIN32.equals(Platform.getOS());
 
-	static ScopedPreferenceStore preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
+	static ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	/**
 	 * Returns the path to an executable within the Dart SDK bin directory in a

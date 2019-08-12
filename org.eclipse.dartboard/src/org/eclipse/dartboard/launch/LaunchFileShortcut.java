@@ -16,9 +16,9 @@ package org.eclipse.dartboard.launch;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.dartboard.util.LaunchUtil;
 import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.debug.ui.ILaunchShortcut;
@@ -47,7 +47,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
  */
 public class LaunchFileShortcut implements ILaunchShortcut {
 
-	private ScopedPreferenceStore preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	@Override
 	public void launch(ISelection selection, String mode) {

@@ -16,7 +16,7 @@ package org.eclipse.dartboard;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.lsp4e.server.ProcessStreamConnectionProvider;
 import org.eclipse.lsp4e.server.StreamConnectionProvider;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
@@ -25,8 +25,7 @@ public class DartLanguageServerStreamProvider extends ProcessStreamConnectionPro
 		implements StreamConnectionProvider {
 
 	public DartLanguageServerStreamProvider() {
-		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
-				Constants.PLUGIN_ID);
+		ScopedPreferenceStore scopedPreferenceStore = DartPreferences.getPreferenceStore();
 
 		String dartLocation = scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION);
 

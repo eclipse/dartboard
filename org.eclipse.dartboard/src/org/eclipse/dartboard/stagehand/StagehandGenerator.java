@@ -1,7 +1,6 @@
 package org.eclipse.dartboard.stagehand;
 
 import java.io.IOException;
-import java.util.Objects;
 
 import org.apache.commons.io.input.NullInputStream;
 import org.eclipse.core.resources.IFile;
@@ -28,7 +27,7 @@ public class StagehandGenerator {
 
 	public static void generate(StagehandTemplate generator, IProject project) {
 		if (project == null) {
-			Objects.requireNonNull(project);
+			throw new IllegalArgumentException("The project can't be null"); //$NON-NLS-1$
 		}
 
 		if (generator == null) {

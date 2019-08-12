@@ -9,8 +9,8 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +19,11 @@ public class PubspecChangeListener implements IResourceChangeListener {
 
 	private static final Logger LOG = LoggerFactory.getLogger(PubspecChangeListener.class);
 
-	private ScopedPreferenceStore preferences;
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();;
 
 	private PubService pub;
 
 	public PubspecChangeListener() {
-		preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
 		pub = PubService.getInstance();
 	}
 

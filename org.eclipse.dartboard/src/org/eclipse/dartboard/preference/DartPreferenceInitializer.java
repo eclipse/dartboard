@@ -17,9 +17,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.dartboard.util.DartUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
@@ -37,8 +37,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 
 	@Override
 	public void initializeDefaultPreferences() {
-		ScopedPreferenceStore scopedPreferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
-				Constants.PLUGIN_ID);
+		ScopedPreferenceStore scopedPreferenceStore = DartPreferences.getPreferenceStore();
 
 		if (scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION).isEmpty()) {
 			Optional<Path> binLocation = DartUtil.getDartLocation();

@@ -32,7 +32,6 @@ public class LaunchUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(LaunchUtil.class);
 
 	private LaunchUtil() {
-
 	}
 
 	/**

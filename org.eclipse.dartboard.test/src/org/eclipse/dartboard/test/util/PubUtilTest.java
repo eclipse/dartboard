@@ -11,7 +11,7 @@
  * Contributors:
  *     Jonas Hungershausen - initial API and implementation
  *******************************************************************************/
-package org.eclipse.dartboard.test.pub;
+package org.eclipse.dartboard.test.util;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

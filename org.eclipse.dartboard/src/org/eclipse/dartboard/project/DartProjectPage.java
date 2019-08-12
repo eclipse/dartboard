@@ -16,11 +16,11 @@ package org.eclipse.dartboard.project;
 import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.stagehand.StagehandService;
 import org.eclipse.dartboard.stagehand.StagehandTemplate;
+import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.ProgressIndicator;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -40,14 +40,13 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DartProjectPage extends WizardNewProjectCreationPage {
 
-	private ScopedPreferenceStore preferences;
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 	private Combo stagehandTemplates;
 	private Button useStagehandButton;
 	private List<StagehandTemplate> templates;
 
 	public DartProjectPage(String pageName) {
 		super(pageName);
-		preferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, Constants.PLUGIN_ID);
 	}
 
 	@Override
