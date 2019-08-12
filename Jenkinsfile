@@ -58,9 +58,6 @@ spec:
       }
     }
     stage('Deploy') {
-      when {
-        branch 'master'
-      }
       steps {
         container('jnlp') {
           sshagent (['projects-storage.eclipse.org-bot-ssh']) {
