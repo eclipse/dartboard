@@ -95,7 +95,7 @@ public class DartProjectTest {
 		assertTrue(project.containsResource("analysis_options.yaml"));
 		assertTrue(project.containsResource("CHANGELOG.md"));
 		assertTrue(project.containsResource("README.md"));
-		new WaitWhile(new JobIsRunning(), TimePeriod.LONG);
+		new WaitWhile(new JobIsRunning(), TimePeriod.VERY_LONG);
 		assertTrue(project.containsResource("pubspec.lock"));
 	}
 }
