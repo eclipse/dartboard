@@ -243,12 +243,6 @@
        </image>
     </extension>
     <extension
-          point="org.eclipse.ui.startup">
-       <startup
-             class="org.eclipse.dartboard.ListenerService">
-       </startup>
-    </extension>
-    <extension
           point="org.eclipse.ui.importWizards">
        <wizard
              category="org.eclipse.dartboard.import.category"

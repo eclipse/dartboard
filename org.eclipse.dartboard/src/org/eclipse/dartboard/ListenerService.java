@@ -14,13 +14,22 @@
 package org.eclipse.dartboard;
 
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.dartboard.pub.PubService;
 import org.eclipse.dartboard.pub.PubspecChangeListener;
-import org.eclipse.ui.IStartup;
+import org.eclipse.e4.ui.workbench.UIEvents;
+import org.eclipse.ui.PlatformUI;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.event.Event;
+import org.osgi.service.event.EventConstants;
+import org.osgi.service.event.EventHandler;
 
-public class ListenerService implements IStartup {
+@Component(property = EventConstants.EVENT_TOPIC + "=" + UIEvents.UILifeCycle.APP_STARTUP_COMPLETE)
+public class ListenerService implements EventHandler {
 
 	@Override
-	public void earlyStartup() {
-		ResourcesPlugin.getWorkspace().addResourceChangeListener(new PubspecChangeListener());
+	public void handleEvent(Event event) {
+		PubService pubService = PlatformUI.getWorkbench().getService(PubService.class);
+		PubspecChangeListener pubspecChangeListener = new PubspecChangeListener(pubService);
+		ResourcesPlugin.getWorkspace().addResourceChangeListener(pubspecChangeListener);
 	}
 }

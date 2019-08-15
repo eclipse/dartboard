@@ -23,8 +23,8 @@ public class PubspecChangeListener implements IResourceChangeListener {
 
 	private PubService pub;
 
-	public PubspecChangeListener() {
-		pub = PubService.getInstance();
+	public PubspecChangeListener(PubService pubService) {
+		pub = pubService;
 	}
 
 	@Override

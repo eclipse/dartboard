@@ -7,22 +7,19 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class PubGetHandler extends AbstractHandler {
 
-	private PubService pub;
-
 	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
-
-	public PubGetHandler() {
-		pub = PubService.getInstance();
-	}
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IStructuredSelection sel = HandlerUtil.getCurrentStructuredSelection(event);
+		IWorkbench workbench = HandlerUtil.getActiveWorkbenchWindow(event).getWorkbench();
+		PubService pub = workbench.getService(PubService.class);
 		Object firstElement = sel.getFirstElement();
 		if (firstElement instanceof IResource) {
 			pub.get(((IResource) firstElement).getProject(), preferences.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
