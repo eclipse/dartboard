@@ -13,6 +13,8 @@
  *******************************************************************************/
 package org.eclipse.dartboard.launch;
 
+import java.util.Optional;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -27,6 +29,7 @@ import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.resource.ResourceLocator;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Combo;
@@ -34,7 +37,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +53,9 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Image image;
 
 	public LaunchConfigTab() {
-		ImageDescriptor descriptor = AbstractUIPlugin.imageDescriptorFromPlugin(Constants.PLUGIN_ID, "icons/dart.png"); //$NON-NLS-1$
-		image = descriptor != null ? descriptor.createImage() : null;
+		Optional<ImageDescriptor> optionalDescriptor = ResourceLocator.imageDescriptorFromBundle(Constants.PLUGIN_ID,
+				"icons/dart.png"); //$NON-NLS-1$
+		image = optionalDescriptor.isPresent() ? optionalDescriptor.get().createImage() : null;
 	}
 
 	@Override
