@@ -263,4 +263,11 @@
              label="Dart Project">
        </projectConfigurator>
     </extension>
+    <extension
+          point="org.eclipse.ui.genericeditor.icons">
+       <icon
+             contentType="org.eclipse.dartboard"
+             icon="icons/dart_file.png">
+       </icon>
+    </extension>
 </plugin>
