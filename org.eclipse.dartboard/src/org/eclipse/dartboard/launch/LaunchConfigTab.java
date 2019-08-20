@@ -13,11 +13,14 @@
  *******************************************************************************/
 package org.eclipse.dartboard.launch;
 
+import java.net.URL;
+
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.DartPreferences;
@@ -34,8 +37,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.osgi.framework.Bundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,8 +54,10 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Image image;
 
 	public LaunchConfigTab() {
-		ImageDescriptor descriptor = AbstractUIPlugin.imageDescriptorFromPlugin(Constants.PLUGIN_ID, "icons/dart.png"); //$NON-NLS-1$
-		image = descriptor != null ? descriptor.createImage() : null;
+		Bundle bundle = Platform.getBundle(Constants.PLUGIN_ID);
+		URL fileURL = bundle.getEntry("/icons/dart.png"); //$NON-NLS-1$
+		ImageDescriptor createFromURL = ImageDescriptor.createFromURL(fileURL);
+		image = createFromURL.createImage();
 	}
 
 	@Override
