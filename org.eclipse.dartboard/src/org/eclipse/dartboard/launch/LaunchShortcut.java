@@ -14,8 +14,8 @@
 package org.eclipse.dartboard.launch;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.PlatformUIUtil;
@@ -55,8 +55,8 @@ public class LaunchShortcut implements ILaunchShortcut {
 		IProject selected = null;
 		if (selection instanceof StructuredSelection) {
 			Object firstElement = ((StructuredSelection) selection).getFirstElement();
-			if (firstElement instanceof IAdaptable) {
-				selected = ((IAdaptable) firstElement).getAdapter(IProject.class);
+			if (firstElement instanceof IResource) {
+				selected = ((IResource) firstElement).getProject();
 			}
 		}
 
