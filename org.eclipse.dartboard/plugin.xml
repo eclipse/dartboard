@@ -52,25 +52,6 @@
         <initializer class="org.eclipse.dartboard.preference.DartPreferenceInitializer"></initializer>
     </extension>
     <extension point="org.eclipse.ui.menus">
-        <menuContribution allPopups="false" locationURI="popup:org.eclipse.ui.projectConfigure">
-        <command commandId="org.eclipse.dartboard.dartprojectnature.command" label="Convert to Dart Project" mnemonic="D" style="push">
-        <visibleWhen>
-        <iterate
-             ifEmpty="false"
-             operator="or">
-          <adapt
-                type="org.eclipse.core.resources.IProject">
-             <not>
-                <test
-                      property="org.eclipse.core.resources.projectNature"
-                      value="org.eclipse.dartboard.dartprojectnature">
-                </test>
-             </not>
-          </adapt>
-       </iterate>
-                </visibleWhen>
-            </command>
-        </menuContribution>
         <menuContribution
               locationURI="popup:org.eclipse.ui.popup.any?after=additions">
            <menu
