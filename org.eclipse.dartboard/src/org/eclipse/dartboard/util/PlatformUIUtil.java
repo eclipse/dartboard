@@ -13,12 +13,17 @@
  *******************************************************************************/
 package org.eclipse.dartboard.util;
 
+import org.eclipse.jface.widgets.LabelFactory;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Widget;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 
+@SuppressWarnings("restriction")
 public class PlatformUIUtil {
 
 	private PlatformUIUtil() {
@@ -39,5 +44,9 @@ public class PlatformUIUtil {
 
 	public static IWorkbench getWorkbench() {
 		return PlatformUI.getWorkbench();
+	}
+
+	public static Widget placeholder(Composite parent) {
+		return LabelFactory.newLabel(SWT.NONE).create(parent);
 	}
 }

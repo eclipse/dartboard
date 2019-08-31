@@ -7,6 +7,12 @@ import com.google.common.collect.Lists;
 
 public class PubUtil {
 
+	/**
+	 * The timeout in seconds to wait until the activation process is considered
+	 * stuck
+	 */
+	public static final int GLOBAL_ACTIVATE_TIMEOUT = 30;
+
 	private PubUtil() {
 	}
 

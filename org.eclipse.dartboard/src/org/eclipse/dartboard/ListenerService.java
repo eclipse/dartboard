@@ -16,6 +16,7 @@ package org.eclipse.dartboard;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.dartboard.pub.PubService;
 import org.eclipse.dartboard.pub.PubspecChangeListener;
+import org.eclipse.dartboard.webdev.WebDevService;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.eclipse.ui.PlatformUI;
 import org.osgi.service.component.annotations.Component;
@@ -31,5 +32,8 @@ public class ListenerService implements EventHandler {
 		PubService pubService = PlatformUI.getWorkbench().getService(PubService.class);
 		PubspecChangeListener pubspecChangeListener = new PubspecChangeListener(pubService);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(pubspecChangeListener);
+
+		// Startup for WebDev
+		WebDevService.init();
 	}
 }

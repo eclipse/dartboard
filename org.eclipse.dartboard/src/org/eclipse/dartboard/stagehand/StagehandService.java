@@ -22,12 +22,6 @@ public class StagehandService {
 	 */
 	private static List<StagehandTemplate> stagehandTemplates;
 
-	/**
-	 * The timeout in seconds to wait until the activation process is considered
-	 * stuck
-	 */
-	private static final int STAGEHAND_ACTIVATE_TIMEOUT = 30;
-
 	public static List<StagehandTemplate> getStagehandTemplates() {
 		// The actual gathering process should only be run once (if the cache is not
 		// populated already)
@@ -62,7 +56,7 @@ public class StagehandService {
 		@SuppressWarnings("nls")
 		ProcessBuilder builder = PubUtil.getPubProcessBuilder("global", "activate", "stagehand");
 		try {
-			builder.start().waitFor(STAGEHAND_ACTIVATE_TIMEOUT, TimeUnit.SECONDS);
+			builder.start().waitFor(PubUtil.GLOBAL_ACTIVATE_TIMEOUT, TimeUnit.SECONDS);
 		} catch (IOException | InterruptedException e) {
 			LOG.error("Could not activate stagehand globally", e); //$NON-NLS-1$
 		}

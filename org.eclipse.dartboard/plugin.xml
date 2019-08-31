@@ -40,10 +40,31 @@
         <languageConfiguration contentTypeId="org.eclipse.dartboard" path="assets/dart-language-configuration.json"></languageConfiguration>
     </extension>
     <extension point="org.eclipse.debug.core.launchConfigurationTypes">
-        <launchConfigurationType delegate="org.eclipse.dartboard.launch.LaunchConfig" id="org.eclipse.dartboard.launch" modes="run, debug" name="Run Dart Program"></launchConfigurationType>
+        <launchConfigurationType
+              delegate="org.eclipse.dartboard.launch.LaunchConfig"
+              id="org.eclipse.dartboard.launch"
+              modes="run, debug"
+              name="Run Dart Program"></launchConfigurationType>
+        <launchConfigurationType
+              delegate="org.eclipse.dartboard.launch.webdev.WebDevServeLaunchTabGroup"
+              id="org.eclipse.dartboard.launch.webdev.serve"
+              modes="run"
+              name="Serve Dart Web project">
+        </launchConfigurationType>
+        <launchConfigurationType
+              delegate="org.eclipse.dartboard.launch.webdev.build.WebDevBuildLaunchConfig"
+              id="org.eclipse.dartboard.launch.webdev.build"
+              modes="run"
+              name="Build Dart Web project">
+        </launchConfigurationType>
     </extension>
     <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
         <launchConfigurationTabGroup class="org.eclipse.dartboard.launch.LaunchTabGroup" id="org.eclipse.dartboard.launchTabGroups" type="org.eclipse.dartboard.launch"></launchConfigurationTabGroup>
+        <launchConfigurationTabGroup
+              class="org.eclipse.dartboard.launch.webdev.WebDevServeLaunchTabGroup"
+              id="org.eclipse.dartboard.launch.webdev.serve.tabgroup"
+              type="org.eclipse.dartboard.launch.webdev.serve">
+        </launchConfigurationTabGroup>
     </extension>
     <extension point="org.eclipse.ui.preferencePages">
         <page class="org.eclipse.dartboard.preference.DartPreferencePage" id="org.eclipse.dartboard.preferencePage" name="Dart"></page>

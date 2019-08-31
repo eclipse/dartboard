@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.eclipse.dartboard.launch;
 
+import org.eclipse.dartboard.launch.dart.DartLaunchConfigTab;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
@@ -22,6 +23,6 @@ public class LaunchTabGroup extends AbstractLaunchConfigurationTabGroup {
 
 	@Override
 	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		setTabs(new ILaunchConfigurationTab[] { new LaunchConfigTab(), new CommonTab() });
+		setTabs(new ILaunchConfigurationTab[] { new DartLaunchConfigTab(), new CommonTab() });
 	}
 }
