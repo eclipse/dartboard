@@ -15,7 +15,7 @@ Check by running `$ dart --version` after installation.
 
 Install the Eclipse https://marketplace.eclipse.org/content/dartboard[plugin from the Marketplace] or use the http://marketplace.eclipse.org/marketplace-client-intro?mpc_install=4711459[image:https://marketplace.eclipse.org/sites/all/themes/solstice/public/images/marketplace/btn-install.png[]] button.
 
-Alternatively there are p2 updatesites available at https://download.eclipse.org/dartboard/
+There is also a p2 update site available at: https://download.eclipse.org/dartboard/release/?d
 
 == Features
 
