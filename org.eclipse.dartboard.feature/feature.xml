@@ -17,6 +17,7 @@
       label="Dartboard - Dart language support for Eclipse"
       version="0.1.0.qualifier"
       provider-name="Eclipse.org"
+      plugin="org.eclipse.dartboard"
       license-feature="org.eclipse.license"
       license-feature-version="2.0.2.qualifier">
 
