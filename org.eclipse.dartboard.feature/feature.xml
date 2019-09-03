@@ -18,7 +18,7 @@
       version="0.1.0.qualifier"
       provider-name="Eclipse.org"
       license-feature="org.eclipse.license"
-      license-feature-version="2.0.0.qualifier">
+      license-feature-version="2.0.2.qualifier">
 
    <description url="http://www.example.com/description">
       Supports developing Dart applications with the Eclipse IDE using the Language Server Protocol.
