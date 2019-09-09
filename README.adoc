@@ -21,8 +21,6 @@ There is also a p2 update site available at: https://download.eclipse.org/dartbo
 
 Thanks to the language server protocol and the analysis server provided by the Dart team Dartboard already contains many features.
 
-=== Rich Text Editing
-
 The language server provides the necessary analysis and TextMate grammars provide syntax highlighting to enrich the development experience.
 
 image:https://user-images.githubusercontent.com/5540255/59055777-f47fd100-8896-11e9-83dc-07fa3517e303.png[Syntax Highlight]
@@ -33,6 +31,14 @@ image:https://user-images.githubusercontent.com/5540255/59127089-f7e28d80-8966-1
 
 - All features from the classic https://www.eclipse.org/eclipseide/[Eclipse IDE]
 
+== How to build
+
+To build the project use Maven. Please note that 3.6.1 and 3.6.2 have a bug, use either a later version or Maven 3.6.0.
+
+[source, text]
+----
+mvn clean verify
+----
 
 == Contributing
 
