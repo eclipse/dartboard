@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?pde version="3.8"?>
+<target name="dartboard">
+<locations>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="a.jre.javase" version="0.0.0"/>
+<unit id="config.a.jre.javase" version="0.0.0"/>
+<unit id="org.eclipse.sdk.ide" version="0.0.0"/>
+<unit id="org.eclipse.jface.text.tests" version="0.0.0"/>
+<repository location="https://download.eclipse.org/eclipse/updates/4.13-I-builds/"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.mylyn.commons.notifications.feature.group" version="0.0.0"/>
+<repository location="http://download.eclipse.org/mylyn/releases/latest"/>
+</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/tm4e/snapshots/"/>
+		<unit id="org.eclipse.tm4e.feature.feature.group" version="0.3.4.201909051118"/>
+		<unit id="org.jcodings" version="1.0.18.v20170306-1742"/>
+		<unit id="org.joni" version="2.1.11.v20170306-1742"/>
+	</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/lsp4e/releases/latest/"/>
+		<unit id="com.google.gson" version="2.7.0.v20170129-0911"/>
+		<unit id="org.eclipse.lsp4e" version="0.11.0.201909090701"/>
+		<unit id="org.eclipse.lsp4e.debug" version="0.10.0.201909031808"/>
+		<unit id="org.eclipse.lsp4j" version="0.7.2.v20190528-0933"/>
+		<unit id="org.eclipse.lsp4j.debug" version="0.7.2.v20190528-0933"/>
+		<unit id="org.eclipse.lsp4j.jsonrpc" version="0.7.2.v20190528-0933"/>
+		<unit id="org.eclipse.lsp4j.jsonrpc.debug" version="0.7.2.v20190528-0933"/>
+		<unit id="org.eclipse.xtext.xbase.lib" version="2.18.0.v20190603-0326"/>
+	</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/mylyn/docs/releases/3.0"/>
+		<unit id="org.eclipse.mylyn.wikitext" version="0.0.0"/>
+		<unit id="org.eclipse.mylyn.wikitext.markdown" version="0.0.0"/>
+		<unit id="org.eclipse.mylyn.wikitext.markdown.ui" version="0.0.0"/>
+</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/S20190726194335/repository/"/>
+		<unit id="net.bytebuddy.byte-buddy-agent.source" version="1.9.0.v20181106-1534"/>
+		<unit id="net.bytebuddy.byte-buddy.source" version="1.9.0.v20181107-1410"/>
+		<unit id="org.mockito" version="2.23.0.v20190527-1420"/>
+		<unit id="org.objenesis.source" version="2.6.0.v20180420-1519"/>
+		<unit id="org.hamcrest.library" version="1.3.0.v20180524-2246"/>
+		<unit id="ch.qos.logback.classic" version="1.1.2.v20171220-1825"/>
+		<unit id="ch.qos.logback.classic.source" version="1.1.2.v20171220-1825"/>
+		<unit id="ch.qos.logback.core" version="1.1.2.v20160208-0839"/>
+		<unit id="ch.qos.logback.core.source" version="1.1.2.v20160208-0839"/>
+		<unit id="ch.qos.logback.slf4j" version="1.1.2.v20160301-0943"/>
+		<unit id="ch.qos.logback.slf4j.source" version="1.1.2.v20160301-0943"/>
+		<unit id="com.google.gson" version="2.8.2.v20180104-1110"/>
+	</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/reddeer/releases/latest"/>
+		<unit id="org.eclipse.reddeer.codegen.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.e4.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.eclipse.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.logparser.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.recorder.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.spy.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.swt.feature.feature.group" version="2.7.0.v20190911-1936"/>
+		<unit id="org.eclipse.reddeer.ui.feature.feature.group" version="2.7.0.v20190911-1936"/>
+	</location>
+</locations>
+</target>
