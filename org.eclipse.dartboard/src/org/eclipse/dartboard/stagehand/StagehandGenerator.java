@@ -7,7 +7,9 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
@@ -15,15 +17,14 @@ import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.dartboard.util.PubUtil;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.widgets.Display;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class StagehandGenerator {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StagehandGenerator.class);
+	private static final ILog LOG = Platform.getLog(StagehandGenerator.class);
 
 	public static void generate(StagehandTemplate generator, IProject project) {
 		if (project == null) {
@@ -36,7 +37,7 @@ public class StagehandGenerator {
 				try {
 					pubspecFile.create(new NullInputStream(0), true, null);
 				} catch (CoreException e) {
-					LOG.error("Could not create pubspec.yaml file", e); //$NON-NLS-1$
+					LOG.log(StatusUtil.createError("Could not create pubspec.yaml file", e)); //$NON-NLS-1$
 				}
 			}
 		} else {
@@ -59,7 +60,7 @@ public class StagehandGenerator {
 							}
 
 						} catch (IOException | InterruptedException e) {
-							LOG.error("Could not generate stagehand template", e); //$NON-NLS-1$
+							LOG.log(StatusUtil.createError("Could not generate stagehand template", e)); //$NON-NLS-1$
 						}
 					});
 
@@ -71,7 +72,7 @@ public class StagehandGenerator {
 					try {
 						project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
 					} catch (CoreException e) {
-						LOG.error("Could not refresh project", e); //$NON-NLS-1$
+						LOG.log(StatusUtil.createError("Could not refresh project", e)); //$NON-NLS-1$
 					}
 				}
 			});

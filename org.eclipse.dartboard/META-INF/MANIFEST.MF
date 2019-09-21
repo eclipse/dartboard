@@ -30,9 +30,7 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  javax.inject,
  org.eclipse.osgi.services,
  org.eclipse.e4.ui.model.workbench
-Import-Package: org.eclipse.e4.core.di;version="1.7.0",
- org.slf4j,
- org.slf4j.spi
+Import-Package: org.eclipse.e4.core.di;version="1.7.0"
 Service-Component: OSGI-INF/org.eclipse.dartboard.pub.PubService.xml,
  OSGI-INF/org.eclipse.dartboard.ListenerService.xml
 Bundle-ActivationPolicy: lazy

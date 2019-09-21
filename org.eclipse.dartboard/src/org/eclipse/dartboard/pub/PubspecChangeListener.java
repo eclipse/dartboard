@@ -9,15 +9,16 @@ import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.util.DartPreferences;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class PubspecChangeListener implements IResourceChangeListener {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PubspecChangeListener.class);
+	private static final ILog LOG = Platform.getLog(PubspecChangeListener.class);
 
 	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();;
 
@@ -51,7 +52,7 @@ public class PubspecChangeListener implements IResourceChangeListener {
 					}
 				});
 			} catch (CoreException e) {
-				LOG.error(e.getMessage(), e);
+				LOG.log(StatusUtil.createError(e.getMessage(), e));
 			}
 		}
 	}

@@ -20,10 +20,12 @@ import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.DartPreferences;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -39,12 +41,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.osgi.framework.Bundle;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
-	private static final Logger LOG = LoggerFactory.getLogger(LaunchConfigTab.class);
+	private static final ILog LOG = Platform.getLog(LaunchConfigTab.class);
 
 	private Text textSdkLocation;
 	private Text textMainClass;
@@ -117,7 +117,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
 			setDirty(true);
 		} catch (CoreException e) {
-			LOG.error("Couldn't initialize LaunchConfigTab", e); //$NON-NLS-1$
+			LOG.log(StatusUtil.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
 		}
 	}
 
