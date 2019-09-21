@@ -24,8 +24,10 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -38,12 +40,10 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.ide.IDE;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DartFileWizard extends Wizard implements INewWizard {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DartFileWizard.class);
+	private static final ILog LOG = Platform.getLog(DartFileWizard.class);
 
 	private DartFilePage dartFilePage;
 	private IStructuredSelection selection;
@@ -105,7 +105,7 @@ public class DartFileWizard extends Wizard implements INewWizard {
 				file.create(stream, true, monitor);
 			}
 		} catch (IOException e) {
-			LOG.error(e.getMessage());
+			LOG.log(StatusUtil.createError(e.getMessage()));
 		}
 		monitor.worked(1);
 		monitor.setTaskName(Messages.NewFile_OpeningFile);
@@ -114,7 +114,7 @@ public class DartFileWizard extends Wizard implements INewWizard {
 			try {
 				IDE.openEditor(page, file, true);
 			} catch (PartInitException e) {
-				LOG.error(e.getMessage());
+				LOG.log(StatusUtil.createError(e.getMessage()));
 			}
 		});
 		monitor.worked(1);

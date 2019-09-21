@@ -23,19 +23,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Messages;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.google.common.collect.Lists;
 
 public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DartSDKLocationFieldEditor.class);
+	private static final ILog LOG = Platform.getLog(DartSDKLocationFieldEditor.class);
 
 	public DartSDKLocationFieldEditor(String preferencesKey, String label, Composite parent) {
 		super(preferencesKey, label, parent);
@@ -104,7 +104,7 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 		try {
 			path = path.toRealPath();
 		} catch (IOException e1) {
-			LOG.error("Couldn't follow symlink", e1);
+			LOG.log(StatusUtil.createError("Couldn't follow symlink", e1));
 			return false;
 		}
 

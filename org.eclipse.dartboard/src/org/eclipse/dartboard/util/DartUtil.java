@@ -24,12 +24,8 @@ import java.util.Optional;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DartUtil {
-
-	private static final Logger LOG = LoggerFactory.getLogger(DartUtil.class);
 
 	private DartUtil() {
 	}
@@ -101,11 +97,11 @@ public class DartUtil {
 	 *         {@code /bin} folder inside the Dart SDK installation directory or
 	 *         empty if the SDK is not found on the host machine.
 	 */
-	public static Optional<Path> getDartLocation() {
+	public static Optional<Path> getDartLocation() throws IOException, InterruptedException {
 		return getLocation("dart"); //$NON-NLS-1$
 	}
 
-	public static Optional<Path> getLocation(String program) {
+	public static Optional<Path> getLocation(String program) throws IOException, InterruptedException {
 		Path path = null;
 		String[] command;
 		if (IS_WINDOWS) {
@@ -114,20 +110,16 @@ public class DartUtil {
 			command = new String[] { "/bin/bash", "-c", "which " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
-		try {
-			ProcessBuilder processBuilder = new ProcessBuilder();
-			processBuilder.command(command);
-			Process process = processBuilder.start();
-			process.waitFor();
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-				String location = reader.readLine();
-				if (location != null) {
-					path = Paths.get(location);
-					path = path.toRealPath().getParent();
-				}
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		processBuilder.command(command);
+		Process process = processBuilder.start();
+		process.waitFor();
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+			String location = reader.readLine();
+			if (location != null) {
+				path = Paths.get(location);
+				path = path.toRealPath().getParent();
 			}
-		} catch (IOException | InterruptedException e) {
-			LOG.error("Could not locate Dart SDK location.", e); //$NON-NLS-1$
 		}
 
 		// TODO: Try different default installs (need to collect them)

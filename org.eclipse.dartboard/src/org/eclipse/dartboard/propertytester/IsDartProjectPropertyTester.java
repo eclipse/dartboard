@@ -18,13 +18,14 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.eclipse.dartboard.util.StatusUtil;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
 
-	private static final Logger LOG = LoggerFactory.getLogger(IsDartProjectPropertyTester.class);
+	private static final ILog LOG = Platform.getLog(IsDartProjectPropertyTester.class);
 
 	private static final String IS_DART_PROJECT_PROPERTY = "isDartProject"; //$NON-NLS-1$
 
@@ -51,7 +52,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 					}
 				}
 			} catch (CoreException e) {
-				LOG.error("Couldn't list members of project " + project.getName(), e); //$NON-NLS-1$
+				LOG.log(StatusUtil.createError("Couldn't list members of project " + project.getName(), e)); //$NON-NLS-1$
 			}
 		}
 

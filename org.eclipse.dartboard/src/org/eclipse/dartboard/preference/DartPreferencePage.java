@@ -18,10 +18,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.DartPreferences;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
@@ -35,8 +37,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.eclipse.ui.PlatformUI;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@link FieldEditorPreferencePage} that lets the user set various
@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class DartPreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DartPreferencePage.class);
+	private static final ILog LOG = Platform.getLog(DartPreferencePage.class);
 
 	/**
 	 * A {@link DirectoryFieldEditor} used to obtain the Dart SDK location
@@ -96,7 +96,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// restarting the IDE in the following step.
 				save();
 			} catch (IOException e) {
-				LOG.error("Could not save IDE preferences", e); //$NON-NLS-1$
+				LOG.log(StatusUtil.createError("Could not save IDE preferences", e)); //$NON-NLS-1$
 			}
 
 			Display.getDefault().asyncExec(() -> {
@@ -122,7 +122,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// levels up here.
 				path = path.toRealPath().toAbsolutePath().getParent().getParent();
 			} catch (IOException e) {
-				LOG.error("Couldn't follow symlink", e); //$NON-NLS-1$
+				LOG.log(StatusUtil.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
 			}
 			return path;
 		} else {

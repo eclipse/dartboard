@@ -24,8 +24,10 @@ import javax.inject.Singleton;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
@@ -36,8 +38,6 @@ import org.eclipse.dartboard.util.PubUtil;
 import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.osgi.util.NLS;
 import org.osgi.service.component.annotations.Component;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@link Singleton} service that exposes various Pub functions.
@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 @Component(service = PubService.class)
 public class PubService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(PubService.class);
+	private static final ILog LOG = Platform.getLog(PubService.class);
 
 	/**
 	 * A {@link Map} holding an {@link IProject} and a {@link Job} as ideally there
@@ -87,8 +87,7 @@ public class PubService {
 				return StatusUtil.createError(NLS.bind(Messages.PubSync_CouldNotDeterminePath, project.getName()));
 			}
 
-			ProcessBuilder builder = PubUtil
-					.getPubProcessBuilder("get", offline ? "--offline" : "--no-offline") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			ProcessBuilder builder = PubUtil.getPubProcessBuilder("get", offline ? "--offline" : "--no-offline") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 					.directory(location.makeAbsolute().toFile());
 
 			Process process = null;
@@ -130,7 +129,8 @@ public class PubService {
 					try {
 						project.refreshLocal(IResource.DEPTH_INFINITE, null);
 					} catch (CoreException exception) {
-						LOG.error(NLS.bind(Messages.Error_CouldNotRefreshResource, project.getName()), exception);
+						LOG.log(StatusUtil.createError(
+								NLS.bind(Messages.Error_CouldNotRefreshResource, project.getName()), exception));
 					}
 				}
 			}

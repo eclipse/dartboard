@@ -14,16 +14,17 @@ import java.util.Set;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.ui.wizards.datatransfer.ProjectConfigurator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DartProjectConfigurator implements ProjectConfigurator {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DartProjectConfigurator.class);
+	private static final ILog LOG = Platform.getLog(DartProjectConfigurator.class);
 
 	@Override
 	public Set<File> findConfigurableLocations(File root, IProgressMonitor monitor) {
@@ -40,7 +41,7 @@ public class DartProjectConfigurator implements ProjectConfigurator {
 				}
 			});
 		} catch (IOException e) {
-			LOG.error("Couldn't walk children directories", e); //$NON-NLS-1$
+			LOG.log(StatusUtil.createError("Couldn't walk children directories", e)); //$NON-NLS-1$
 		}
 		return files;
 	}

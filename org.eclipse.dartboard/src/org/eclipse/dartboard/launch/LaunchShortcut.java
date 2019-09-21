@@ -16,9 +16,12 @@ package org.eclipse.dartboard.launch;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.PlatformUIUtil;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
@@ -34,8 +37,6 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IFileEditorInput;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A {@link ILaunchShortcut} used to launch a project as a dart program.
@@ -48,7 +49,7 @@ import org.slf4j.LoggerFactory;
 @SuppressWarnings("restriction")
 public class LaunchShortcut implements ILaunchShortcut {
 
-	private static final Logger LOG = LoggerFactory.getLogger(LaunchShortcut.class);
+	private static final ILog LOG = Platform.getLog(LaunchShortcut.class);
 
 	@Override
 	public void launch(ISelection selection, String mode) {
@@ -110,7 +111,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 				}
 			}
 		} catch (CoreException e) {
-			LOG.error("Could not save new launch configuration", e); //$NON-NLS-1$
+			LOG.log(StatusUtil.createError("Could not save new launch configuration", e)); //$NON-NLS-1$
 		}
 	}
 }

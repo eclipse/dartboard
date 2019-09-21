@@ -6,16 +6,17 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.util.PubUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.eclipse.dartboard.util.StatusUtil;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 
 public class StagehandService {
 
-	private static final Logger LOG = LoggerFactory.getLogger(StagehandService.class);
+	private static final ILog LOG = Platform.getLog(StagehandService.class);
 
 	/**
 	 * A local cache that should not be refreshed (hence it's static)
@@ -52,7 +53,7 @@ public class StagehandService {
 					.sort((first, second) -> first.getDisplayName().compareToIgnoreCase(second.getDisplayName()));
 
 		} catch (IOException e) {
-			LOG.error("Could not fetch stagehand template list", e); //$NON-NLS-1$
+			LOG.log(StatusUtil.createError("Could not fetch stagehand template list", e)); //$NON-NLS-1$
 		}
 
 		return stagehandTemplates;
@@ -64,7 +65,7 @@ public class StagehandService {
 		try {
 			builder.start().waitFor(STAGEHAND_ACTIVATE_TIMEOUT, TimeUnit.SECONDS);
 		} catch (IOException | InterruptedException e) {
-			LOG.error("Could not activate stagehand globally", e); //$NON-NLS-1$
+			LOG.log(StatusUtil.createError("Could not activate stagehand globally", e)); //$NON-NLS-1$
 		}
 	}
 }

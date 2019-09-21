@@ -13,14 +13,18 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preference;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
+import org.eclipse.core.runtime.ILog;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.dartboard.util.DartUtil;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
@@ -33,6 +37,8 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
  */
 public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 
+	private static final ILog LOG = Platform.getLog(DartPreferenceInitializer.class);
+
 	private static boolean warned;
 
 	@Override
@@ -40,7 +46,12 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		ScopedPreferenceStore scopedPreferenceStore = DartPreferences.getPreferenceStore();
 
 		if (scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION).isEmpty()) {
-			Optional<Path> binLocation = DartUtil.getDartLocation();
+			Optional<Path> binLocation = Optional.empty();
+			try {
+				binLocation = DartUtil.getDartLocation();
+			} catch (IOException | InterruptedException e) {
+				LOG.log(StatusUtil.createError("Could not retrieve Dart location", e)); //$NON-NLS-1$
+			}
 			if (binLocation.isPresent()) {
 				Path sdkPath = binLocation.get().getParent();
 				scopedPreferenceStore.setDefault(Constants.PREFERENCES_SDK_LOCATION, sdkPath.toString());

@@ -22,7 +22,9 @@ import org.eclipse.core.resources.IResourceStatus;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.Messages;
@@ -40,12 +42,10 @@ import org.eclipse.ui.statushandlers.IStatusAdapterConstants;
 import org.eclipse.ui.statushandlers.StatusAdapter;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class DartProjectWizard extends Wizard implements INewWizard {
 
-	private static final Logger LOG = LoggerFactory.getLogger(DartProjectWizard.class);
+	private static final ILog LOG = Platform.getLog(DartProjectWizard.class);
 
 	private DartProjectPage dartProjectPage;
 	private IProject newProject;
@@ -96,7 +96,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 		try {
 			getContainer().run(true, true, operation);
 		} catch (InterruptedException e) {
-			LOG.error(e.getMessage());
+			LOG.log(StatusUtil.createError(e.getMessage()));
 			return null;
 		} catch (InvocationTargetException e) {
 			Throwable t = e.getTargetException();
