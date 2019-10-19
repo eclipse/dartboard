@@ -131,10 +131,10 @@
   <extension
           point="org.eclipse.ui.newWizards">
         <category
-             id="org.eclipse.dartboard.eclipse.newwizards"
-             name="Dart &amp; Flutter"></category>
+             id="org.eclipse.dartboard.eclipse.wizards"
+             name="Dart"></category>
         <wizard
-             category="org.eclipse.dartboard.eclipse.newwizards"
+             category="org.eclipse.dartboard.eclipse.wizards"
              class="org.eclipse.dartboard.project.DartProjectWizard"
              icon="icons/dart.png"
              id="org.eclipse.dartboard.dart.newproject"
@@ -145,7 +145,7 @@
           </description>
         </wizard>
         <wizard
-             category="org.eclipse.dartboard.eclipse.newwizards"
+             category="org.eclipse.dartboard.eclipse.wizards"
              class="org.eclipse.dartboard.project.DartFileWizard"
              icon="icons/dart_file.png"
              id="org.eclipse.dartboard.dart.newfile"
@@ -153,14 +153,6 @@
             <description>
              Create a Dart file
           </description>
-        </wizard>
-        <wizard
-              category="org.eclipse.dartboard.eclipse.newwizards"
-              class="org.eclipse.dartboard.project.flutter.FlutterProjectWizard"
-              icon="icons/flutter.png"
-              id="org.eclipse.dartboard.flutter.newproject"
-              name="Flutter project"
-              project="true">
         </wizard>
     </extension>
     <extension
@@ -171,9 +163,6 @@
                 id="org.eclipse.dartboard.dart.newproject"/>
             <newWizardShortcut
                 id="org.eclipse.dartboard.dart.newfile"/>
-            <newWizardShortcut
-                  id="org.eclipse.dartboard.flutter.newproject">
-            </newWizardShortcut>
         </perspectiveExtension>
     </extension>
     <extension
@@ -190,13 +179,6 @@
              id="org.eclipse.dartboard.isDartProject"
              namespace="org.eclipse.dartboard"
              properties="isDartProject"
-             type="java.lang.Object">
-       </propertyTester>
-       <propertyTester
-             class="org.eclipse.dartboard.propertytester.IsFlutterProjectPropertyTester"
-             id="org.eclipse.dartboard.isFlutterProject"
-             namespace="org.eclipse.dartboard"
-             properties="isFlutterProject"
              type="java.lang.Object">
        </propertyTester>
     </extension>
@@ -260,10 +242,6 @@
        <projectConfigurator
              class="org.eclipse.dartboard.project.DartProjectConfigurator"
              label="Dart Project">
-       </projectConfigurator>
-       <projectConfigurator
-             class="org.eclipse.dartboard.project.flutter.FlutterProjectConfigurator"
-             label="Flutter Project">
        </projectConfigurator>
     </extension>
     <extension
