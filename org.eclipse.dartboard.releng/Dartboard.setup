@@ -149,5 +149,5 @@
   <logicalProjectContainer
       xsi:type="setup:ProjectCatalog"
       href="index:/org.eclipse.setup#//@projectCatalogs[name='org.eclipse']"/>
-  <description>Dartboard provides cool stuff.</description>
+  <description>Dartboard provides Eclipse Support for Dart and the Flutter SDK</description>
 </setup:Project>
