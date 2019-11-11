@@ -31,7 +31,7 @@ public class DartPreferenceInitializerTest {
 
 	@Before
 	public void setup() {
-		preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard");
+		preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard.dart");
 		DefaultPreferences.resetPreferences(preferenceStore);
 	}
 
