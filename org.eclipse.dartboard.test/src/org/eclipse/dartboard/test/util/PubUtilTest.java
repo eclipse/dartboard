@@ -28,7 +28,7 @@ public class PubUtilTest {
 
 		String pubEnvironment = PubUtil.getUpdatePubEnviroment(builder);
 
-		assertThat(pubEnvironment, is("org.eclipse.dartboard"));
+		assertThat(pubEnvironment, is("org.eclipse.dartboard.dart"));
 	}
 
 	@Test
@@ -40,6 +40,6 @@ public class PubUtilTest {
 
 		String pubEnvironment = PubUtil.getUpdatePubEnviroment(builder);
 
-		assertThat(pubEnvironment, is(randomValue + ":org.eclipse.dartboard"));
+		assertThat(pubEnvironment, is(randomValue + ":org.eclipse.dartboard.dart"));
 	}
 }

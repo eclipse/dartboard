@@ -31,7 +31,6 @@ import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -59,7 +58,6 @@ public class DartPreferencePageTest {
 	}
 
 	@Test
-	@Ignore("Fails currently in CI while runs succcesful in the IDE")
 	public void dartPreferencePage__DefaultPreferences__CorrectDefaultsAreDisplayed() throws Exception {
 		assertTrue("Auto pub synchronization not selected", preferencePage.isAutoPubSynchronization());
 		assertFalse("Use offline pub is selected", preferencePage.isUseOfflinePub());
@@ -81,7 +79,7 @@ public class DartPreferencePageTest {
 		preferencePage.apply();
 
 		ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
-				"org.eclipse.dartboard");
+				"org.eclipse.dartboard.dart");
 
 		assertEquals(true, preferenceStore.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
 		assertEquals(false, preferenceStore.getBoolean(Constants.PREFERENCES_SYNC_PUB));

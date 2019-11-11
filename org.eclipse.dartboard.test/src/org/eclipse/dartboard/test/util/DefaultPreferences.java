@@ -21,7 +21,7 @@ public class DefaultPreferences {
 
 	public static void resetPreferences(ScopedPreferenceStore preferenceStore) {
 		if (preferenceStore == null) {
-			preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard");
+			preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard.dart");
 		}
 
 		preferenceStore.setToDefault(Constants.PREFERENCES_OFFLINE_PUB);
