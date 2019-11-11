@@ -17,6 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.dartboard.flutter.Constants;
 import org.eclipse.dartboard.launch.BaseLaunchConfigTab;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
@@ -35,7 +36,6 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 
-	private String sdkLocationPreferenceKey;
 	protected ScopedPreferenceStore preferences = DartPreferences
 			.getPreferenceStore(org.eclipse.dartboard.flutter.Constants.PLUGIN_ID);
 
@@ -44,7 +44,7 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	protected Text textMainClass;
 
 	public FlutterLaunchConfigTab() {
-		super("Launch Flutter App", "/icons/flutter.png", "flutter.sdkLocation");
+		super("Launch Flutter App", "/icons/flutter.png", Constants.PREFERENCES_SDK_LOCATION);
 	}
 
 	@Override
@@ -92,8 +92,8 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String defaultLocation = preferences.getString(sdkLocationPreferenceKey);
-			String location = configuration.getAttribute(sdkLocationPreferenceKey, defaultLocation);
+			String defaultLocation = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
+			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
 			comboProject.setText(

@@ -36,7 +36,8 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 		Composite parent = getFieldEditorParent();
 
 		// Dart SDK location text field/file browser
-		flutterSDKLocationEditor = new FlutterSDKLocationFieldEditor("flutter.sdkLocation", "Flutter SDK Location",
+		flutterSDKLocationEditor = new FlutterSDKLocationFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
+				"Flutter SDK Location",
 				parent);
 		addField(flutterSDKLocationEditor);
 
@@ -48,7 +49,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 	@Override
 	public boolean performOk() {
 		String sdkLocation = flutterSDKLocationEditor.getStringValue();
-		String oldValue = getPreferenceStore().getString("flutter.sdkLocation");
+		String oldValue = getPreferenceStore().getString(Constants.PREFERENCES_SDK_LOCATION);
 
 		boolean ok = super.performOk();
 		// Don't update the preference store if the oldValue matches the new value
