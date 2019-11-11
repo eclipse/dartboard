@@ -14,7 +14,7 @@
 package org.eclipse.dartboard.test.util;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DefaultPreferences {

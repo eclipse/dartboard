@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferenceDialog;

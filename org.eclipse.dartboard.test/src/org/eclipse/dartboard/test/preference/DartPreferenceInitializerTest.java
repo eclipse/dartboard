@@ -16,7 +16,7 @@ package org.eclipse.dartboard.test.preference;
 import static org.junit.Assert.assertEquals;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;

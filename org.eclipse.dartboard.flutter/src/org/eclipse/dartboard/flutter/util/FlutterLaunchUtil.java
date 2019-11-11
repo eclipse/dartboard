@@ -19,7 +19,7 @@ import java.io.IOException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.dartboard.util.StatusUtil;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchManager;
 import org.eclipse.debug.core.Launch;
@@ -48,7 +48,7 @@ public class FlutterLaunchUtil {
 				IProcess runtimeProcess = DebugPlugin.newProcess(launch, process, "Flutter console");
 				launch.addProcess(runtimeProcess); // adding also opens an Eclipse console for the process
 			} catch (IOException e) {
-				LOG.log(StatusUtil.createError("Could not start Dart process", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Could not start Dart process", e)); //$NON-NLS-1$
 			}
 		});
 		job.schedule();

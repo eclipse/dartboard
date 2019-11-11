@@ -2,9 +2,9 @@ package org.eclipse.dartboard.test.pub;
 
 import static org.junit.Assert.assertFalse;
 
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.preferences.DartPreferences;
 import org.eclipse.dartboard.test.util.ProjectUtil;
-import org.eclipse.dartboard.util.DartPreferences;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.direct.project.Project;

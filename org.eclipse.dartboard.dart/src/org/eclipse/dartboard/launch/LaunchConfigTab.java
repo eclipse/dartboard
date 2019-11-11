@@ -9,46 +9,55 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *     Jonas Hungershausen
+ *     Jonas Hungershausen - initial API and implementation
  *******************************************************************************/
-package org.eclipse.dartboard.flutter.launch;
+package org.eclipse.dartboard.launch;
+
+import java.net.URL;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.launch.BaseLaunchConfigTab;
-import org.eclipse.dartboard.logging.DartLog;
+import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
+import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.osgi.framework.Bundle;
 
-/**
- * @author jonas
- *
- */
-public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
+public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
-	private String sdkLocationPreferenceKey;
-	protected ScopedPreferenceStore preferences = DartPreferences
-			.getPreferenceStore(org.eclipse.dartboard.flutter.Constants.PLUGIN_ID);
+	private static final ILog LOG = Platform.getLog(LaunchConfigTab.class);
 
-	private static final ILog LOG = Platform.getLog(FlutterLaunchConfigTab.class);
+	private Text textSdkLocation;
+	private Text textMainClass;
+	private Combo comboProject;
 
-	protected Text textMainClass;
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore(Constants.PLUGIN_ID);
+	private Image image;
 
-	public FlutterLaunchConfigTab() {
-		super("Launch Flutter App", "/icons/flutter.png", "flutter.sdkLocation");
+	public LaunchConfigTab() {
+		Bundle bundle = Platform.getBundle(Constants.PLUGIN_ID);
+		URL fileURL = bundle.getEntry("/icons/dart.png"); //$NON-NLS-1$
+		ImageDescriptor createFromURL = ImageDescriptor.createFromURL(fileURL);
+		image = createFromURL.createImage();
 	}
 
 	@Override
@@ -73,51 +82,72 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 		labelSdkLocation.setText(Messages.Preference_SDKLocation);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
-		textSdkLocation = new Text(comp, SWT.BORDER);
-		textSdkLocation.setMessage("SDK Location");
+		textSdkLocation = new Text(comp, SWT.NONE);
+		textSdkLocation.setMessage(Messages.Launch_SDKLocation_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
 		textSdkLocation.addModifyListener(event -> updateLaunchConfigurationDialog());
 
-		createPageSpecificControls(comp);
-	}
-
-	@Override
-	public void createPageSpecificControls(Composite comp) {
 		Label labelMainClass = new Label(comp, SWT.NONE);
-		labelMainClass.setText("Entry point");
+		labelMainClass.setText(Messages.Launch_MainClass);
 		GridDataFactory.swtDefaults().applyTo(labelMainClass);
 
-		textMainClass = new Text(comp, SWT.BORDER);
-		textMainClass.setMessage("The main entry-point file of the application");
+		textMainClass = new Text(comp, SWT.NONE);
+		textMainClass.setMessage(Messages.Launch_MainClass_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textMainClass);
 		textMainClass.addModifyListener(event -> updateLaunchConfigurationDialog());
 	}
 
 	@Override
+	public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+		// This is currently not in use.
+		// TODO(Jonas): Evaluate if this could be used
+	}
+
+	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String defaultLocation = preferences.getString(sdkLocationPreferenceKey);
-			String location = configuration.getAttribute(sdkLocationPreferenceKey, defaultLocation);
+			String defaultLocation = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
+			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
-			comboProject.setText(
-					configuration.getAttribute(org.eclipse.dartboard.flutter.Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
-			setDirty(true);
-		} catch (CoreException e) {
-			LOG.log(DartLog.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
-		}
-		try {
-			String mainClass = configuration.getAttribute("flutter.targetFile", "lib/main.dart"); //$NON-NLS-1$
+			String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart"); //$NON-NLS-1$
 			textMainClass.setText(mainClass);
+
+			// String selectedProject =
+			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
 			setDirty(true);
 		} catch (CoreException e) {
-			LOG.log(DartLog.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
+			LOG.log(StatusUtil.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
 		}
 	}
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute("flutter.targetFile", textMainClass.getText());
+		configuration.setAttribute(Constants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
+		configuration.setAttribute(Constants.LAUNCH_MAIN_CLASS, textMainClass.getText());
+		configuration.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
 	}
 
+	@Override
+	public String getName() {
+		return Messages.Launch_PageTitle;
+	}
+
+	private IProject[] getProjectsInWorkspace() {
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		IWorkspaceRoot root = workspace.getRoot();
+		return root.getProjects();
+	}
+
+	@Override
+	public Image getImage() {
+		return image;
+	}
+
+	@Override
+	public void dispose() {
+		if (image != null) {
+			image.dispose();
+		}
+	}
 }

@@ -3,7 +3,7 @@ package org.eclipse.dartboard.test.launch;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.test.util.ProjectUtil;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;

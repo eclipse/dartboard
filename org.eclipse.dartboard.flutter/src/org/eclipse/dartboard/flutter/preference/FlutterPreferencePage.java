@@ -7,8 +7,9 @@ import java.nio.file.Paths;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.util.DartPreferences;
-import org.eclipse.dartboard.util.StatusUtil;
+import org.eclipse.dartboard.flutter.Constants;
+import org.eclipse.dartboard.logging.DartLog;
+import org.eclipse.dartboard.preferences.DartPreferences;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
@@ -27,7 +28,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 
 	@Override
 	public void init(IWorkbench workbench) {
-		setPreferenceStore(DartPreferences.getPreferenceStore());
+		setPreferenceStore(DartPreferences.getPreferenceStore(Constants.PLUGIN_ID));
 	}
 
 	@Override
@@ -72,7 +73,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 				// restarting the IDE in the following step.
 				save();
 			} catch (IOException e) {
-				LOG.log(StatusUtil.createError("Could not save IDE preferences", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Could not save IDE preferences", e)); //$NON-NLS-1$
 			}
 
 			Display.getDefault().asyncExec(() -> {
@@ -99,7 +100,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 				// levels up here.
 				path = path.toRealPath().toAbsolutePath().getParent().getParent();
 			} catch (IOException e) {
-				LOG.log(StatusUtil.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
 			}
 			return path;
 		} else {

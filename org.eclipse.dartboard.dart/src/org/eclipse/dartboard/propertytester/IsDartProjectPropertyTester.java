@@ -11,39 +11,27 @@
  * Contributors:
  *     Jonas Hungershausen
  *******************************************************************************/
-package org.eclipse.dartboard.flutter.util;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.regex.Pattern;
+package org.eclipse.dartboard.propertytester;
 
 import org.eclipse.core.expressions.PropertyTester;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Adapters;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.logging.DartLog;
+import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.util.StatusUtil;
 
-import com.google.common.io.CharSource;
-import com.google.common.io.Files;
+public class IsDartProjectPropertyTester extends PropertyTester {
 
-/**
- * @author jonas
- *
- */
-public class IsFlutterProjectPropertyTester extends PropertyTester {
+	private static final ILog LOG = Platform.getLog(IsDartProjectPropertyTester.class);
 
-	private static final ILog LOG = Platform.getLog(IsFlutterProjectPropertyTester.class);
-
-	private static final Pattern FLUTTER_SDK = Pattern.compile(".*sdk\\s*:\\s*flutter", Pattern.CASE_INSENSITIVE);
-
-	private static final String IS_FLUTTER_PROJECT_PROPERTY = "isFlutterProject"; //$NON-NLS-1$
+	private static final String IS_DART_PROJECT_PROPERTY = "isDartProject"; //$NON-NLS-1$
 
 	@Override
 	public boolean test(Object receiver, String property, Object[] args, Object expectedValue) {
-		if (IS_FLUTTER_PROJECT_PROPERTY.equalsIgnoreCase(property)) {
+		if (IS_DART_PROJECT_PROPERTY.equals(property)) {
 			IResource resource = Adapters.adapt(receiver, IResource.class);
 			if (resource == null) {
 				return false;
@@ -53,20 +41,21 @@ public class IsFlutterProjectPropertyTester extends PropertyTester {
 			if (project == null) {
 				return false;
 			}
-			IResource pubspec = project.findMember("pubspec.yaml");
-			File pubspecFile = pubspec.getRawLocation().toFile();
-			CharSource pubspecContent = Files.asCharSource(pubspecFile, Charset.defaultCharset());
+			if (project.findMember(Constants.PUBSPEC) != null) {
+				return true;
+			}
+
 			try {
-				for (String line : pubspecContent.readLines()) {
-					if (FLUTTER_SDK.matcher(line).matches()) {
+				for (IResource res : project.members()) {
+					if ("dart".equals(res.getFileExtension())) { //$NON-NLS-1$
 						return true;
 					}
 				}
-			} catch (IOException e) {
-				LOG.log(DartLog.createError("Could not open pubspec.yaml", e));
+			} catch (CoreException e) {
+				LOG.log(StatusUtil.createError("Couldn't list members of project " + project.getName(), e)); //$NON-NLS-1$
 			}
 		}
+
 		return false;
 	}
-
 }
