@@ -36,5 +36,33 @@
             type="java.lang.Object">
       </propertyTester>
    </extension>
+<extension point="org.eclipse.debug.ui.launchShortcuts">
+        <shortcut
+              class="org.eclipse.dartboard.flutter.launch.LaunchShortcut"
+              icon="icons/flutter.png"
+              id="org.eclipse.dartboard.flutter.shortcut"
+              label="Run Flutter App"
+              modes="run">
+     <contextualLaunch>
+        <enablement>
+           <with
+                 variable="selection">
+              <count
+                    value="1">
+              </count>
+              <iterate>
+                 <adapt
+                       type="org.eclipse.core.resources.IResource">
+                    <test
+                          forcePluginActivation="true"
+                          property="org.eclipse.dartboard.isFlutterProject">
+                    </test>
+                 </adapt>
+              </iterate>
+           </with>
+        </enablement>
+     </contextualLaunch>
+     </shortcut>
+   </extension>
 
 </plugin>
