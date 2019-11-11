@@ -25,8 +25,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -55,21 +55,21 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 	/**
 	 * Checks if a given path is the root directory of a Dart SDK installation.
-	 * 
+	 *
 	 * Returns false if the path does not exist or the given location can not be
 	 * converted to a {@link Path}.
-	 * 
+	 *
 	 * Similarly if the Path is not a directory, false is returned.
-	 * 
+	 *
 	 * If the location is a symbolic link but it can not be resolved, false is
 	 * returned.
-	 * 
+	 *
 	 * If the process to test the version string returned by the Dart executable can
 	 * not be executed, false is returned.
-	 * 
+	 *
 	 * Finally, if the returned version string does not start with "Dart VM
 	 * version", false is returned.
-	 * 
+	 *
 	 * @param location - A {@link String} that should be checked to be a Dart SDK
 	 *                 root directory.
 	 * @return <code>false</code> if the location is not a Dart SDK root directory,
@@ -104,7 +104,7 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 		try {
 			path = path.toRealPath();
 		} catch (IOException e1) {
-			LOG.log(StatusUtil.createError("Couldn't follow symlink", e1));
+			LOG.log(DartLog.createError("Couldn't follow symlink", e1));
 			return false;
 		}
 

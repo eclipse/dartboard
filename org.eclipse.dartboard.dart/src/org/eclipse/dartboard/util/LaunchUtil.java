@@ -20,6 +20,7 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
@@ -36,7 +37,7 @@ public class LaunchUtil {
 
 	/**
 	 * Passes a supplied file path to the Dart binary at a supplied SDK location.
-	 * 
+	 *
 	 * @param dartSdk  - The location of the Dart SDK that should be used for the
 	 *                 execution
 	 * @param dartFile - The path to a file that should be executed. Assumes correct
@@ -51,7 +52,7 @@ public class LaunchUtil {
 
 	/**
 	 * Passes a supplied file path to the Dart binary at a supplied SDK location.
-	 * 
+	 *
 	 * @param launch   - The launch where the started Dart process will be attached
 	 *                 to.
 	 * @param dartSdk  - The location of the Dart SDK that should be used for the
@@ -70,7 +71,7 @@ public class LaunchUtil {
 				IProcess runtimeProcess = DebugPlugin.newProcess(launch, process, Messages.Console_Name);
 				launch.addProcess(runtimeProcess); // adding also opens an Eclipse console for the process
 			} catch (IOException e) {
-				LOG.log(StatusUtil.createError("Could not start Dart process", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Could not start Dart process", e)); //$NON-NLS-1$
 			}
 		});
 		job.schedule();
@@ -78,7 +79,7 @@ public class LaunchUtil {
 
 	/**
 	 * Passes a supplied file path to the Dart binary at a supplied SDK location.
-	 * 
+	 *
 	 * @param dartSdk  - The location of the Dart SDK that should be used for the
 	 *                 execution
 	 * @param dartFile - An {@link IPath} of the file that should be executed.

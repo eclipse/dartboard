@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *     Lakshminarayana Nekkanti 
+ *     Lakshminarayana Nekkanti
  *******************************************************************************/
 package org.eclipse.dartboard.project;
 
@@ -27,9 +27,9 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.stagehand.StagehandGenerator;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -96,7 +96,7 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 		try {
 			getContainer().run(true, true, operation);
 		} catch (InterruptedException e) {
-			LOG.log(StatusUtil.createError(e.getMessage()));
+			LOG.log(DartLog.createError(e.getMessage()));
 			return null;
 		} catch (InvocationTargetException e) {
 			Throwable t = e.getTargetException();
@@ -104,10 +104,10 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 				CoreException cause = (CoreException) t.getCause();
 				StatusAdapter status;
 				if (cause.getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
-					status = new StatusAdapter(StatusUtil.newStatus(IStatus.WARNING,
+					status = new StatusAdapter(DartLog.newStatus(IStatus.WARNING,
 							NLS.bind(Messages.NewProject_CaseVariantExistsError, newProjectHandle.getName()), cause));
 				} else {
-					status = new StatusAdapter(StatusUtil.newStatus(cause.getStatus().getSeverity(),
+					status = new StatusAdapter(DartLog.newStatus(cause.getStatus().getSeverity(),
 							Messages.NewProject_ErrorMessage, cause));
 				}
 				status.setProperty(IStatusAdapterConstants.TITLE_PROPERTY, Messages.NewProject_ErrorMessage);

@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
-import org.eclipse.dartboard.util.StatusUtil;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.ui.wizards.datatransfer.ProjectConfigurator;
 
 public class DartProjectConfigurator implements ProjectConfigurator {
@@ -41,7 +41,7 @@ public class DartProjectConfigurator implements ProjectConfigurator {
 				}
 			});
 		} catch (IOException e) {
-			LOG.log(StatusUtil.createError("Couldn't walk children directories", e)); //$NON-NLS-1$
+			LOG.log(DartLog.createError("Couldn't walk children directories", e)); //$NON-NLS-1$
 		}
 		return files;
 	}

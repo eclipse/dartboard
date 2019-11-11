@@ -21,9 +21,9 @@ import java.nio.file.Paths;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
@@ -41,7 +41,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * A {@link FieldEditorPreferencePage} that lets the user set various
  * preferences related to the Dart SDK, or other development related settings.
- * 
+ *
  * @author Jonas Hungershausen
  *
  */
@@ -96,7 +96,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// restarting the IDE in the following step.
 				save();
 			} catch (IOException e) {
-				LOG.log(StatusUtil.createError("Could not save IDE preferences", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Could not save IDE preferences", e)); //$NON-NLS-1$
 			}
 
 			Display.getDefault().asyncExec(() -> {
@@ -108,7 +108,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 	/**
 	 * Normalizes and transforms the path of a supplied location.
-	 * 
+	 *
 	 * @param location
 	 * @return
 	 */
@@ -122,7 +122,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 				// levels up here.
 				path = path.toRealPath().toAbsolutePath().getParent().getParent();
 			} catch (IOException e) {
-				LOG.log(StatusUtil.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
 			}
 			return path;
 		} else {
@@ -152,7 +152,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 	/**
 	 * Called when changes to the property fields of the page are made.
-	 * 
+	 *
 	 * This method performs a validity check on the fields.
 	 */
 	@Override
@@ -165,7 +165,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 	/**
 	 * Saves the underlying {@link IPersistentPreferenceStore}.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	private void save() throws IOException {

@@ -23,9 +23,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -117,7 +117,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 			comboProject.setText(configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
 			setDirty(true);
 		} catch (CoreException e) {
-			LOG.log(StatusUtil.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
+			LOG.log(DartLog.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
 		}
 	}
 

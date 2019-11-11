@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.util.PubUtil;
-import org.eclipse.dartboard.util.StatusUtil;
 
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
@@ -53,7 +53,7 @@ public class StagehandService {
 					.sort((first, second) -> first.getDisplayName().compareToIgnoreCase(second.getDisplayName()));
 
 		} catch (IOException e) {
-			LOG.log(StatusUtil.createError("Could not fetch stagehand template list", e)); //$NON-NLS-1$
+			LOG.log(DartLog.createError("Could not fetch stagehand template list", e)); //$NON-NLS-1$
 		}
 
 		return stagehandTemplates;
@@ -65,7 +65,7 @@ public class StagehandService {
 		try {
 			builder.start().waitFor(STAGEHAND_ACTIVATE_TIMEOUT, TimeUnit.SECONDS);
 		} catch (IOException | InterruptedException e) {
-			LOG.log(StatusUtil.createError("Could not activate stagehand globally", e)); //$NON-NLS-1$
+			LOG.log(DartLog.createError("Could not activate stagehand globally", e)); //$NON-NLS-1$
 		}
 	}
 }

@@ -9,7 +9,7 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *     Lakshminarayana Nekkanti 
+ *     Lakshminarayana Nekkanti
  *******************************************************************************/
 package org.eclipse.dartboard.project;
 
@@ -28,8 +28,8 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.Wizard;
@@ -82,7 +82,7 @@ public class DartFileWizard extends Wizard implements INewWizard {
 		} catch (InterruptedException e) {
 			return false;
 		} catch (InvocationTargetException e) {
-			StatusUtil.applyToStatusLine(dartFilePage, StatusUtil.createError(e.getTargetException()));
+			DartLog.applyToStatusLine(dartFilePage, DartLog.createError(e.getTargetException()));
 			return false;
 		}
 		return true;
@@ -94,7 +94,7 @@ public class DartFileWizard extends Wizard implements INewWizard {
 		IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 		IResource resource = root.findMember(new Path(containerName));
 		if (!resource.exists() || !(resource instanceof IContainer)) {
-			StatusUtil.throwCoreException(NLS.bind(Messages.NewFile_Container_Doesnot_Exist, containerName));
+			DartLog.throwCoreException(NLS.bind(Messages.NewFile_Container_Doesnot_Exist, containerName));
 		}
 		IContainer container = (IContainer) resource;
 		final IFile file = container.getFile(new Path(fileName));
@@ -105,7 +105,7 @@ public class DartFileWizard extends Wizard implements INewWizard {
 				file.create(stream, true, monitor);
 			}
 		} catch (IOException e) {
-			LOG.log(StatusUtil.createError(e.getMessage()));
+			LOG.log(DartLog.createError(e.getMessage()));
 		}
 		monitor.worked(1);
 		monitor.setTaskName(Messages.NewFile_OpeningFile);
@@ -114,7 +114,7 @@ public class DartFileWizard extends Wizard implements INewWizard {
 			try {
 				IDE.openEditor(page, file, true);
 			} catch (PartInitException e) {
-				LOG.log(StatusUtil.createError(e.getMessage()));
+				LOG.log(DartLog.createError(e.getMessage()));
 			}
 		});
 		monitor.worked(1);

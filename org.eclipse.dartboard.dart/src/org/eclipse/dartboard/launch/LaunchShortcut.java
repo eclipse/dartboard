@@ -19,9 +19,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.util.PlatformUIUtil;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
@@ -40,9 +40,9 @@ import org.eclipse.ui.IFileEditorInput;
 
 /**
  * A {@link ILaunchShortcut} used to launch a project as a dart program.
- * 
+ *
  * This launch shortcut is used to launch a Dart project as a program.
- * 
+ *
  * @author Jonas Hungershausen
  *
  */
@@ -111,7 +111,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 				}
 			}
 		} catch (CoreException e) {
-			LOG.log(StatusUtil.createError("Could not save new launch configuration", e)); //$NON-NLS-1$
+			LOG.log(DartLog.createError("Could not save new launch configuration", e)); //$NON-NLS-1$
 		}
 	}
 }

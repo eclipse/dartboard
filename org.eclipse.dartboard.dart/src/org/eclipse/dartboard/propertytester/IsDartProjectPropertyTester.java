@@ -21,7 +21,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
-import org.eclipse.dartboard.util.StatusUtil;
+import org.eclipse.dartboard.logging.DartLog;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
 
@@ -52,7 +52,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 					}
 				}
 			} catch (CoreException e) {
-				LOG.log(StatusUtil.createError("Couldn't list members of project " + project.getName(), e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Couldn't list members of project " + project.getName(), e)); //$NON-NLS-1$
 			}
 		}
 

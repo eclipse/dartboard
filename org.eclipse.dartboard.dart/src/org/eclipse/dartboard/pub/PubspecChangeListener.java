@@ -11,8 +11,8 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.preferences.DartPreferences;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class PubspecChangeListener implements IResourceChangeListener {
@@ -51,7 +51,7 @@ public class PubspecChangeListener implements IResourceChangeListener {
 					}
 				});
 			} catch (CoreException e) {
-				LOG.log(StatusUtil.createError(e.getMessage(), e));
+				LOG.log(DartLog.createError(e.getMessage(), e));
 			}
 		}
 	}

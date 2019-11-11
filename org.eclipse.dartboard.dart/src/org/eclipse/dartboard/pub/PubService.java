@@ -33,21 +33,21 @@ import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.util.PubUtil;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.osgi.util.NLS;
 import org.osgi.service.component.annotations.Component;
 
 /**
  * A {@link Singleton} service that exposes various Pub functions.
- * 
+ *
  * Currently the main purpose of this class is to execute the {@code pub get} in
  * a given directory (project).
- * 
+ *
  * @author Jonas Hungershausen
  * @see PubspecChangeListener
- * 
+ *
  */
 @Component(service = PubService.class)
 public class PubService {
@@ -62,10 +62,10 @@ public class PubService {
 
 	/**
 	 * Runs the {@code pub get} command in a {@link IProject}'s location.
-	 * 
+	 *
 	 * If there already is a job running for a {@link IProject} it is cancelled.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param project
 	 */
 	public void get(IProject project, boolean offline) {
@@ -84,7 +84,7 @@ public class PubService {
 		Job pubSync = Job.create(NLS.bind(Messages.PubSync_Job_Name, project.getName()), monitor -> {
 			IPath location = project.getLocation();
 			if (location == null) {
-				return StatusUtil.createError(NLS.bind(Messages.PubSync_CouldNotDeterminePath, project.getName()));
+				return DartLog.createError(NLS.bind(Messages.PubSync_CouldNotDeterminePath, project.getName()));
 			}
 
 			ProcessBuilder builder = PubUtil.getPubProcessBuilder("get", offline ? "--offline" : "--no-offline") //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
@@ -94,7 +94,7 @@ public class PubService {
 			try {
 				process = builder.start();
 			} catch (IOException exception) {
-				return StatusUtil.createError(Messages.PubSync_CouldNotStartProcess, exception);
+				return DartLog.createError(Messages.PubSync_CouldNotStartProcess, exception);
 			}
 
 			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
@@ -111,7 +111,7 @@ public class PubService {
 					}
 				}
 			} catch (IOException exception) {
-				return StatusUtil.createError(Messages.PubSync_CouldNotStartProcess, exception);
+				return DartLog.createError(Messages.PubSync_CouldNotStartProcess, exception);
 			}
 			return Status.OK_STATUS;
 		});
@@ -129,7 +129,7 @@ public class PubService {
 					try {
 						project.refreshLocal(IResource.DEPTH_INFINITE, null);
 					} catch (CoreException exception) {
-						LOG.log(StatusUtil.createError(
+						LOG.log(DartLog.createError(
 								NLS.bind(Messages.Error_CouldNotRefreshResource, project.getName()), exception));
 					}
 				}

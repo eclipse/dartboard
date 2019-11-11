@@ -21,17 +21,17 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
 import org.eclipse.dartboard.util.DartUtil;
-import org.eclipse.dartboard.util.StatusUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 /**
  * A {@link AbstractPreferenceInitializer} that contains a hook to initialize
  * all preference values.
- * 
+ *
  * @author Jonas Hungershausen
  *
  */
@@ -50,7 +50,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			try {
 				binLocation = DartUtil.getDartLocation();
 			} catch (IOException | InterruptedException e) {
-				LOG.log(StatusUtil.createError("Could not retrieve Dart location", e)); //$NON-NLS-1$
+				LOG.log(DartLog.createError("Could not retrieve Dart location", e)); //$NON-NLS-1$
 			}
 			if (binLocation.isPresent()) {
 				Path sdkPath = binLocation.get().getParent();
