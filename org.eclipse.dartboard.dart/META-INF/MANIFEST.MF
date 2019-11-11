@@ -37,3 +37,4 @@ Import-Package: org.eclipse.dartboard.launch,
  org.eclipse.dartboard.logging,
  org.eclipse.dartboard.messages,
  org.eclipse.dartboard.preferences
+Export-Package: org.eclipse.dartboard.util

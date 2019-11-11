@@ -38,7 +38,7 @@ public class PubGetHandlerTest {
 
 	@Test
 	public void pubGetCommand__ExistingDartProject__CommandIsAvailableAndRunsPubGet() {
-		DartPreferences.getPreferenceStore().setValue(Constants.PREFERENCES_SYNC_PUB, false);
+		DartPreferences.getPreferenceStore(Constants.PLUGIN_ID).setValue(Constants.PREFERENCES_SYNC_PUB, false);
 
 		ProjectUtil.createDartProject(projectName);
 
