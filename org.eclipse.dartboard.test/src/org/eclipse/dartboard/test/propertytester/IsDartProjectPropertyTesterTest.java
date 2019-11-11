@@ -23,7 +23,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.dartboard.propertytester.IsDartProjectPropertyTester;
+import org.eclipse.dartboard.dart.propertytester.IsDartProjectPropertyTester;
 import org.junit.Test;
 
 public class IsDartProjectPropertyTesterTest {

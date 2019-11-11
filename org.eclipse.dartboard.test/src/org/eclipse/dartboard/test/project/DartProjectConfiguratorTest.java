@@ -23,7 +23,7 @@ import java.net.URL;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.project.DartProjectConfigurator;
+import org.eclipse.dartboard.dart.project.DartProjectConfigurator;
 import org.junit.Before;
 import org.junit.Test;
 
