@@ -21,40 +21,7 @@
  <properties>
   <tycho.version>1.5.1</tycho.version>
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  <eclipse-repo.url>http://download.eclipse.org/releases/2019-09</eclipse-repo.url>
-  <textmate-repo.url>http://download.eclipse.org/tm4e/snapshots/</textmate-repo.url>
-  <lspe-repo.url>http://download.eclipse.org/lsp4e/releases/latest/</lspe-repo.url>
-  <orbit-repo.url>https://download.eclipse.org/tools/orbit/downloads/drops/S20190726194335/repository/</orbit-repo.url>
  </properties>
-
- <repositories>
-  <repository>
-   <id>eclipse-release</id>
-   <url>${eclipse-repo.url}</url>
-   <layout>p2</layout>
-  </repository>
-  <repository>
-   <id>textmate-nightly</id>
-   <url>${textmate-repo.url}</url>
-   <layout>p2</layout>
-  </repository>
-
-  <repository>
-   <id>lspe-nightly</id>
-   <url>${lspe-repo.url}</url>
-   <layout>p2</layout>
-  </repository>
-  <repository>
-   <id>license-feature</id>
-   <url>http://download.eclipse.org/cbi/updates/license/</url>
-   <layout>p2</layout>
-  </repository>
-  <repository>
-   <id>orbit</id>
-   <url>${orbit-repo.url}</url>
-   <layout>p2</layout>
-  </repository>
- </repositories>
 
  <build>
   <plugins>
@@ -85,6 +52,13 @@
     <artifactId>target-platform-configuration</artifactId>
     <version>${tycho.version}</version>
     <configuration>
+  	<target> 
+        <artifact>
+            <groupId>org.eclipse.dartboard.group</groupId>
+            <artifactId>target-platform-latest</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </artifact>
+    </target>
      <environments>
       <environment>
        <os>linux</os>

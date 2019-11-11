@@ -26,10 +26,12 @@
 
  <modules>
   <module>org.eclipse.dartboard</module>
+  <module>org.eclipse.dartboard.dart</module>
   <module>org.eclipse.dartboard.flutter</module>
   <module>org.eclipse.dartboard.feature</module>
   <module>org.eclipse.dartboard.update</module>
   <module>org.eclipse.dartboard.test</module>
+  <module>target-platform-latest</module>
  </modules>
 </project>
 
