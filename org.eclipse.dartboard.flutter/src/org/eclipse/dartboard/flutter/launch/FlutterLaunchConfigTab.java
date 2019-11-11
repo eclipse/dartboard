@@ -44,7 +44,7 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	protected Text textMainClass;
 
 	public FlutterLaunchConfigTab() {
-		super("Launch Flutter App", "/icons/flutter.png", Constants.PREFERENCES_SDK_LOCATION);
+		super("Launch Flutter App", "/icons/flutter.png");
 	}
 
 	@Override
@@ -114,6 +114,8 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute("flutter.targetFile", textMainClass.getText());
+		configuration.setAttribute(Constants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
+		configuration.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
 	}
 
 }

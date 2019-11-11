@@ -67,7 +67,7 @@ public class FlutterLaunchJob extends Job {
 	}
 
 	public void sendCommand(AppCommand command) throws IOException {
-		if (!process.isAlive()) {
+		if (process == null || !process.isAlive()) {
 			LOG.log(DartLog.createError("Tried sending command " + command + " to closed app process."));
 			return;
 		}

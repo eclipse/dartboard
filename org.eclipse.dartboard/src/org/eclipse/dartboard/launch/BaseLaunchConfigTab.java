@@ -44,13 +44,11 @@ public abstract class BaseLaunchConfigTab extends AbstractLaunchConfigurationTab
 	protected Combo comboProject;
 
 	private Image image;
-	private String sdkLocationPreferenceKey;
 	private String imagePath;
 
-	public BaseLaunchConfigTab(String name, String imagePath, String sdkLocationPreferenceKey) {
+	public BaseLaunchConfigTab(String name, String imagePath) {
 		this.name = name;
 		this.imagePath = imagePath;
-		this.sdkLocationPreferenceKey = sdkLocationPreferenceKey;
 	}
 
 

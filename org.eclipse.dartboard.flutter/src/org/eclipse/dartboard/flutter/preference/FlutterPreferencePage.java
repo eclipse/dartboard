@@ -37,8 +37,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 
 		// Dart SDK location text field/file browser
 		flutterSDKLocationEditor = new FlutterSDKLocationFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
-				"Flutter SDK Location",
-				parent);
+				"Flutter SDK Location", parent);
 		addField(flutterSDKLocationEditor);
 
 		flutterSDKLocationEditor.addModifyListener(event -> {
@@ -96,7 +95,8 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 			Path path = null;
 			try {
 				boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
-				path = Paths.get(location + "bin" + File.separator + (isWindows ? "dart.exe" : "dart")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				path = Paths
+						.get(location + File.separator + "bin" + File.separator + (isWindows ? "dart.exe" : "dart")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 				// Since we append /bin/dart to resolve the symbolic links, we need to get 2
 				// levels up here.
 				path = path.toRealPath().toAbsolutePath().getParent().getParent();
