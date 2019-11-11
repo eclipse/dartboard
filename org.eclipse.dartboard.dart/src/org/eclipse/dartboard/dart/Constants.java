@@ -13,7 +13,7 @@
  *******************************************************************************/
 package org.eclipse.dartboard.dart;
 
-import org.eclipse.dartboard.launch.LaunchConfig;
+import org.eclipse.dartboard.dart.launch.LaunchConfig;
 
 public abstract class Constants {
 
