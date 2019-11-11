@@ -62,5 +62,9 @@
 		<unit id="org.eclipse.reddeer.swt.feature.feature.group" version="2.7.0.v20190911-1936"/>
 		<unit id="org.eclipse.reddeer.ui.feature.feature.group" version="2.7.0.v20190911-1936"/>
 	</location>
+	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+		<repository location="http://download.eclipse.org/releases/2019-09"/>
+		<unit id="org.eclipse.wildwebdeveloper.feature.feature.group" version="0.4.2.201909061612"/>
+	</location>
 </locations>
 </target>
