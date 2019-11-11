@@ -127,6 +127,11 @@
 		<launchConfigurationTypeImage
 			id="org.eclipse.dartboard.launch.image"
 			configTypeID="org.eclipse.dartboard.launch" icon="icons/dart.png" />
+  <launchConfigurationTypeImage
+        configTypeID="org.eclipse.dartboard.flutter.launch"
+        icon="icons/flutter.png"
+        id="org.eclipse.dartboard.flutter.image">
+  </launchConfigurationTypeImage>
 	</extension>
   <extension
           point="org.eclipse.ui.newWizards">

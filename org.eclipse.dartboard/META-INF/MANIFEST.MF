@@ -34,3 +34,11 @@ Import-Package: org.eclipse.e4.core.di;version="1.7.0"
 Service-Component: OSGI-INF/org.eclipse.dartboard.pub.PubService.xml,
  OSGI-INF/org.eclipse.dartboard.ListenerService.xml
 Bundle-ActivationPolicy: lazy
+Export-Package: org.eclipse.dartboard;uses:="org.osgi.service.event,org.eclipse.osgi.util,org.eclipse.lsp4e.server",
+ org.eclipse.dartboard.util;
+  uses:="org.eclipse.ui,
+   org.eclipse.core.runtime,
+   org.eclipse.swt.widgets,
+   org.eclipse.ui.preferences,
+   org.eclipse.jface.dialogs,
+   org.eclipse.debug.core"
