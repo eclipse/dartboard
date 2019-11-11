@@ -19,18 +19,18 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.dartboard.flutter.util.FlutterLaunchUtil;
+import org.eclipse.dartboard.flutter.util.FlutterLauncher;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
-/**
- * @author jonas
- *
- */
 public class FlutterLaunchConfig extends LaunchConfigurationDelegate {
+
+	private FlutterLauncher launcher;
+	private boolean restart;
+
 	@Override
 	public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
 			throws CoreException {
@@ -38,18 +38,35 @@ public class FlutterLaunchConfig extends LaunchConfigurationDelegate {
 			Display.getDefault().asyncExec(() -> {
 				MessageDialog.openError(null, "Debug not suported", "Debugging Flutter apps is not supported yet.");
 			});
+			return;
 		}
 
 		String target = configuration.getAttribute("flutter.targetFile", "main.dart");
 		String sdk = configuration.getAttribute("flutter.sdkLocation", "");
-		String projectName = configuration.getAttribute("flutter.projectName", "");
+		String projectName = configuration.getAttribute("selected_project", "");
 		IProject project = getProject(projectName);
 		if (!project.exists()) {
-			MessageDialog.openError(null, "Project not found", "The selected project was not found.");
+			Display.getDefault().asyncExec(() -> {
+				MessageDialog.openError(null, "Project not found", "The selected project was not found.");
+			});
 			return;
 		}
 
-		FlutterLaunchUtil.launch(sdk, target, project.getLocation().toOSString());
+		restart = false;
+		if (launcher != null) {
+			Display.getDefault().syncExec(() -> {
+				restart = MessageDialog.openQuestion(null, "Launch running", "Do you want to restart the running app?");
+			});
+			if (restart) {
+				launcher.restart();
+				return;
+			} else {
+				launcher.stop();
+			}
+		}
+		launcher = new FlutterLauncher(project);
+		launcher.launch(sdk, target);
+
 	}
 
 	public IProject getProject(String name) {

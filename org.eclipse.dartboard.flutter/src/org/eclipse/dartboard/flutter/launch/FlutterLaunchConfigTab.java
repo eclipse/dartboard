@@ -33,10 +33,6 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-/**
- * @author jonas
- *
- */
 public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 
 	private String sdkLocationPreferenceKey;
