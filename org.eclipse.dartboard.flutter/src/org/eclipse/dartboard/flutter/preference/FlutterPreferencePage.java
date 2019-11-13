@@ -1,13 +1,13 @@
 package org.eclipse.dartboard.flutter.preference;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.flutter.Constants;
+import org.eclipse.dartboard.flutter.FlutterConstants;
+import org.eclipse.dartboard.flutter.util.FlutterUtil;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.preferences.DartPreferences;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -28,7 +28,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 
 	@Override
 	public void init(IWorkbench workbench) {
-		setPreferenceStore(DartPreferences.getPreferenceStore(Constants.PLUGIN_ID));
+		setPreferenceStore(DartPreferences.getPreferenceStore(FlutterConstants.PLUGIN_ID));
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 		Composite parent = getFieldEditorParent();
 
 		// Dart SDK location text field/file browser
-		flutterSDKLocationEditor = new FlutterSDKLocationFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
+		flutterSDKLocationEditor = new FlutterSDKLocationFieldEditor(FlutterConstants.PREFERENCES_SDK_LOCATION,
 				"Flutter SDK Location", parent);
 		addField(flutterSDKLocationEditor);
 
@@ -48,7 +48,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 	@Override
 	public boolean performOk() {
 		String sdkLocation = flutterSDKLocationEditor.getStringValue();
-		String oldValue = getPreferenceStore().getString(Constants.PREFERENCES_SDK_LOCATION);
+		String oldValue = getPreferenceStore().getString(FlutterConstants.PREFERENCES_SDK_LOCATION);
 
 		boolean ok = super.performOk();
 		// Don't update the preference store if the oldValue matches the new value
@@ -94,9 +94,7 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 		if (flutterSDKLocationEditor.isValid()) {
 			Path path = null;
 			try {
-				boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
-				path = Paths
-						.get(location + File.separator + "bin" + File.separator + (isWindows ? "dart.exe" : "dart")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+				path = Paths.get(FlutterUtil.getFlutterToolPath(location));
 				// Since we append /bin/dart to resolve the symbolic links, we need to get 2
 				// levels up here.
 				path = path.toRealPath().toAbsolutePath().getParent().getParent();

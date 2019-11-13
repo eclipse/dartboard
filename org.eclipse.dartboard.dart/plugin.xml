@@ -234,4 +234,11 @@
              icon="icons/dart_file.png">
        </icon>
     </extension>
+    <extension
+          point="org.eclipse.dartboard.pubService">
+       <service
+             class="org.eclipse.dartboard.dart.pub.DartPubService"
+             priority="false">
+       </service>
+    </extension>
 </plugin>

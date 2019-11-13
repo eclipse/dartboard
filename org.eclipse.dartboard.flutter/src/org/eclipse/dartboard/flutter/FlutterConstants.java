@@ -14,9 +14,9 @@
 package org.eclipse.dartboard.flutter;
 
 
-public abstract class Constants {
+public abstract class FlutterConstants {
 
-	private Constants() {
+	private FlutterConstants() {
 	}
 
 	/**
@@ -37,7 +37,7 @@ public abstract class Constants {
 	/**
 	 * Plugin ID of the plugin
 	 */
-	public static final String PLUGIN_ID = "org.eclipse.dartboard"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.eclipse.dartboard.flutter"; //$NON-NLS-1$
 
 	/**
 	 * Key for the main class of a launch configuration
@@ -65,7 +65,7 @@ public abstract class Constants {
 	public static final String PUBSPEC = "pubspec.yaml"; //$NON-NLS-1$
 
 	/**
-	 * Name of the PUB_ENVIRONMENT variable used by pub 
+	 * Name of the PUB_ENVIRONMENT variable used by pub
 	 */
 	public static final String PUB_ENVIRONMENT_VARIABLE = "PUB_ENVIRONMENT"; //$NON-NLS-1$
 

@@ -17,5 +17,6 @@ Import-Package: org.eclipse.dartboard.launch,
  org.eclipse.dartboard.logging,
  org.eclipse.dartboard.messages,
  org.eclipse.dartboard.preferences;resolution:=optional,
+ org.eclipse.dartboard.pub,
  org.eclipse.dartboard.util,
  org.eclipse.ui

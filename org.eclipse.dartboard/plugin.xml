@@ -14,6 +14,7 @@
         Jonas Hungershausen - initial API and implementation
  -->
 <plugin>
+   <extension-point id="org.eclipse.dartboard.pubService" name="PubService" schema="schema/org.eclipse.dartboard.pubService.exsd"/>
  <extension
           point="org.eclipse.tm4e.ui.snippets">
        <snippet

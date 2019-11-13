@@ -69,10 +69,9 @@ public class FlutterLibChangeListener implements IResourceChangeListener {
 						}
 						reloadInProgress = true;
 						try {
-							flutterLaunchJob.sendCommand(AppCommand.RELOAD);
-						} catch (IOException e) {
+							flutterLaunchJob.sendCommand(AppCommand.RELOAD, false);
+						} catch (IOException | InterruptedException e) {
 							LOG.log(DartLog.createError("Could not initiate hot reload on save", e));
-							e.printStackTrace();
 						} finally {
 							reloadInProgress = false;
 						}

@@ -17,7 +17,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.flutter.Constants;
+import org.eclipse.dartboard.flutter.FlutterConstants;
 import org.eclipse.dartboard.launch.BaseLaunchConfigTab;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
@@ -37,7 +37,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 
 	protected ScopedPreferenceStore preferences = DartPreferences
-			.getPreferenceStore(org.eclipse.dartboard.flutter.Constants.PLUGIN_ID);
+			.getPreferenceStore(org.eclipse.dartboard.flutter.FlutterConstants.PLUGIN_ID);
 
 	private static final ILog LOG = Platform.getLog(FlutterLaunchConfigTab.class);
 
@@ -92,12 +92,12 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String defaultLocation = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
-			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
+			String defaultLocation = preferences.getString(FlutterConstants.PREFERENCES_SDK_LOCATION);
+			String location = configuration.getAttribute(FlutterConstants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
 			comboProject.setText(
-					configuration.getAttribute(org.eclipse.dartboard.flutter.Constants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
+					configuration.getAttribute(FlutterConstants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
 			setDirty(true);
 		} catch (CoreException e) {
 			LOG.log(DartLog.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$
@@ -114,8 +114,8 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute("flutter.targetFile", textMainClass.getText());
-		configuration.setAttribute(Constants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
-		configuration.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
+		configuration.setAttribute(FlutterConstants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
+		configuration.setAttribute(FlutterConstants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
 	}
 
 }

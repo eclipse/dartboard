@@ -13,7 +13,11 @@
  *******************************************************************************/
 package org.eclipse.dartboard.flutter.launch;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -24,7 +28,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.dartboard.flutter.commands.AppCommand;
+import org.eclipse.dartboard.flutter.sdk.FlutterSDK.Command;
 import org.eclipse.dartboard.flutter.util.FlutterLibChangeListener;
+import org.eclipse.dartboard.flutter.util.FlutterUtil;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunchManager;
@@ -35,19 +41,31 @@ public class FlutterLaunchJob extends Job {
 
 	private static final ILog LOG = Platform.getLog(FlutterLaunchJob.class);
 
-	private ProcessBuilder processBuilder;
 	private Process process;
 
 	private IProject project;
 
-	public FlutterLaunchJob(String name, ProcessBuilder processBuilder, IProject project) {
-		super(name);
-		this.processBuilder = processBuilder;
+	private Path sdkPath;
+
+	private String targetFile;
+
+	public FlutterLaunchJob(IProject project, Path sdkPath, String targetFile) {
+		super(Command.RUN.getName());
 		this.project = project;
+		this.sdkPath = sdkPath;
+		this.targetFile = targetFile;
 	}
 
 	@Override
 	protected IStatus run(IProgressMonitor monitor) {
+		List<String> commands = new LinkedList<>();
+		commands.add(FlutterUtil.getFlutterToolPath(sdkPath.toAbsolutePath().toString()));
+		commands.addAll(Command.RUN.getCommands());
+
+		commands.add(targetFile);
+		ProcessBuilder processBuilder = new ProcessBuilder(commands);
+
+		processBuilder.directory(new File(project.getLocation().toOSString()));
 		Launch launch = new Launch(null, ILaunchManager.RUN_MODE, null);
 		DebugPlugin.getDefault().getLaunchManager().addLaunch(launch);
 
@@ -63,16 +81,26 @@ public class FlutterLaunchJob extends Job {
 
 		FlutterLibChangeListener listener = new FlutterLibChangeListener(project, this);
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(listener);
+		try {
+			process.waitFor();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			ResourcesPlugin.getWorkspace().removeResourceChangeListener(listener);
+		}
 		return Status.OK_STATUS;
 	}
 
-	public void sendCommand(AppCommand command) throws IOException {
+	public void sendCommand(AppCommand command, boolean wait) throws IOException, InterruptedException {
 		if (process == null || !process.isAlive()) {
 			LOG.log(DartLog.createError("Tried sending command " + command + " to closed app process."));
 			return;
 		}
 		process.getOutputStream().write(command.getCommand().getBytes());
 		process.getOutputStream().flush();
+		if (wait) {
+			process.waitFor();
+		}
 	}
 
 }

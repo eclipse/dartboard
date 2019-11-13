@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.logging.DartLog;
+import org.eclipse.dartboard.util.Constants;
 
 import com.google.common.io.CharSource;
 import com.google.common.io.Files;
@@ -53,7 +54,7 @@ public class IsFlutterProjectPropertyTester extends PropertyTester {
 			if (project == null) {
 				return false;
 			}
-			IResource pubspec = project.findMember("pubspec.yaml");
+			IResource pubspec = project.findMember(Constants.PUBSPEC_YAML);
 			File pubspecFile = pubspec.getRawLocation().toFile();
 			CharSource pubspecContent = Files.asCharSource(pubspecFile, Charset.defaultCharset());
 			try {

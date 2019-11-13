@@ -64,5 +64,12 @@
      </contextualLaunch>
      </shortcut>
    </extension>
+<extension
+      point="org.eclipse.dartboard.pubService">
+   <service
+         class="org.eclipse.dartboard.flutter.pub.FlutterPubService"
+         priority="true">
+   </service>
+</extension>
 
 </plugin>

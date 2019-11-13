@@ -74,7 +74,6 @@ public class LaunchShortcut implements ILaunchShortcut {
 
 	private void launchProject(IProject project, String mode) {
 		if (project == null) {
-			System.out.println("No project");
 			return;
 		}
 

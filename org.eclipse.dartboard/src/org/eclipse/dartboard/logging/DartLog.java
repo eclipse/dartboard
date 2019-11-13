@@ -3,7 +3,7 @@ package org.eclipse.dartboard.logging;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.util.Constants;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IMessageProvider;
 

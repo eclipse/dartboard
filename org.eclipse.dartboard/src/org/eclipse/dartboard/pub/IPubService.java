@@ -9,15 +9,15 @@
  * SPDX-License-Identifier: EPL-2.0
  *
  * Contributors:
- *     Jonas Hungershausen - initial API and implementation
+ *     Jonas Hungershausen
  *******************************************************************************/
-package org.eclipse.dartboard;
+package org.eclipse.dartboard.pub;
 
+import org.eclipse.core.resources.IProject;
 
-public abstract class Constants {
+public interface IPubService {
 
-	private Constants() {
-	}
-	public static final String PLUGIN_ID = "org.eclipse.dartboard"; //$NON-NLS-1$
+	public abstract boolean test(IProject project);
 
+	public abstract void get(IProject project);
 }

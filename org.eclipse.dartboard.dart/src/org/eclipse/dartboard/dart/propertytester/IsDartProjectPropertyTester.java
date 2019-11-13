@@ -20,8 +20,8 @@ import org.eclipse.core.runtime.Adapters;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.logging.DartLog;
+import org.eclipse.dartboard.util.Constants;
 
 public class IsDartProjectPropertyTester extends PropertyTester {
 
@@ -41,7 +41,7 @@ public class IsDartProjectPropertyTester extends PropertyTester {
 			if (project == null) {
 				return false;
 			}
-			if (project.findMember(Constants.PUBSPEC) != null) {
+			if (project.findMember(Constants.PUBSPEC_YAML) != null) {
 				return true;
 			}
 

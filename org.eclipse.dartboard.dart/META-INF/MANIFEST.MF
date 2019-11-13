@@ -30,11 +30,11 @@ Require-Bundle: org.eclipse.ui.genericeditor;bundle-version="1.0.0",
  javax.inject,
  org.eclipse.osgi.services,
  org.eclipse.e4.ui.model.workbench
-Service-Component: OSGI-INF/org.eclipse.dartboard.dart.ListenerService.xml,
- OSGI-INF/org.eclipse.dartboard.dart.pub.PubService.xml
 Bundle-ActivationPolicy: lazy
 Import-Package: org.eclipse.dartboard.launch,
  org.eclipse.dartboard.logging,
  org.eclipse.dartboard.messages,
  org.eclipse.dartboard.preferences,
+ org.eclipse.dartboard.pub,
  org.eclipse.dartboard.util
+Service-Component: OSGI-INF/org.eclipse.dartboard.dart.pub.PubService.xml

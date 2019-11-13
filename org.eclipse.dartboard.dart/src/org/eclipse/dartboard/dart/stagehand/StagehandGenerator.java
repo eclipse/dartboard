@@ -13,10 +13,10 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.dart.util.PubUtil;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
+import org.eclipse.dartboard.util.Constants;
 import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.osgi.util.NLS;
@@ -32,7 +32,7 @@ public class StagehandGenerator {
 		}
 
 		if (generator == null) {
-			IFile pubspecFile = project.getFile(Constants.PUBSPEC);
+			IFile pubspecFile = project.getFile(Constants.PUBSPEC_YAML);
 			if (!pubspecFile.exists()) {
 				try {
 					pubspecFile.create(new NullInputStream(0), true, null);
