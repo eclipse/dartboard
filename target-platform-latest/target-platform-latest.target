@@ -15,9 +15,9 @@
 </location>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<repository location="http://download.eclipse.org/tm4e/snapshots/"/>
-		<unit id="org.eclipse.tm4e.feature.feature.group" version="0.3.4.201909051118"/>
-		<unit id="org.jcodings" version="1.0.18.v20170306-1742"/>
-		<unit id="org.joni" version="2.1.11.v20170306-1742"/>
+		<unit id="org.eclipse.tm4e.feature.feature.group" version="0.0.0"/>
+		<unit id="org.jcodings" version="0.0.0"/>
+		<unit id="org.joni" version="0.0.0"/>
 	</location>
 	<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
 		<repository location="http://download.eclipse.org/lsp4e/releases/latest/"/>
