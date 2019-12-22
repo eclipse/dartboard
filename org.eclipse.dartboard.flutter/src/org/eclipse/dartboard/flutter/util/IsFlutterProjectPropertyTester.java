@@ -55,6 +55,9 @@ public class IsFlutterProjectPropertyTester extends PropertyTester {
 				return false;
 			}
 			IResource pubspec = project.findMember(Constants.PUBSPEC_YAML);
+			if (pubspec == null) {
+				return false;
+			}
 			File pubspecFile = pubspec.getRawLocation().toFile();
 			CharSource pubspecContent = Files.asCharSource(pubspecFile, Charset.defaultCharset());
 			try {
