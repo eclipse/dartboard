@@ -7,6 +7,9 @@ image:https://user-images.githubusercontent.com/5540255/60813009-0e148100-a193-1
 
 _Dart and the related logo are trademarks of Google LLC. We are not endorsed by or affiliated with Google LLC._
 
+== Prerequisites
+This project requires a recent version of the https://github.com/eclipse/wildwebdeveloper[Wild Web Developer]. You have to install this first if your Eclipse installation does not already include it.
+
 == Installation
 
 Download and install at least Dart 2.2. from the https://dart.dev/get-dart[Dart download page].
