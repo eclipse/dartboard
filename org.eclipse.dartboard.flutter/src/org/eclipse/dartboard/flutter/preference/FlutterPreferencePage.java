@@ -46,6 +46,15 @@ public class FlutterPreferencePage extends FieldEditorPreferencePage implements 
 	}
 
 	@Override
+	public boolean isValid() {
+		if (flutterSDKLocationEditor.getStringValue().isEmpty()) {
+
+			return true;
+		}
+		return flutterSDKLocationEditor.isValid();
+	}
+
+	@Override
 	public boolean performOk() {
 		String sdkLocation = flutterSDKLocationEditor.getStringValue();
 		String oldValue = getPreferenceStore().getString(FlutterConstants.PREFERENCES_SDK_LOCATION);
