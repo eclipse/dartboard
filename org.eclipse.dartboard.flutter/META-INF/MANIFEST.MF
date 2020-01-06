@@ -12,11 +12,11 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.debug.core,
  org.eclipse.debug.ui,
- org.eclipse.core.expressions
+ org.eclipse.core.expressions,
+ org.eclipse.ui.ide
 Import-Package: org.eclipse.dartboard.launch,
  org.eclipse.dartboard.logging,
  org.eclipse.dartboard.messages,
  org.eclipse.dartboard.preferences;resolution:=optional,
  org.eclipse.dartboard.pub,
- org.eclipse.dartboard.util,
- org.eclipse.ui
+ org.eclipse.dartboard.util
