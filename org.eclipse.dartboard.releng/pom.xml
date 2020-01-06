@@ -19,9 +19,51 @@
  <packaging>pom</packaging>
 
  <properties>
-  <tycho.version>1.5.1</tycho.version>
+  <tycho.version>1.3.0</tycho.version>
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+  <eclipse-repo.url>http://download.eclipse.org/releases/2020-03</eclipse-repo.url>
+  <textmate-repo.url>http://download.eclipse.org/tm4e/snapshots/</textmate-repo.url>
+  <lspe-repo.url>http://download.eclipse.org/lsp4e/releases/latest/</lspe-repo.url>
+  <wwd-repo.url>http://download.eclipse.org/wildwebdeveloper/snapshots</wwd-repo.url>
+  <orbit-repo.url>https://download.eclipse.org/tools/orbit/downloads/drops/R20191126223242/repository</orbit-repo.url>
+  <tycho-extras.version>1.3.0</tycho-extras.version>
  </properties>
+
+
+ <repositories>
+  <repository>
+   <id>wildweb</id>
+   <url>${wwd-repo.url}</url>
+   <layout>p2</layout>
+  </repository>
+  <repository>
+   <id>eclipse-release</id>
+   <url>${eclipse-repo.url}</url>
+   <layout>p2</layout>
+  </repository>
+  <repository>
+   <id>textmate-nightly</id>
+   <url>${textmate-repo.url}</url>
+   <layout>p2</layout>
+  </repository>
+
+  <repository>
+   <id>lspe-nightly</id>
+   <url>${lspe-repo.url}</url>
+   <layout>p2</layout>
+  </repository>
+  <repository>
+   <id>license-feature</id>
+   <url>http://download.eclipse.org/cbi/updates/license/</url>
+   <layout>p2</layout>
+  </repository>
+  <repository>
+   <id>orbit</id>
+   <url>${orbit-repo.url}</url>
+   <layout>p2</layout>
+  </repository>
+ </repositories>
 
  <build>
   <plugins>
@@ -52,7 +94,7 @@
     <artifactId>target-platform-configuration</artifactId>
     <version>${tycho.version}</version>
     <configuration>
-  	<target> 
+    <target> 
         <artifact>
             <groupId>org.eclipse.dartboard.group</groupId>
             <artifactId>target-platform-latest</artifactId>
@@ -89,7 +131,7 @@
       <dependency>
        <groupId>org.eclipse.tycho.extras</groupId>
        <artifactId>tycho-buildtimestamp-jgit</artifactId>
-       <version>${tycho.version}</version>
+       <version>${tycho-extras.version}</version>
       </dependency>
      </dependencies>
      <configuration>

@@ -12,10 +12,17 @@
     Contributors:
         Jonas Hungershausen - initial API and implementation
  -->
-
 <site>
-   <feature url="features/org.eclipse.dartboard.feature_0.1.0.qualifier.jar" id="org.eclipse.dartboard.feature" version="0.1.0.qualifier">
+   <feature id="org.eclipse.dartboard.feature">
       <category name="Eclipse Dart Support"/>
    </feature>
+   <feature id="org.eclipse.wildwebdeveloper.feature">
+      <category name="Wild Web Developer"/>
+   </feature>
    <category-def name="Eclipse Dart Support" label="Dart Support for the Eclipse IDE"/>
+   <category-def name="Wild Web Developer" label="Wild Web Developer">
+      <description>
+         Dartboard requires the Wild Web Developer feature. You can install it if WWD is not already installed in your Eclipse environment.
+      </description>
+   </category-def>
 </site>
