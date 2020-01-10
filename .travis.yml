@@ -6,8 +6,8 @@ directories:
 env:
   global:
   - DISPLAY=:99.0
-before_install:
-  - sh -e /etc/init.d/xvfb start - sleep 10
+services:
+  - xvfb
 script:
 - cd jonas-jonas/dartboard
 - mvn clean verify
