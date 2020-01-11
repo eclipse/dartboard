@@ -41,10 +41,10 @@ spec:
   stages {
     stage('Prepare') {
       steps {
-        git url: 'https://github.com/eclipse/dartboard.git'
+        git branch: 'jenkins' url: 'https://github.com/eclipse/dartboard.git'
       }
     }
-    stage('Build Dartboard') {
+    stage('Build and test Dartboard') {
       steps {
         wrap([$class: 'Xvnc', useXauthority: true]) {
           sh 'mvn clean verify'
@@ -57,5 +57,18 @@ spec:
       }
     }
   }
+  post {
+    success {
+      sh 'cp -r org.eclipse.dartboard.update/target/repository org.eclipse.dartboard.update/target/nightly'
+      sshagent (credentials: ['genie.dartboard']) {
+        sh 'ssh genie.dartboard@projects-storage.eclipse.org rm -rf /home/data/httpd/download.eclipse.org/dartboard/jenkins-test'
+        sh 'scp -r org.eclipse.dartboard.update/target/nightly/ genie.dartboard@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/dartboard/jenkins-test'
+      }
+    }
+    failure {
+      mail to: 'jonas.hungershausen@vogella.com',
+           subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+           body: "Something is wrong with ${env.BUILD_URL}"
+    }
+  }
 }
-
