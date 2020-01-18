@@ -57,7 +57,7 @@ spec:
         }
       }*/
       steps {
-        sh 'mkdir org.eclipse.dartboard.update/target/repository'
+        sh 'mkdir -p org.eclipse.dartboard.update/target/repository'
         sh "'${env.BUILD_URL}' > org.eclipse.dartboard.update/target/repository/url"
       }
     }
