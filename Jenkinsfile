@@ -41,7 +41,7 @@ spec:
   stages {
     stage('Prepare') {
       steps {
-        git branch: 'jenkins', url: 'https://github.com/eclipse/dartboard.git'
+        git branch: 'master', url: 'https://github.com/eclipse/dartboard.git'
       }
     }
     stage('Build and test Dartboard') {
