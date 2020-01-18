@@ -58,7 +58,7 @@ spec:
       }*/
       steps {
         sh 'mkdir -p org.eclipse.dartboard.update/target/repository'
-        sh "'${env.BUILD_URL}' > org.eclipse.dartboard.update/target/repository/url"
+        sh "echo '${env.BUILD_URL}' > org.eclipse.dartboard.update/target/repository/url"
       }
     }
     stage('Deploy to update site') {
