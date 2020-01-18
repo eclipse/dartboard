@@ -62,9 +62,9 @@ spec:
           sh 'cp -r org.eclipse.dartboard.update/target/repository org.eclipse.dartboard.update/target/nightly'
           sshagent ( ['projects-storage.eclipse.org-bot-ssh']) {
             sh '''
-              ssh genie.dartboard@projects-storage.eclipse.org rm -rf /home/data/httpd/download.eclipse.org/dartboard/jenkins-test
-              ssh genie.dartboard@projects-storage.eclipse.org mkdir -p /home/data/httpd/download.eclipse.org/dartboard/jenkins-test
-              scp -r org.eclipse.dartboard.update/target/nightly/ genie.dartboard@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/dartboard/jenkins-test
+              ssh genie.dartboard@projects-storage.eclipse.org rm -rf /home/data/httpd/download.eclipse.org/dartboard/nightly
+              ssh genie.dartboard@projects-storage.eclipse.org mkdir -p /home/data/httpd/download.eclipse.org/dartboard/nightly
+              scp -r org.eclipse.dartboard.update/target/nightly/ genie.dartboard@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/dartboard/nightly
             '''
           }
         }
