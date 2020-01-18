@@ -45,20 +45,15 @@ spec:
       }
     }
     stage('Build and test Dartboard') {
-      /*
       steps {
         wrap([$class: 'Xvnc', useXauthority: true]) {
-          sh 'mvn clean verify'
+          sh 'mvn clean verify -Psign'
         }
       }
       post {
         always {
-          junit '* /target/surefire-reports/TEST-*.xml' 
+          junit '*/target/surefire-reports/TEST-*.xml' 
         }
-      }*/
-      steps {
-        sh 'mkdir -p org.eclipse.dartboard.update/target/repository'
-        sh "echo '${env.BUILD_URL}' > org.eclipse.dartboard.update/target/repository/url"
       }
     }
     stage('Deploy to update site') {
