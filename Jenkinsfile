@@ -64,7 +64,7 @@ spec:
             sh '''
               ssh genie.dartboard@projects-storage.eclipse.org rm -rf /home/data/httpd/download.eclipse.org/dartboard/nightly
               ssh genie.dartboard@projects-storage.eclipse.org mkdir -p /home/data/httpd/download.eclipse.org/dartboard/nightly
-              scp -r org.eclipse.dartboard.update/target/nightly/ genie.dartboard@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/dartboard/nightly
+              scp -r org.eclipse.dartboard.update/target/nightly/ genie.dartboard@projects-storage.eclipse.org:/home/data/httpd/download.eclipse.org/dartboard
             '''
           }
         }
