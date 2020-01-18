@@ -47,7 +47,7 @@ spec:
     stage('Build and test Dartboard') {
       steps {
         wrap([$class: 'Xvnc', useXauthority: true]) {
-          sh 'mvn clean verify -Psign'
+          sh 'mvn clean verify -Psign -B'
         }
       }
       post {
