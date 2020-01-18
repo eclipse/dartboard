@@ -45,6 +45,7 @@ spec:
       }
     }
     stage('Build and test Dartboard') {
+      /*
       steps {
         wrap([$class: 'Xvnc', useXauthority: true]) {
           sh 'mvn clean verify'
@@ -52,13 +53,15 @@ spec:
       }
       post {
         always {
-          junit '*/target/surefire-reports/TEST-*.xml' 
+          junit '* /target/surefire-reports/TEST-*.xml' 
         }
+      }*/
+      steps {
+        sh 'mkdir org.eclipse.dartboard.update/target/repository'
+        sh "'${env.BUILD_URL}' > org.eclipse.dartboard.update/target/repository/url"
       }
     }
-  }
-  post {
-    success {
+    stage('Deploy to update site') {
       sh 'cp -r org.eclipse.dartboard.update/target/repository org.eclipse.dartboard.update/target/nightly'
       sshagent ( ['projects-storage.eclipse.org-bot-ssh']) {
         sh '''
@@ -68,6 +71,8 @@ spec:
         '''
       }
     }
+  }
+  post {
     failure {
       mail to: 'jonas.hungershausen@vogella.com',
            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
