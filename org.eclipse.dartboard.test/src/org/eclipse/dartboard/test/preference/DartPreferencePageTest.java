@@ -16,6 +16,7 @@ package org.eclipse.dartboard.test.preference;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
@@ -35,12 +36,15 @@ import org.junit.runner.RunWith;
 
 @RunWith(RedDeerSuite.class)
 public class DartPreferencePageTest {
+	/** Dart SDK location is operating system specific. Here catering for Linuz and Windows */
+	private static String DART_SDK_LOC;
 
 	private PreferenceDialog preferenceDialog;
 	private DartPreferencePage preferencePage;
 
 	@Before
 	public void setup() {
+		DART_SDK_LOC = Platform.getOS().equals(Platform.OS_WIN32) ? "C:\\Program Files\\Dart\\dart-sdk" : "/usr/lib/dart";
 		preferenceDialog = new WorkbenchPreferenceDialog();
 		preferencePage = new DartPreferencePage(preferenceDialog);
 		preferenceDialog.open();
@@ -61,7 +65,7 @@ public class DartPreferencePageTest {
 		assertEquals(true, preferencePage.isAutoPubSynchronization());
 		assertEquals(false, preferencePage.isUseOfflinePub());
 
-		assertEquals("/usr/lib/dart", preferencePage.getSDKLocation());
+		assertEquals(DART_SDK_LOC, preferencePage.getSDKLocation());
 	}
 
 	@Test
