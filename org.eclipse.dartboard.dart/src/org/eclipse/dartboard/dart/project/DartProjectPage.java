@@ -63,7 +63,7 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 		dartGroup.setLayout(new GridLayout(2, false));
 
 		Label labelSdkLocation = new Label(dartGroup, SWT.NONE);
-		labelSdkLocation.setText(Messages.Preference_SDKLocation);
+		labelSdkLocation.setText(Messages.Preference_SDKLocation_Dart);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
 		Label sdkLocation = new Label(dartGroup, SWT.NONE);

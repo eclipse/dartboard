@@ -80,7 +80,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		comboProject.addModifyListener(event -> updateLaunchConfigurationDialog());
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
-		labelSdkLocation.setText(Messages.Preference_SDKLocation);
+		labelSdkLocation.setText(Messages.Preference_SDKLocation_Dart);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
 		textSdkLocation = new Text(comp, SWT.NONE);

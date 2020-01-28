@@ -21,7 +21,6 @@ import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
@@ -29,8 +28,6 @@ import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
-
-import com.google.common.collect.Lists;
 
 /**
  * @author jonas
@@ -42,7 +39,7 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 	public FlutterSDKLocationFieldEditor(String preferencesKey, String label, Composite parent) {
 		super(preferencesKey, label, parent);
-		setValidateStrategy(VALIDATE_ON_KEY_STROKE);
+		setValidateStrategy(VALIDATE_ON_FOCUS_LOST);
 	}
 
 	@Override
@@ -67,25 +64,23 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 		// InvalidPathException is thrown. In that case we can assume that the location
 		// entered is not a valid Dart SDK directory either.
 		try {
-			path = Paths.get(location).resolve("bin" + File.separator + "cache" + File.separator + "dart-sdk"
-					+ File.separator + "bin" + File.separator + (isWindows ? "dart.exe" : "dart"));
+			path = Paths.get(location).resolve("bin" + File.separator + (isWindows ? "flutter.bat" : "flutter"));
 		} catch (InvalidPathException e) {
 			return false;
 		}
 
 		// See https://github.com/eclipse/dartboard/issues/103
-		List<String> blacklist = Lists.newArrayList("/bin/dart", "/usr/bin/dart");
+		// List<String> blacklist = Lists.newArrayList("/bin/dart", "/usr/bin/dart");
 		// If the entered file doesn't exist, there is no need to run it
 		// Similarly if the file is a directory it can't be the dart executable
-		if (!Files.exists(path) || Files.isDirectory(path)
-				|| (!isWindows && blacklist.contains(path.toString().toLowerCase()))) {
+		if (!Files.exists(path) || Files.isDirectory(path)) {
 			return false;
 		}
 		// Follow symbolic links
 		try {
 			path = path.toRealPath();
 		} catch (IOException e1) {
-			LOG.log(DartLog.createError("Couldn't follow symlink", e1));
+			LOG.log(DartLog.createError("Couldn't follow symlink", e1)); //$NON-NLS-1$
 			return false;
 		}
 
@@ -93,9 +88,9 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 		String[] commands;
 		if (isWindows) {
-			commands = new String[] { "cmd", "/c", executablePath, "--version" };
+			commands = new String[] { "cmd", "/c", executablePath, "--version" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
-			commands = new String[] { "/bin/bash", "-c", executablePath + " --version" };
+			commands = new String[] { "/bin/sh", "-c", executablePath + " --version" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}
 
 		ProcessBuilder processBuilder = new ProcessBuilder(commands);
@@ -109,7 +104,9 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 			return false;
 		}
 
-		return version.startsWith("Dart VM version");
+		System.out.println("xx");
+
+		return version.startsWith("Flutter"); //$NON-NLS-1$
 	}
 
 	protected void addModifyListener(ModifyListener listener) {

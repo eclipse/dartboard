@@ -16,8 +16,8 @@ package org.eclipse.dartboard.flutter.util;
 import java.io.File;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.flutter.FlutterConstants;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 /**
@@ -31,7 +31,7 @@ public class FlutterUtil {
 	private static ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	public static String getDefaultSDKPath() {
-		return preferences.getString(FlutterConstants.PREFERENCES_SDK_LOCATION);
+		return preferences.getString(GlobalConstants.P_SDK_LOCATION_FLUTTER);
 	}
 
 	public static String getFutterTool() {

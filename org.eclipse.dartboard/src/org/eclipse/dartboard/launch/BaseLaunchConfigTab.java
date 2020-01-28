@@ -19,8 +19,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.ILog;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -38,7 +36,6 @@ import org.osgi.framework.FrameworkUtil;
 public abstract class BaseLaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	private String name;
-	private static final ILog LOG = Platform.getLog(BaseLaunchConfigTab.class);
 
 	protected Text textSdkLocation;
 	protected Combo comboProject;

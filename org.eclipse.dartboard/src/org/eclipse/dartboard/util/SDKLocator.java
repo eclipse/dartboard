@@ -64,7 +64,7 @@ public class SDKLocator {
 		return Optional.ofNullable(path);
 	}
 
-	private static String getShell() throws IOException, InterruptedException {
+	public static String getShell() throws IOException, InterruptedException {
 		ProcessBuilder builder = new ProcessBuilder("/bin/sh", "-c", "echo $SHELL");
 		Process process = builder.start();
 		process.waitFor();

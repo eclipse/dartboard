@@ -33,7 +33,7 @@ public class DartboardLanguageServerStreamProvider extends ProcessStreamConnecti
 		String dartLocation;
 		if (globalPreferences.getBoolean(GlobalConstants.FLUTTER_ENABLED)) {
 			String flutterSDK = globalPreferences.getString(GlobalConstants.P_SDK_LOCATION_FLUTTER);
-			dartLocation = flutterSDK + "/bin/cache/dart-sdk";
+			dartLocation = flutterSDK + "/bin/cache/dart-sdk"; //$NON-NLS-1$
 		} else {
 			dartLocation = globalPreferences.getString(GlobalConstants.P_SDK_LOCATION_DART);
 		}

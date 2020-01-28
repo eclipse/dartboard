@@ -22,6 +22,7 @@ import org.eclipse.dartboard.launch.BaseLaunchConfigTab;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -65,7 +66,7 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 		comboProject.addModifyListener(event -> updateLaunchConfigurationDialog());
 
 		Label labelSdkLocation = new Label(comp, SWT.NONE);
-		labelSdkLocation.setText(Messages.Preference_SDKLocation);
+		labelSdkLocation.setText(Messages.Preference_SDKLocation_Dart);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
 		textSdkLocation = new Text(comp, SWT.BORDER);
@@ -91,8 +92,8 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String defaultLocation = preferences.getString(FlutterConstants.PREFERENCES_SDK_LOCATION);
-			String location = configuration.getAttribute(FlutterConstants.PREFERENCES_SDK_LOCATION, defaultLocation);
+			String defaultLocation = preferences.getString(GlobalConstants.P_SDK_LOCATION_FLUTTER);
+			String location = configuration.getAttribute(GlobalConstants.P_SDK_LOCATION_FLUTTER, defaultLocation);
 			textSdkLocation.setText(location);
 
 			comboProject.setText(configuration.getAttribute(FlutterConstants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
@@ -112,7 +113,7 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
 		configuration.setAttribute("flutter.targetFile", textMainClass.getText());
-		configuration.setAttribute(FlutterConstants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
+		configuration.setAttribute(GlobalConstants.P_SDK_LOCATION_FLUTTER, textSdkLocation.getText());
 		configuration.setAttribute(FlutterConstants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
 	}
 

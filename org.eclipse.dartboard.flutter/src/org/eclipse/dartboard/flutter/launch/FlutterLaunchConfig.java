@@ -19,7 +19,6 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.dartboard.flutter.FlutterConstants;
 import org.eclipse.dartboard.flutter.sdk.FlutterSDK;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
@@ -40,7 +39,6 @@ public class FlutterLaunchConfig extends LaunchConfigurationDelegate {
 		}
 
 		String target = configuration.getAttribute("flutter.targetFile", "main.dart");
-		String sdk = configuration.getAttribute(FlutterConstants.PREFERENCES_SDK_LOCATION, "");
 		String projectName = configuration.getAttribute("selected_project", "");
 		IProject project = getProject(projectName);
 		if (!project.exists()) {

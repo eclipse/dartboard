@@ -2,14 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.eclipse.ui.preferencePages">
-      <page
-            class="org.eclipse.dartboard.flutter.preference.FlutterPreferencePage"
-            id="org.eclipse.dartboard.flutter.preferencePage"
-            name="Flutter">
-      </page>
-   </extension>
-   <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
             class="org.eclipse.dartboard.flutter.launch.FlutterLaunchTabGroup"

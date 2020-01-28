@@ -48,7 +48,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		if (scopedPreferenceStore.getString(GlobalConstants.P_SDK_LOCATION_FLUTTER).isEmpty()) {
 			Optional<Path> binLocation;
 			try {
-				binLocation = SDKLocator.getLocation("flutter");
+				binLocation = SDKLocator.getLocation("flutter"); //$NON-NLS-1$
 			} catch (IOException | InterruptedException e) {
 				LOG.log(DartLog.createError("Could not retrieve flutter location", e)); //$NON-NLS-1$
 				binLocation = Optional.empty();
@@ -58,10 +58,10 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 				scopedPreferenceStore.setValue(GlobalConstants.P_SDK_LOCATION_FLUTTER, sdkPath.toString());
 				scopedPreferenceStore.setValue(GlobalConstants.FLUTTER_ENABLED, true);
 				anySdkFound = true;
-				LOG.info("Flutter SDK found at " + sdkPath.toString());
+				LOG.info("Flutter SDK found at " + sdkPath.toString()); //$NON-NLS-1$
 			} else {
 				scopedPreferenceStore.setValue(GlobalConstants.FLUTTER_ENABLED, false);
-				LOG.error("No flutter SDK found");
+				LOG.error("No flutter SDK found"); //$NON-NLS-1$
 			}
 		} else {
 			anySdkFound = true;
@@ -69,7 +69,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		if (scopedPreferenceStore.getString(GlobalConstants.P_SDK_LOCATION_DART).isEmpty()) {
 			Optional<Path> binLocation;
 			try {
-				binLocation = SDKLocator.getLocation("dart");
+				binLocation = SDKLocator.getLocation("dart"); //$NON-NLS-1$
 			} catch (IOException | InterruptedException e) {
 				LOG.log(DartLog.createError("Could not retrieve flutter location", e)); //$NON-NLS-1$
 				binLocation = Optional.empty();

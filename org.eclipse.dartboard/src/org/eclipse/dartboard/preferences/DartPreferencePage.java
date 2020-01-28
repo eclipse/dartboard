@@ -135,15 +135,15 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	protected void createFieldEditors() {
 		Composite parent = getFieldEditorParent();
 
-		RadioGroupFieldEditor editor = new RadioGroupFieldEditor(GlobalConstants.FLUTTER_ENABLED, "Plugin Mode", 2, new String[][] {
-			 		{"Dart", "false"},
-			 		{"Flutter", "true"}
-			 	}, parent, true);
+		String[][] labelAndValues = new String[][] { { "Dart", "false" }, { "Flutter", "true" } }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+
+		RadioGroupFieldEditor editor = new RadioGroupFieldEditor(GlobalConstants.FLUTTER_ENABLED,
+				Messages.Preference_PluginMode_Label, 2, labelAndValues, parent, true);
 		addField(editor);
 
 		// Dart SDK location text field/file browser
 		dartSDKLocationEditor = new DartSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_DART,
-				Messages.Preference_SDKLocation, parent);
+				Messages.Preference_SDKLocation_Dart, parent);
 		addField(dartSDKLocationEditor);
 
 		dartSDKLocationEditor.addModifyListener(event -> {
@@ -151,8 +151,8 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		});
 
 		flutterSDKLocationFieldEditor = new FlutterSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_FLUTTER,
-				"Flutter SDK Location", parent);
-				addField(flutterSDKLocationFieldEditor);
+				Messages.Preference_SDKLocation_Flutter, parent);
+		addField(flutterSDKLocationFieldEditor);
 
 		BooleanFieldEditor autoPubSyncEditor = new BooleanFieldEditor(GlobalConstants.P_SYNC_PUB,
 				Messages.Preference_PubAutoSync_Label, parent);

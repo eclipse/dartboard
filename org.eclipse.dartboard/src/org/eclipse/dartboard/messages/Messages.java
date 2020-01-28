@@ -24,8 +24,10 @@ public class Messages extends NLS {
 	public static String Launch_NoProjectSelected_Title;
 	public static String Launch_NoProjectSelected_Body;
 	public static String Launch_Project;
-	public static String Preference_SDKLocation;
-	public static String Preference_SDKVersion;
+	public static String Preference_SDKLocation_Dart;
+	public static String Preference_SDKVersion_Dart;
+	public static String Preference_SDKLocation_Flutter;
+	public static String Preference_SDKVersion_Flutter;
 	public static String Preference_PubAutoSync_Label;
 	public static String Preference_PubOffline_Label;
 	public static String Launch_SDKLocation_Message;
@@ -37,6 +39,7 @@ public class Messages extends NLS {
 	public static String Preference_SDKNotFound_Message;
 	public static String Preference_RestartRequired_Title;
 	public static String Preference_RestartRequired_Message;
+	public static String Preference_PluginMode_Label;
 	public static String Launch_ConfigurationRequired_Title;
 	public static String Launch_ConfigurationRequired_Body;
 
