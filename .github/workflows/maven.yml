@@ -17,5 +17,5 @@ jobs:
         java-version: 1.8
     - name: Build and test
       run: |
-        sudo apt-get install xvfb
+        apt-get install xvfb
         xvfb-run --auto-servernum mvn -B clean verify
