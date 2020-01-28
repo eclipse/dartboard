@@ -19,8 +19,8 @@ import static org.junit.Assert.assertTrue;
 
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferenceDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
@@ -85,8 +85,8 @@ public class DartPreferencePageTest {
 		ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
 				"org.eclipse.dartboard.dart");
 
-		assertEquals(true, preferenceStore.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
-		assertEquals(false, preferenceStore.getBoolean(Constants.PREFERENCES_SYNC_PUB));
+		assertEquals(true, preferenceStore.getBoolean(GlobalConstants.P_OFFLINE_PUB));
+		assertEquals(false, preferenceStore.getBoolean(GlobalConstants.P_SYNC_PUB));
 	}
 
 	public class DartPreferencePage extends PreferencePage {

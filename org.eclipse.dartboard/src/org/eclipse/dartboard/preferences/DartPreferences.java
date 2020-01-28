@@ -1,8 +1,5 @@
 package org.eclipse.dartboard.preferences;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -14,7 +11,6 @@ public class DartPreferences {
 	}
 
 	private static ScopedPreferenceStore globalPreferences = new ScopedPreferenceStore(InstanceScope.INSTANCE, GlobalConstants.BASE_PLUGIN_ID);
-	private static Map<String, ScopedPreferenceStore> prefs = new HashMap<>();
 
 	/**
 	 * Returns the current {@link IPreferenceStore} for the plugin.

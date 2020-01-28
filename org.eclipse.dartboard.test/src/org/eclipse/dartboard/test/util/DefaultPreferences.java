@@ -14,19 +14,20 @@
 package org.eclipse.dartboard.test.util;
 
 import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DefaultPreferences {
 
 	public static void resetPreferences(ScopedPreferenceStore preferenceStore) {
 		if (preferenceStore == null) {
-			preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard.dart");
+			preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE, "org.eclipse.dartboard");
 		}
 
-		preferenceStore.setToDefault(Constants.PREFERENCES_OFFLINE_PUB);
-		preferenceStore.setToDefault(Constants.PREFERENCES_SDK_LOCATION);
-		preferenceStore.setToDefault(Constants.PREFERENCES_SYNC_PUB);
+		preferenceStore.setToDefault(GlobalConstants.P_OFFLINE_PUB);
+		preferenceStore.setToDefault(GlobalConstants.P_SDK_LOCATION_DART);
+		preferenceStore.setToDefault(GlobalConstants.P_SDK_LOCATION_FLUTTER);
+		preferenceStore.setToDefault(GlobalConstants.P_SYNC_PUB);
 	}
 
 	public static void resetPreferences() {
