@@ -22,12 +22,14 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.eclipse.core.runtime.ICoreRunnable;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 
 /**
  * @author jonas
@@ -36,6 +38,7 @@ import org.eclipse.swt.widgets.Composite;
 public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 	private static final ILog LOG = Platform.getLog(FlutterSDKLocationFieldEditor.class);
+	private boolean validFlutterSDK = true;
 
 	public FlutterSDKLocationFieldEditor(String preferencesKey, String label, Composite parent) {
 		super(preferencesKey, label, parent);
@@ -45,15 +48,33 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 	@Override
 	protected boolean doCheckState() {
 		String location = getTextControl().getText();
-		boolean isValid = isValidFlutterSDK(location);
-		if (!isValid) {
-			setErrorMessage("Not a valid Flutter SDK");
+		Job sdkCheck = Job.create("Check Flutter and Dart SDK location", //$NON-NLS-1$
+				(ICoreRunnable) monitor -> validateSDKLocation(location));
+		sdkCheck.schedule();
+		return validFlutterSDK;
+	}
+
+	@Override
+	protected void valueChanged() {
+		if (!validFlutterSDK) {
+			setErrorMessage("Not a valid Flutter SDK"); //$NON-NLS-1$
 			showErrorMessage();
 		}
-		return isValid;
+		super.valueChanged();
+	}
+
+	private void validateSDKLocation(String location) {
+		if (validFlutterSDK != isValidFlutterSDK(location)) {
+			validFlutterSDK = isValidFlutterSDK(location);
+			Display.getDefault().asyncExec(() -> {
+				valueChanged();
+			});
+		}
 	}
 
 	private boolean isValidFlutterSDK(String location) {
+
+
 		if (location.isEmpty()) {
 			return false;
 		}
@@ -107,10 +128,6 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 		System.out.println("xx");
 
 		return version.startsWith("Flutter"); //$NON-NLS-1$
-	}
-
-	protected void addModifyListener(ModifyListener listener) {
-		getTextControl().addModifyListener(listener);
 	}
 
 }
