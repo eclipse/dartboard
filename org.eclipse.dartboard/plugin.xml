@@ -31,6 +31,10 @@
               clientImpl="org.eclipse.dartboard.client.DartLanguageClientImpl"
               id="org.eclipse.dartboard.server"
               label="Dart Language Server"></server>
+        <contentTypeMapping
+              contentType="org.eclipse.dartboard"
+              id="org.eclipse.dartboard.server">
+        </contentTypeMapping>
     </extension>
  <extension
           point="org.eclipse.tm4e.ui.snippets">
