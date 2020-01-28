@@ -50,12 +50,10 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 	private DartProjectPage dartProjectPage;
 	private IProject newProject;
 	private IWorkbench workbench;
-	private IStructuredSelection selection;
 
 	@Override
 	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		this.workbench = workbench;
-		this.selection = selection;
 		setWindowTitle(Messages.NewProject_WindowTitle);
 		setNeedsProgressMonitor(true);
 	}
