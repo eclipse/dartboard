@@ -24,6 +24,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.dart.util.LaunchUtil;
 import org.eclipse.dartboard.messages.Messages;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
@@ -43,7 +44,7 @@ public class LaunchConfig extends LaunchConfigurationDelegate {
 		}
 
 		String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart"); //$NON-NLS-1$
-		String sdk = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, ""); //$NON-NLS-1$
+		String sdk = configuration.getAttribute(GlobalConstants.P_SDK_LOCATION_DART, ""); //$NON-NLS-1$
 		String projectName = configuration.getAttribute(Constants.LAUNCH_SELECTED_PROJECT, ""); //$NON-NLS-1$
 		IProject project = getProject(projectName);
 		if (!project.exists()) {

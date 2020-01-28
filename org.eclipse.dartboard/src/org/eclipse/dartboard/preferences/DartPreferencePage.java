@@ -11,7 +11,7 @@
  * Contributors:
  *     Jonas Hungershausen - initial API and implementation
  *******************************************************************************/
-package org.eclipse.dartboard.dart.preference;
+package org.eclipse.dartboard.preferences;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,10 +20,9 @@ import java.nio.file.Paths;
 
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
-import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
@@ -31,6 +30,7 @@ import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
@@ -53,6 +53,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * A {@link DirectoryFieldEditor} used to obtain the Dart SDK location
 	 */
 	private DartSDKLocationFieldEditor dartSDKLocationEditor;
+	private FlutterSDKLocationFieldEditor flutterSDKLocationFieldEditor;
 
 	public DartPreferencePage() {
 		super(GRID);
@@ -64,13 +65,13 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	@Override
 	public void init(IWorkbench workbench) {
-		setPreferenceStore(DartPreferences.getPreferenceStore(Constants.PLUGIN_ID));
+		setPreferenceStore(DartPreferences.getPreferenceStore());
 	}
 
 	@Override
 	public boolean performOk() {
 		String sdkLocation = dartSDKLocationEditor.getStringValue();
-		String oldValue = getPreferenceStore().getString(Constants.PREFERENCES_SDK_LOCATION);
+		String oldValue = getPreferenceStore().getString(GlobalConstants.P_SDK_LOCATION_DART);
 
 		boolean ok = super.performOk();
 		// Don't update the preference store if the oldValue matches the new value
@@ -134,20 +135,32 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	protected void createFieldEditors() {
 		Composite parent = getFieldEditorParent();
 
+		RadioGroupFieldEditor editor = new RadioGroupFieldEditor(GlobalConstants.FLUTTER_ENABLED, "Plugin Mode", 2, new String[][] {
+			 		{"Dart", "false"},
+			 		{"Flutter", "true"}
+			 	}, parent, true);
+		addField(editor);
+
 		// Dart SDK location text field/file browser
-		dartSDKLocationEditor = new DartSDKLocationFieldEditor(Constants.PREFERENCES_SDK_LOCATION,
+		dartSDKLocationEditor = new DartSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_DART,
 				Messages.Preference_SDKLocation, parent);
 		addField(dartSDKLocationEditor);
 
 		dartSDKLocationEditor.addModifyListener(event -> {
 			setValid(dartSDKLocationEditor.doCheckState());
 		});
-		BooleanFieldEditor autoPubSyncEditor = new BooleanFieldEditor(Constants.PREFERENCES_SYNC_PUB,
+
+		flutterSDKLocationFieldEditor = new FlutterSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_FLUTTER,
+				"Flutter SDK Location", parent);
+				addField(flutterSDKLocationFieldEditor);
+
+		BooleanFieldEditor autoPubSyncEditor = new BooleanFieldEditor(GlobalConstants.P_SYNC_PUB,
 				Messages.Preference_PubAutoSync_Label, parent);
 		addField(autoPubSyncEditor);
-		BooleanFieldEditor useOfflinePub = new BooleanFieldEditor(Constants.PREFERENCES_OFFLINE_PUB,
+		BooleanFieldEditor useOfflinePub = new BooleanFieldEditor(GlobalConstants.P_OFFLINE_PUB,
 				Messages.Preference_PubOffline_Label, parent);
 		addField(useOfflinePub);
+
 	}
 
 	/**

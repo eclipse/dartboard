@@ -19,7 +19,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.logging.DartLog;
-import org.eclipse.dartboard.util.Constants;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.ui.wizards.datatransfer.ProjectConfigurator;
 
 public class DartProjectConfigurator implements ProjectConfigurator {
@@ -34,7 +34,7 @@ public class DartProjectConfigurator implements ProjectConfigurator {
 			Files.walkFileTree(root.toPath(), new SimpleFileVisitor<Path>() {
 				@Override
 				public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-					if (file.endsWith(Constants.PUBSPEC_YAML)) {
+					if (file.endsWith(GlobalConstants.PUBSPEC_YAML)) {
 						files.add(file.toFile().getParentFile());
 					}
 					return FileVisitResult.CONTINUE;

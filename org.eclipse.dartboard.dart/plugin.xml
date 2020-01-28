@@ -14,35 +14,11 @@
         Jonas Hungershausen - initial API and implementation
  -->
 <plugin>
-    <extension
-          point="org.eclipse.ui.editors">
-       <editorContentTypeBinding
-             contentTypeId="org.eclipse.dartboard"
-             editorId="org.eclipse.ui.genericeditor.GenericEditor">
-       </editorContentTypeBinding>
-    </extension>
-    <extension point="org.eclipse.core.contenttype.contentTypes">
-        <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Dart" priority="normal"></content-type>
-    </extension>
-    <extension point="org.eclipse.lsp4e.languageServer">
-        <server
-              class="org.eclipse.dartboard.dart.DartLanguageServerStreamProvider"
-              clientImpl="org.eclipse.dartboard.dart.client.DartLanguageClientImpl"
-              id="org.eclipse.dartboard.server"
-              label="Dart Language Server"></server>
-        <contentTypeMapping contentType="org.eclipse.dartboard" id="org.eclipse.dartboard.server"></contentTypeMapping>
-    </extension>
     <extension point="org.eclipse.debug.core.launchConfigurationTypes">
         <launchConfigurationType delegate="org.eclipse.dartboard.dart.launch.LaunchConfig" id="org.eclipse.dartboard.launch" modes="run, debug" name="Run Dart Program"></launchConfigurationType>
     </extension>
     <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
         <launchConfigurationTabGroup class="org.eclipse.dartboard.dart.launch.LaunchTabGroup" id="org.eclipse.dartboard.launchTabGroups" type="org.eclipse.dartboard.launch"></launchConfigurationTabGroup>
-    </extension>
-    <extension point="org.eclipse.ui.preferencePages">
-        <page class="org.eclipse.dartboard.dart.preference.DartPreferencePage" id="org.eclipse.dartboard.preferencePage" name="Dart"></page>
-    </extension>
-    <extension point="org.eclipse.core.runtime.preferences">
-        <initializer class="org.eclipse.dartboard.dart.preference.DartPreferenceInitializer"></initializer>
     </extension>
     <extension point="org.eclipse.ui.menus">
         <menuContribution

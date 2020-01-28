@@ -20,7 +20,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.util.Constants;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.e4.ui.workbench.UIEvents;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.event.Event;
@@ -51,7 +51,7 @@ public class PubListener implements EventHandler {
 	public static LinkedList<IPubService> getPubServices() {
 		LinkedList<IPubService> pubServices = new LinkedList<IPubService>();
 		IExtensionRegistry extensionRegistry = Platform.getExtensionRegistry();
-		for (IConfigurationElement e : extensionRegistry.getExtensionPoint(Constants.PUB_SERVICE_EXTENSION_POINT)
+		for (IConfigurationElement e : extensionRegistry.getExtensionPoint(GlobalConstants.PUB_SERVICE_EXTENSION_POINT)
 				.getConfigurationElements()) {
 			try {
 				IPubService pubService = (IPubService) e.createExecutableExtension(EXTENSION_CLASS);

@@ -11,7 +11,7 @@
  * Contributors:
  *     Jonas Hungershausen
  *******************************************************************************/
-package org.eclipse.dartboard.dart.client;
+package org.eclipse.dartboard.client;
 
 import org.eclipse.lsp4j.jsonrpc.services.JsonNotification;
 import org.eclipse.lsp4j.services.LanguageClient;

@@ -28,7 +28,7 @@ public class FlutterUtil {
 
 	public static final boolean IS_WINDOWS = Platform.OS_WIN32.equals(Platform.getOS());
 
-	private static ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore(FlutterConstants.PLUGIN_ID);
+	private static ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	public static String getDefaultSDKPath() {
 		return preferences.getString(FlutterConstants.PREFERENCES_SDK_LOCATION);

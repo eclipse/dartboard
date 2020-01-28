@@ -36,8 +36,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 
-	protected ScopedPreferenceStore preferences = DartPreferences
-			.getPreferenceStore(org.eclipse.dartboard.flutter.FlutterConstants.PLUGIN_ID);
+	protected ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	private static final ILog LOG = Platform.getLog(FlutterLaunchConfigTab.class);
 
@@ -96,8 +95,7 @@ public class FlutterLaunchConfigTab extends BaseLaunchConfigTab {
 			String location = configuration.getAttribute(FlutterConstants.PREFERENCES_SDK_LOCATION, defaultLocation);
 			textSdkLocation.setText(location);
 
-			comboProject.setText(
-					configuration.getAttribute(FlutterConstants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
+			comboProject.setText(configuration.getAttribute(FlutterConstants.LAUNCH_SELECTED_PROJECT, "")); //$NON-NLS-1$
 			setDirty(true);
 		} catch (CoreException e) {
 			LOG.log(DartLog.createError("Couldn't initialize LaunchConfigTab", e)); //$NON-NLS-1$

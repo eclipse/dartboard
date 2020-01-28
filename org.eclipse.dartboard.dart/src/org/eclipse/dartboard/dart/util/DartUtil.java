@@ -22,8 +22,8 @@ import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DartUtil {
@@ -33,22 +33,22 @@ public class DartUtil {
 
 	public static final boolean IS_WINDOWS = Platform.OS_WIN32.equals(Platform.getOS());
 
-	static ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore(Constants.PLUGIN_ID);
+	static ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	/**
 	 * Returns the path to an executable within the Dart SDK bin directory in a
 	 * system agnostic format.
-	 * 
+	 *
 	 * The difference to {@link #getTool(String)} is that this method returns the
 	 * path to an .exe file (on windows).
-	 * 
+	 *
 	 * These executables are: dart and dartaotruntime
-	 * 
+	 *
 	 * @param name - The name of the executable
 	 * @return The path to the executable valid for the host operating system
 	 */
 	public static String getExecutable(String name) {
-		String dartSdk = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
+		String dartSdk = preferences.getString(GlobalConstants.P_SDK_LOCATION_DART);
 
 		String result = dartSdk + File.separator + "bin" + File.separator + name; //$NON-NLS-1$
 
@@ -61,18 +61,18 @@ public class DartUtil {
 	/**
 	 * Returns the path to a tool within the Dart SDK bin directory in a system
 	 * agnostic format.
-	 * 
+	 *
 	 * A tool in the Dart SDK bin directory is any of the various executables, that
 	 * are .bat files on the windows version of the SDK.
-	 * 
+	 *
 	 * These tools are: dart2aot, dart2js, dartanalyzer, dartdevc, dartdoc, dartfmt,
 	 * pub
-	 * 
+	 *
 	 * @param name - The name of the tool
 	 * @return The path to the tool valid for the host operating system
 	 */
 	public static String getTool(String name) {
-		String dartSdk = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
+		String dartSdk = preferences.getString(GlobalConstants.P_SDK_LOCATION_DART);
 
 		String result = dartSdk + File.separator + "bin" + File.separator + name; //$NON-NLS-1$
 
@@ -84,16 +84,16 @@ public class DartUtil {
 
 	/**
 	 * Returns a {@link Path} containing the location of the Dart SDK folder.
-	 * 
+	 *
 	 * This method finds the location of the Dart SDK on the system, if installed.
 	 * On *nix based systems it tries to locate the Dart binary by using the
 	 * {@code which} command. Typically the output is a symbolic link to the actual
 	 * binary. Since the Dart SDK installation folder contains more binaries that we
 	 * need, we resolve the symbolic link and return the path to the /bin directory
 	 * inside the SDK installation folder.
-	 * 
+	 *
 	 * On Windows this method uses the where command to locate the binary.
-	 * 
+	 *
 	 * @return - An {@link Optional} of {@link Path} containing the path to the
 	 *         {@code /bin} folder inside the Dart SDK installation directory or
 	 *         empty if the SDK is not found on the host machine.

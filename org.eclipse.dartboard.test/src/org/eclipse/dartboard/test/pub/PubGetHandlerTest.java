@@ -55,9 +55,9 @@ public class PubGetHandlerTest {
 	public void pubGetCommand__ExistingNonDartProject__CommandIsNotAvailable() {
 
 		Project.create(projectName);
-		new WaitUntil(new ProjectExists(projectName));
 		ProjectExplorer projectExplorer = new ProjectExplorer();
 		projectExplorer.open();
+		new WaitUntil(new ProjectExists(projectName, projectExplorer));
 		projectExplorer.getProject(projectName).select();
 
 		assertFalse(new ContextMenu().hasItem("Pub", "Get dependencies"));

@@ -16,11 +16,11 @@ package org.eclipse.dartboard.dart.project;
 import java.util.List;
 
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.dart.stagehand.StagehandService;
 import org.eclipse.dartboard.dart.stagehand.StagehandTemplate;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.jface.dialogs.ProgressIndicator;
 import org.eclipse.jface.layout.GridDataFactory;
@@ -40,7 +40,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
 public class DartProjectPage extends WizardNewProjectCreationPage {
 
-	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore(Constants.PLUGIN_ID);
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 	private Combo stagehandTemplates;
 	private Button useStagehandButton;
 	private List<StagehandTemplate> templates;
@@ -68,7 +68,7 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 
 		Label sdkLocation = new Label(dartGroup, SWT.NONE);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(sdkLocation);
-		sdkLocation.setText(preferences.getString(Constants.PREFERENCES_SDK_LOCATION));
+		sdkLocation.setText(preferences.getString(GlobalConstants.P_SDK_LOCATION_DART));
 
 		// ------------------------------------------
 		Group stagehandGroup = new Group(parent, SWT.NONE);
@@ -127,7 +127,7 @@ public class DartProjectPage extends WizardNewProjectCreationPage {
 	@Override
 	protected boolean validatePage() {
 		boolean isValid = super.validatePage();
-		if (isValid && "".equals(preferences.getString(Constants.PREFERENCES_SDK_LOCATION))) { //$NON-NLS-1$
+		if (isValid && "".equals(preferences.getString(GlobalConstants.P_SDK_LOCATION_DART))) { //$NON-NLS-1$
 			setMessage(Messages.NewProject_SDK_Not_Found, IMessageProvider.WARNING);
 			// not making as invalid.Since its the temporary solution
 		}

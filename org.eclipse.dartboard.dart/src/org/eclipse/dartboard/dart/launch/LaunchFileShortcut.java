@@ -16,10 +16,10 @@ package org.eclipse.dartboard.dart.launch;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.dart.util.LaunchUtil;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.dartboard.util.PlatformUIUtil;
 import org.eclipse.debug.ui.ILaunchShortcut;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -47,7 +47,7 @@ import org.eclipse.ui.preferences.ScopedPreferenceStore;
  */
 public class LaunchFileShortcut implements ILaunchShortcut {
 
-	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore(Constants.PLUGIN_ID);
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 
 	@Override
 	public void launch(ISelection selection, String mode) {
@@ -71,7 +71,7 @@ public class LaunchFileShortcut implements ILaunchShortcut {
 
 	protected void launch(IPath file, String sdk) {
 		if (sdk == null) {
-			sdk = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
+			sdk = preferences.getString(GlobalConstants.P_SDK_LOCATION_DART);
 		}
 		if (sdk == null || sdk.isEmpty()) {
 			MessageDialog.openError(PlatformUIUtil.getActiveShell(), Messages.Launch_PageTitle,

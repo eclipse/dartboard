@@ -11,31 +11,37 @@
  * Contributors:
  *     Jonas Hungershausen - initial API and implementation
  *******************************************************************************/
-package org.eclipse.dartboard.dart;
+package org.eclipse.dartboard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.lsp4e.server.ProcessStreamConnectionProvider;
 import org.eclipse.lsp4e.server.StreamConnectionProvider;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 
-public class DartLanguageServerStreamProvider extends ProcessStreamConnectionProvider
+public class DartboardLanguageServerStreamProvider extends ProcessStreamConnectionProvider
 		implements StreamConnectionProvider {
 
-	public DartLanguageServerStreamProvider() {
-		ScopedPreferenceStore scopedPreferenceStore = DartPreferences.getPreferenceStore(Constants.PLUGIN_ID);
-
-		String dartLocation = scopedPreferenceStore.getString(Constants.PREFERENCES_SDK_LOCATION);
-
+	public DartboardLanguageServerStreamProvider() {
+		ScopedPreferenceStore globalPreferences = DartPreferences.getPreferenceStore();
 		List<String> commands = new ArrayList<>();
+
+
+		String dartLocation;
+		if (globalPreferences.getBoolean(GlobalConstants.FLUTTER_ENABLED)) {
+			String flutterSDK = globalPreferences.getString(GlobalConstants.P_SDK_LOCATION_FLUTTER);
+			dartLocation = flutterSDK + "/bin/cache/dart-sdk";
+		} else {
+			dartLocation = globalPreferences.getString(GlobalConstants.P_SDK_LOCATION_DART);
+		}
 		commands.add(dartLocation + "/bin/dart"); //$NON-NLS-1$
 		commands.add(dartLocation + "/bin/snapshots/analysis_server.dart.snapshot"); //$NON-NLS-1$
-		commands.add("--lsp"); //$NON-NLS-1$
-
-		setCommands(commands);
-
 		setWorkingDirectory(System.getProperty("user.dir")); //$NON-NLS-1$
+		setCommands(commands);
+		commands.add("--lsp"); //$NON-NLS-1$
 	}
+
 }

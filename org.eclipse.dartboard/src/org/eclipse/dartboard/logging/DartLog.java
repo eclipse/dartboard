@@ -3,7 +3,7 @@ package org.eclipse.dartboard.logging;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.dartboard.util.Constants;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.jface.dialogs.DialogPage;
 import org.eclipse.jface.dialogs.IMessageProvider;
 
@@ -23,7 +23,7 @@ public class DartLog {
 				statusMessage = exception.getMessage() == null ? exception.toString() : exception.getMessage();
 			}
 		}
-		return new Status(severity, Constants.PLUGIN_ID, severity, statusMessage, exception);
+		return new Status(severity, GlobalConstants.BASE_PLUGIN_ID, severity, statusMessage, exception);
 	}
 
 	public static IStatus createError(Throwable exception) {
@@ -43,7 +43,7 @@ public class DartLog {
 	}
 
 	public static IStatus newStatus(int severity, String message) {
-		return new Status(severity, Constants.PLUGIN_ID, message);
+		return new Status(severity, GlobalConstants.BASE_PLUGIN_ID, message);
 	}
 
 	public static IStatus createError(String message) {

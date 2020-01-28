@@ -2,6 +2,7 @@ package org.eclipse.dartboard.test.util;
 
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.eclipse.condition.ProjectExists;
+import org.eclipse.reddeer.eclipse.ui.navigator.resources.ProjectExplorer;
 import org.eclipse.reddeer.swt.impl.button.FinishButton;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.workbench.workbenchmenu.WorkbenchMenuWizardDialog;
@@ -16,7 +17,7 @@ public class ProjectUtil {
 
 		new LabeledText("Project name:").setText(name);
 		new FinishButton().click();
-		new WaitUntil(new ProjectExists(name));
+		new WaitUntil(new ProjectExists(name, new ProjectExplorer()));
 
 	}
 

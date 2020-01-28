@@ -26,6 +26,7 @@ import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.preferences.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -50,7 +51,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	private Text textMainClass;
 	private Combo comboProject;
 
-	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore(Constants.PLUGIN_ID);
+	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();
 	private Image image;
 
 	public LaunchConfigTab() {
@@ -106,8 +107,8 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 	@Override
 	public void initializeFrom(ILaunchConfiguration configuration) {
 		try {
-			String defaultLocation = preferences.getString(Constants.PREFERENCES_SDK_LOCATION);
-			String location = configuration.getAttribute(Constants.PREFERENCES_SDK_LOCATION, defaultLocation);
+			String defaultLocation = preferences.getString(GlobalConstants.P_SDK_LOCATION_DART);
+			String location = configuration.getAttribute(GlobalConstants.P_SDK_LOCATION_DART, defaultLocation);
 			textSdkLocation.setText(location);
 
 			String mainClass = configuration.getAttribute(Constants.LAUNCH_MAIN_CLASS, "main.dart"); //$NON-NLS-1$
@@ -123,7 +124,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 
 	@Override
 	public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-		configuration.setAttribute(Constants.PREFERENCES_SDK_LOCATION, textSdkLocation.getText());
+		configuration.setAttribute(GlobalConstants.P_SDK_LOCATION_DART, textSdkLocation.getText());
 		configuration.setAttribute(Constants.LAUNCH_MAIN_CLASS, textMainClass.getText());
 		configuration.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, comboProject.getText());
 	}

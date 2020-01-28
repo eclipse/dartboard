@@ -11,7 +11,7 @@
  * Contributors:
  *     Jonas Hungershausen
  *******************************************************************************/
-package org.eclipse.dartboard.dart.client;
+package org.eclipse.dartboard.client;
 
 /**
  * A data class that contains information sent in the $/analyzerStatus method of

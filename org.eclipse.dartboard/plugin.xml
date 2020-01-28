@@ -15,6 +15,23 @@
  -->
 <plugin>
    <extension-point id="org.eclipse.dartboard.pubService" name="PubService" schema="schema/org.eclipse.dartboard.pubService.exsd"/>
+   <extension
+      point="org.eclipse.ui.editors">
+       <editorContentTypeBinding
+             contentTypeId="org.eclipse.dartboard"
+             editorId="org.eclipse.ui.genericeditor.GenericEditor">
+       </editorContentTypeBinding>
+    </extension>
+    <extension point="org.eclipse.core.contenttype.contentTypes">
+        <content-type base-type="org.eclipse.core.runtime.text" file-extensions="dart" id="org.eclipse.dartboard" name="Dart" priority="normal"></content-type>
+    </extension>
+    <extension point="org.eclipse.lsp4e.languageServer">
+        <server
+              class="org.eclipse.dartboard.DartboardLanguageServerStreamProvider"
+              clientImpl="org.eclipse.dartboard.client.DartLanguageClientImpl"
+              id="org.eclipse.dartboard.server"
+              label="Dart Language Server"></server>
+    </extension>
  <extension
           point="org.eclipse.tm4e.ui.snippets">
        <snippet
@@ -28,6 +45,9 @@
         <grammar path="assets/dart.json" scopeName="source.dart"></grammar>
         <scopeNameContentTypeBinding contentTypeId="org.eclipse.dartboard" scopeName="source.dart"></scopeNameContentTypeBinding>
     </extension>
+    <extension point="org.eclipse.ui.preferencePages">
+        <page class="org.eclipse.dartboard.preferences.DartPreferencePage" id="org.eclipse.dartboard.preferencePage" name="Dart &amp; Flutter"></page>
+    </extension>
      <extension point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
         <languageConfiguration contentTypeId="org.eclipse.dartboard" path="assets/dart-language-configuration.json"></languageConfiguration>
     </extension>
@@ -38,5 +58,11 @@
              themeId="org.eclipse.tm4e.ui.themes.EclipseLight">
        </themeAssociation>
     </extension>
+        <extension
+              point="org.eclipse.core.runtime.preferences">
+           <initializer
+                 class="org.eclipse.dartboard.preferences.DartPreferenceInitializer">
+           </initializer>
+        </extension>
     
 </plugin>

@@ -13,7 +13,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.logging.DartLog;
-import org.eclipse.dartboard.util.Constants;
+import org.eclipse.dartboard.util.GlobalConstants;
 
 public class PubspecChangeListener implements IResourceChangeListener {
 
@@ -34,7 +34,7 @@ public class PubspecChangeListener implements IResourceChangeListener {
 					@Override
 					public boolean visit(IResourceDelta delta) throws CoreException {
 						IResource resource = delta.getResource();
-						if (resource.getType() == IResource.FILE && Constants.PUBSPEC_YAML.equals(resource.getName())
+						if (resource.getType() == IResource.FILE && GlobalConstants.PUBSPEC_YAML.equals(resource.getName())
 								&& (delta.getKind() == ADDED || isContentChanged(delta))) {
 							for (IPubService abstractPubService : pubServices) {
 								// At this point, resource is the pubspec.yaml
