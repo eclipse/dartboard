@@ -131,15 +131,8 @@ public class DartProjectWizard extends Wizard implements INewWizard {
 		if (newProject == null) {
 			return false;
 		}
-		BasicNewResourceWizard.selectAndReveal(newProject, getWorkbench().getActiveWorkbenchWindow());
+		BasicNewResourceWizard.selectAndReveal(newProject, workbench.getActiveWorkbenchWindow());
 		return true;
 	}
 
-	public IWorkbench getWorkbench() {
-		return this.workbench;
-	}
-
-	public IStructuredSelection getSelection() {
-		return selection;
-	}
 }
