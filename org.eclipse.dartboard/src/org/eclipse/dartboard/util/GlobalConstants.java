@@ -32,7 +32,7 @@ public abstract class GlobalConstants {
 	 */
 	public static final String PUBSPEC_YAML = "pubspec.yaml";
 
-	public static final String FLUTTER_ENABLED = "flutter.enabled";
+	public static final String P_FLUTTER_ENABLED = "flutter.enabled";
 
 	public static final String P_SDK_LOCATION_FLUTTER = "sdk.location.flutter";
 	public static final String P_SDK_LOCATION_DART = "sdk.location.dart";

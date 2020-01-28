@@ -55,12 +55,12 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			}
 			if (binLocation.isPresent()) {
 				Path sdkPath = binLocation.get().getParent();
-				scopedPreferenceStore.setValue(GlobalConstants.P_SDK_LOCATION_FLUTTER, sdkPath.toString());
-				scopedPreferenceStore.setValue(GlobalConstants.FLUTTER_ENABLED, true);
+				scopedPreferenceStore.setDefault(GlobalConstants.P_SDK_LOCATION_FLUTTER, sdkPath.toString());
+				scopedPreferenceStore.setValue(GlobalConstants.P_FLUTTER_ENABLED, true);
 				anySdkFound = true;
 				LOG.info("Flutter SDK found at " + sdkPath.toString()); //$NON-NLS-1$
 			} else {
-				scopedPreferenceStore.setValue(GlobalConstants.FLUTTER_ENABLED, false);
+				scopedPreferenceStore.setValue(GlobalConstants.P_FLUTTER_ENABLED, false);
 				LOG.error("No flutter SDK found"); //$NON-NLS-1$
 			}
 		} else {
@@ -76,7 +76,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 			}
 			if (binLocation.isPresent()) {
 				Path sdkPath = binLocation.get().getParent();
-				scopedPreferenceStore.setValue(GlobalConstants.P_SDK_LOCATION_DART, sdkPath.toString());
+				scopedPreferenceStore.setDefault(GlobalConstants.P_SDK_LOCATION_DART, sdkPath.toString());
 				anySdkFound = true;
 			}
 		} else {

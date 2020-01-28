@@ -125,8 +125,6 @@ public class FlutterSDKLocationFieldEditor extends DirectoryFieldEditor {
 			return false;
 		}
 
-		System.out.println("xx");
-
 		return version.startsWith("Flutter"); //$NON-NLS-1$
 	}
 

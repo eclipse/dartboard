@@ -18,7 +18,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.InstanceScope;
+import org.eclipse.dartboard.preferences.DartPreferences;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
@@ -82,9 +82,7 @@ public class DartPreferencePageTest {
 
 		preferencePage.apply();
 
-		ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
-				"org.eclipse.dartboard.dart");
-
+		ScopedPreferenceStore preferenceStore = DartPreferences.getPreferenceStore();
 		assertEquals(true, preferenceStore.getBoolean(GlobalConstants.P_OFFLINE_PUB));
 		assertEquals(false, preferenceStore.getBoolean(GlobalConstants.P_SYNC_PUB));
 	}
@@ -92,7 +90,7 @@ public class DartPreferencePageTest {
 	public class DartPreferencePage extends PreferencePage {
 
 		public DartPreferencePage(ReferencedComposite referencedComposite) {
-			super(referencedComposite, "Dart");
+			super(referencedComposite, "Dart and Flutter");
 		}
 
 		public DartPreferencePage setSDKLocation(String text) {

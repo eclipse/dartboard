@@ -15,6 +15,8 @@ package org.eclipse.dartboard.test.preference;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
@@ -40,7 +42,7 @@ public class DartPreferenceInitializerTest {
 	}
 
 	@Test
-	public void preferenceStore__NormalStartup__CorrectDefaultsAreSet() {
+	public void preferenceStore__NormalStartup__CorrectDefaultsAreSet() throws IOException, InterruptedException {
 		assertEquals(true, preferenceStore.getBoolean(GlobalConstants.P_SYNC_PUB));
 		assertEquals(false, preferenceStore.getBoolean(GlobalConstants.P_OFFLINE_PUB));
 

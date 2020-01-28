@@ -137,7 +137,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 		String[][] labelAndValues = new String[][] { { "Dart", "false" }, { "Flutter", "true" } }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		RadioGroupFieldEditor editor = new RadioGroupFieldEditor(GlobalConstants.FLUTTER_ENABLED,
+		RadioGroupFieldEditor editor = new RadioGroupFieldEditor(GlobalConstants.P_FLUTTER_ENABLED,
 				Messages.Preference_PluginMode_Label, 2, labelAndValues, parent, true);
 		addField(editor);
 

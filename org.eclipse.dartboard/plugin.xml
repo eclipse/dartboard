@@ -50,7 +50,7 @@
         <scopeNameContentTypeBinding contentTypeId="org.eclipse.dartboard" scopeName="source.dart"></scopeNameContentTypeBinding>
     </extension>
     <extension point="org.eclipse.ui.preferencePages">
-        <page class="org.eclipse.dartboard.preferences.DartPreferencePage" id="org.eclipse.dartboard.preferencePage" name="Dart &amp; Flutter"></page>
+        <page class="org.eclipse.dartboard.preferences.DartPreferencePage" id="org.eclipse.dartboard.preferencePage" name="Dart and Flutter"></page>
     </extension>
      <extension point="org.eclipse.tm4e.languageconfiguration.languageConfigurations">
         <languageConfiguration contentTypeId="org.eclipse.dartboard" path="assets/dart-language-configuration.json"></languageConfiguration>
