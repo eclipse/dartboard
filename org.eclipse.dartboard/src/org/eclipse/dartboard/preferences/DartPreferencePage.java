@@ -150,9 +150,14 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 			setValid(dartSDKLocationEditor.doCheckState());
 		});
 
+
 		flutterSDKLocationFieldEditor = new FlutterSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_FLUTTER,
 				Messages.Preference_SDKLocation_Flutter, parent);
 		addField(flutterSDKLocationFieldEditor);
+
+		flutterSDKLocationFieldEditor.addModifyListener(event -> {
+			setValid(flutterSDKLocationFieldEditor.doCheckState());
+		});
 
 		BooleanFieldEditor autoPubSyncEditor = new BooleanFieldEditor(GlobalConstants.P_SYNC_PUB,
 				Messages.Preference_PubAutoSync_Label, parent);
