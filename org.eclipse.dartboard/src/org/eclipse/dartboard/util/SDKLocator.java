@@ -7,12 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 
 public class SDKLocator {
-
-	private static final ILog LOG = Platform.getLog(SDKLocator.class);
 
 	public static final boolean IS_WINDOWS = Platform.OS_WIN32.equals(Platform.getOS());
 
@@ -33,18 +30,26 @@ public class SDKLocator {
 	 *         empty if the SDK is not found on the host machine.
 	 */
 	public static Optional<Path> getDartLocation() throws IOException, InterruptedException {
-		return getLocation("dart"); //$NON-NLS-1$
+		return getLocation("dart", false); //$NON-NLS-1$
 	}
 
-	public static Optional<Path> getLocation(String program) throws IOException, InterruptedException {
+	public static Optional<Path> getFlutterLocation() throws IOException, InterruptedException {
+		return getLocation("flutter", true); //$NON-NLS-1$
+	}
+
+	public static Optional<Path> getLocation(String program, boolean interactive)
+			throws IOException, InterruptedException {
 		Path path = null;
 		String[] command;
 		if (IS_WINDOWS) {
 			command = new String[] { "cmd", "/c", "where " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
 			String shell = getShell();
-			LOG.info("Using " + shell + " as user shell");
-			command = new String[] { shell, "-i", "-c", "which " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			if (interactive) {
+				command = new String[] { shell, "-i", "-c", "which " + program }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			} else {
+				command = new String[] { shell, "-c", "which " + program }; //$NON-NLS-1$ //$NON-NLS-2$
+			}
 		}
 
 		ProcessBuilder processBuilder = new ProcessBuilder();
@@ -65,7 +70,7 @@ public class SDKLocator {
 	}
 
 	public static String getShell() throws IOException, InterruptedException {
-		ProcessBuilder builder = new ProcessBuilder("/bin/sh", "-c", "echo $SHELL");
+		ProcessBuilder builder = new ProcessBuilder("/bin/sh", "-c", "echo $SHELL"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		Process process = builder.start();
 		process.waitFor();
 		try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

@@ -48,7 +48,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		if (scopedPreferenceStore.getString(GlobalConstants.P_SDK_LOCATION_FLUTTER).isEmpty()) {
 			Optional<Path> binLocation;
 			try {
-				binLocation = SDKLocator.getLocation("flutter"); //$NON-NLS-1$
+				binLocation = SDKLocator.getFlutterLocation(); // $NON-NLS-1$
 			} catch (IOException | InterruptedException e) {
 				LOG.log(DartLog.createError("Could not retrieve flutter location", e)); //$NON-NLS-1$
 				binLocation = Optional.empty();
@@ -69,7 +69,7 @@ public class DartPreferenceInitializer extends AbstractPreferenceInitializer {
 		if (scopedPreferenceStore.getString(GlobalConstants.P_SDK_LOCATION_DART).isEmpty()) {
 			Optional<Path> binLocation;
 			try {
-				binLocation = SDKLocator.getLocation("dart"); //$NON-NLS-1$
+				binLocation = SDKLocator.getDartLocation(); // $NON-NLS-1$
 			} catch (IOException | InterruptedException e) {
 				LOG.log(DartLog.createError("Could not retrieve flutter location", e)); //$NON-NLS-1$
 				binLocation = Optional.empty();
