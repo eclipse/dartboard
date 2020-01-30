@@ -13,9 +13,7 @@
  *******************************************************************************/
 package org.eclipse.dartboard.pub;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,13 +27,16 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.core.runtime.SubMonitor;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
 import org.eclipse.dartboard.Messages;
 import org.eclipse.dartboard.util.PubUtil;
 import org.eclipse.dartboard.util.StatusUtil;
+import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunchManager;
+import org.eclipse.debug.core.Launch;
+import org.eclipse.debug.core.model.IProcess;
 import org.eclipse.osgi.util.NLS;
 import org.osgi.service.component.annotations.Component;
 
@@ -97,22 +98,11 @@ public class PubService {
 				return StatusUtil.createError(Messages.PubSync_CouldNotStartProcess, exception);
 			}
 
-			try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
-				SubMonitor mo = SubMonitor.convert(monitor, 100);
+			Launch launch = new Launch(null, ILaunchManager.RUN_MODE, null);
+			DebugPlugin.getDefault().getLaunchManager().addLaunch(launch);
 
-				String taskName;
-				while ((taskName = reader.readLine()) != null) {
-					// We only want updates to the progress bar if one of the 2 operations are
-					// started. Not for every dependency added or compilation step done.
-					if (taskName.equalsIgnoreCase(Messages.PubSync_Task_ResolvingDependencies)
-							|| taskName.equalsIgnoreCase(Messages.PubSync_Task_PrecompilingExecutables)) {
-						mo.split(50);
-						mo.setTaskName(taskName);
-					}
-				}
-			} catch (IOException exception) {
-				return StatusUtil.createError(Messages.PubSync_CouldNotStartProcess, exception);
-			}
+			IProcess runtimeProcess = DebugPlugin.newProcess(launch, process, Messages.Pub_Console_Name);
+			launch.addProcess(runtimeProcess); 
 			return Status.OK_STATUS;
 		});
 
