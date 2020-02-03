@@ -13,7 +13,6 @@
  *******************************************************************************/
 package org.eclipse.dartboard.preferences;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -26,7 +25,6 @@ import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
-import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.IPersistentPreferenceStore;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -55,6 +53,8 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	private DartSDKLocationFieldEditor dartSDKLocationEditor;
 	private FlutterSDKLocationFieldEditor flutterSDKLocationFieldEditor;
 
+	private RadioGroupFieldEditor flutterEnabledRadio;
+
 	public DartPreferencePage() {
 		super(GRID);
 	}
@@ -70,23 +70,18 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 	@Override
 	public boolean performOk() {
-		String sdkLocation = dartSDKLocationEditor.getStringValue();
-		String oldValue = getPreferenceStore().getString(GlobalConstants.P_SDK_LOCATION_DART);
 
 		boolean ok = super.performOk();
-		// Don't update the preference store if the oldValue matches the new value
-		if (sdkLocation.equals(oldValue)) {
-			return true;
+		if (getPreferenceStore().getBoolean(GlobalConstants.P_FLUTTER_ENABLED)) {
+			ok = flutterSDKLocationFieldEditor.doCheckState();
+		} else {
+			ok = dartSDKLocationEditor.doCheckState();
 		}
-		Path path = getPath(sdkLocation);
-		// If the path is not valid, the page should not be able to be validated
-		// *should* never happen
-		if (path == null) {
+		if (!ok) {
 			setValid(false);
+			setErrorMessage(Messages.Preference_SDKNotFound_Message);
 			return false;
 		}
-
-		dartSDKLocationEditor.setStringValue(path.toAbsolutePath().toString());
 
 		boolean result = MessageDialog.openQuestion(null, Messages.Preference_RestartRequired_Title,
 				Messages.Preference_RestartRequired_Message);
@@ -113,22 +108,21 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 * @param location
 	 * @return
 	 */
-	private Path getPath(String location) {
-		if (dartSDKLocationEditor.isValid()) {
-			Path path = null;
-			try {
-				boolean isWindows = Platform.OS_WIN32.equals(Platform.getOS());
-				path = Paths.get(location + "bin" + File.separator + (isWindows ? "dart.exe" : "dart")); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-				// Since we append /bin/dart to resolve the symbolic links, we need to get 2
-				// levels up here.
-				path = path.toRealPath().toAbsolutePath().getParent().getParent();
-			} catch (IOException e) {
-				LOG.log(DartLog.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
-			}
-			return path;
-		} else {
+	public static Path getPath(String location) {
+		// if the entered location does not end with a / we assume that it can be
+		// appended
+
+		Path path = null;
+		try {
+			path = Paths.get(location);
+			// Since we append /bin/dart to resolve the symbolic links, we need to get 2
+			// levels up here.
+			path = path.toRealPath().toAbsolutePath().getParent().getParent();
+		} catch (IOException e) {
+			LOG.log(DartLog.createError("Couldn't follow symlink", e)); //$NON-NLS-1$
 			return null;
 		}
+		return path;
 	}
 
 	@Override
@@ -137,14 +131,16 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 
 		String[][] labelAndValues = new String[][] { { "Dart", "false" }, { "Flutter", "true" } }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 
-		RadioGroupFieldEditor editor = new RadioGroupFieldEditor(GlobalConstants.P_FLUTTER_ENABLED,
+		flutterEnabledRadio = new RadioGroupFieldEditor(
+				GlobalConstants.P_FLUTTER_ENABLED,
 				Messages.Preference_PluginMode_Label, 2, labelAndValues, parent, true);
-		addField(editor);
+		addField(flutterEnabledRadio);
 
 		// Dart SDK location text field/file browser
 		dartSDKLocationEditor = new DartSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_DART,
 				Messages.Preference_SDKLocation_Dart, parent);
 		addField(dartSDKLocationEditor);
+		dartSDKLocationEditor.setEnabled(!getPreferenceStore().getBoolean(GlobalConstants.P_FLUTTER_ENABLED));
 
 		dartSDKLocationEditor.addModifyListener(event -> {
 			setValid(dartSDKLocationEditor.doCheckState());
@@ -153,6 +149,11 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 		flutterSDKLocationFieldEditor = new FlutterSDKLocationFieldEditor(GlobalConstants.P_SDK_LOCATION_FLUTTER,
 				Messages.Preference_SDKLocation_Flutter, parent);
 		addField(flutterSDKLocationFieldEditor);
+		flutterSDKLocationFieldEditor.setEnabled(getPreferenceStore().getBoolean(GlobalConstants.P_FLUTTER_ENABLED));
+
+		flutterSDKLocationFieldEditor.addModifyListener(event -> {
+			setValid(flutterSDKLocationFieldEditor.doCheckState());
+		});
 
 		BooleanFieldEditor autoPubSyncEditor = new BooleanFieldEditor(GlobalConstants.P_SYNC_PUB,
 				Messages.Preference_PubAutoSync_Label, parent);
@@ -170,8 +171,16 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (FieldEditor.VALUE.equals(event.getProperty())) {
-			setValid(dartSDKLocationEditor.doCheckState());
+		if (event.getSource() instanceof RadioGroupFieldEditor) {
+			flutterEnabledRadio.store();
+			if (getPreferenceStore().getBoolean(GlobalConstants.P_FLUTTER_ENABLED)) {
+				dartSDKLocationEditor.setEnabled(false);
+				flutterSDKLocationFieldEditor.setEnabled(true);
+			} else {
+				dartSDKLocationEditor.setEnabled(true);
+				flutterSDKLocationFieldEditor.setEnabled(false);
+			}
+
 		}
 		super.propertyChange(event);
 	}
@@ -183,7 +192,7 @@ public class DartPreferencePage extends FieldEditorPreferencePage implements IWo
 	 */
 	private void save() throws IOException {
 		IPreferenceStore store = getPreferenceStore();
-		if (store.needsSaving() && store instanceof IPersistentPreferenceStore) {
+		if (store instanceof IPersistentPreferenceStore) {
 			((IPersistentPreferenceStore) store).save();
 		}
 	}

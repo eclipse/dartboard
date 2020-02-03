@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Composite;
@@ -44,6 +45,10 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 
 	@Override
 	protected boolean doCheckState() {
+		if (getPreferenceStore().getBoolean(GlobalConstants.P_FLUTTER_ENABLED)
+				&& getTextControl().getText().isEmpty()) {
+			return true;
+		}
 		String location = getTextControl().getText();
 		boolean isValid = isValidDartSDK(location);
 		if (!isValid) {
@@ -134,4 +139,9 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 	protected void addModifyListener(ModifyListener listener) {
 		getTextControl().addModifyListener(listener);
 	}
+
+	public void setEnabled(boolean enabled) {
+		getTextControl().setEnabled(enabled);
+	}
+
 }
