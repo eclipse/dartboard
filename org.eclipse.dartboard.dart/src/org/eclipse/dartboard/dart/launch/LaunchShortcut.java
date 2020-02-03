@@ -19,6 +19,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.dartboard.dart.Constants;
+import org.eclipse.dartboard.dart.stagehand.StagehandGenerator;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
 import org.eclipse.dartboard.util.PlatformUIUtil;
@@ -102,6 +103,7 @@ public class LaunchShortcut implements ILaunchShortcut {
 						LaunchConfigurationsMessages.CreateLaunchConfigurationAction_New_configuration_2));
 
 				copy.setAttribute(Constants.LAUNCH_SELECTED_PROJECT, project.getName());
+				copy.setAttribute(Constants.LAUNCH_MAIN_CLASS, project.getPersistentProperty(StagehandGenerator.QN_ENTRYPOINT));
 
 				int result = DebugUITools.openLaunchConfigurationDialog(PlatformUIUtil.getActiveShell(), copy,
 						Constants.LAUNCH_GROUP, null);

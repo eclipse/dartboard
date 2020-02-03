@@ -10,9 +10,11 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.core.runtime.jobs.IJobChangeEvent;
 import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.core.runtime.jobs.JobChangeAdapter;
+import org.eclipse.dartboard.dart.Constants;
 import org.eclipse.dartboard.dart.util.PubUtil;
 import org.eclipse.dartboard.logging.DartLog;
 import org.eclipse.dartboard.messages.Messages;
@@ -25,6 +27,7 @@ import org.eclipse.swt.widgets.Display;
 public class StagehandGenerator {
 
 	private static final ILog LOG = Platform.getLog(StagehandGenerator.class);
+	public static final QualifiedName QN_ENTRYPOINT = new QualifiedName(Constants.PLUGIN_ID, "entryPoint");
 
 	public static void generate(StagehandTemplate generator, IProject project) {
 		if (project == null) {
@@ -71,6 +74,7 @@ public class StagehandGenerator {
 				public void done(IJobChangeEvent event) {
 					try {
 						project.refreshLocal(IResource.DEPTH_INFINITE, new NullProgressMonitor());
+						project.setPersistentProperty(QN_ENTRYPOINT, generator.getEntrypoint());
 					} catch (CoreException e) {
 						LOG.log(DartLog.createError("Could not refresh project", e)); //$NON-NLS-1$
 					}

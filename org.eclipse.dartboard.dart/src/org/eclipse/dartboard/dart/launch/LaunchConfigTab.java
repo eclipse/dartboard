@@ -83,7 +83,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		labelSdkLocation.setText(Messages.Preference_SDKLocation_Dart);
 		GridDataFactory.swtDefaults().applyTo(labelSdkLocation);
 
-		textSdkLocation = new Text(comp, SWT.NONE);
+		textSdkLocation = new Text(comp, SWT.BORDER);
 		textSdkLocation.setMessage(Messages.Launch_SDKLocation_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textSdkLocation);
 		textSdkLocation.addModifyListener(event -> updateLaunchConfigurationDialog());
@@ -92,7 +92,7 @@ public class LaunchConfigTab extends AbstractLaunchConfigurationTab {
 		labelMainClass.setText(Messages.Launch_MainClass);
 		GridDataFactory.swtDefaults().applyTo(labelMainClass);
 
-		textMainClass = new Text(comp, SWT.NONE);
+		textMainClass = new Text(comp, SWT.BORDER);
 		textMainClass.setMessage(Messages.Launch_MainClass_Message);
 		GridDataFactory.fillDefaults().grab(true, false).applyTo(textMainClass);
 		textMainClass.addModifyListener(event -> updateLaunchConfigurationDialog());
