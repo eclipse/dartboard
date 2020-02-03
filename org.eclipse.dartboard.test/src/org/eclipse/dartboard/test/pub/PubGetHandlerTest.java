@@ -2,9 +2,9 @@ package org.eclipse.dartboard.test.pub;
 
 import static org.junit.Assert.assertFalse;
 
-import org.eclipse.dartboard.Constants;
+import org.eclipse.dartboard.preferences.DartPreferences;
 import org.eclipse.dartboard.test.util.ProjectUtil;
-import org.eclipse.dartboard.util.DartPreferences;
+import org.eclipse.dartboard.util.GlobalConstants;
 import org.eclipse.reddeer.common.wait.WaitUntil;
 import org.eclipse.reddeer.common.wait.WaitWhile;
 import org.eclipse.reddeer.direct.project.Project;
@@ -38,7 +38,7 @@ public class PubGetHandlerTest {
 
 	@Test
 	public void pubGetCommand__ExistingDartProject__CommandIsAvailableAndRunsPubGet() {
-		DartPreferences.getPreferenceStore().setValue(Constants.PREFERENCES_SYNC_PUB, false);
+		DartPreferences.getPreferenceStore().setValue(GlobalConstants.P_SYNC_PUB, false);
 
 		ProjectUtil.createDartProject(projectName);
 
@@ -55,9 +55,9 @@ public class PubGetHandlerTest {
 	public void pubGetCommand__ExistingNonDartProject__CommandIsNotAvailable() {
 
 		Project.create(projectName);
-		new WaitUntil(new ProjectExists(projectName));
 		ProjectExplorer projectExplorer = new ProjectExplorer();
 		projectExplorer.open();
+		new WaitUntil(new ProjectExists(projectName, projectExplorer));
 		projectExplorer.getProject(projectName).select();
 
 		assertFalse(new ContextMenu().hasItem("Pub", "Get dependencies"));

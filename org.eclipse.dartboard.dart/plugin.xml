@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4" ?>
+<!--
+    Copyright (c) 2019 vogella GmbH and others.
+   
+    This program and the accompanying materials
+    are made available under the terms of the Eclipse Public License 2.0
+    which accompanies this distribution, and is available at
+    https://www.eclipse.org/legal/epl-2.0/
+   
+    SPDX-License-Identifier: EPL-2.0
+   
+    Contributors:
+        Jonas Hungershausen - initial API and implementation
+ -->
+<plugin>
+    <extension point="org.eclipse.debug.core.launchConfigurationTypes">
+        <launchConfigurationType delegate="org.eclipse.dartboard.dart.launch.LaunchConfig" id="org.eclipse.dartboard.launch" modes="run, debug" name="Run Dart Program"></launchConfigurationType>
+    </extension>
+    <extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+        <launchConfigurationTabGroup class="org.eclipse.dartboard.dart.launch.LaunchTabGroup" id="org.eclipse.dartboard.launchTabGroups" type="org.eclipse.dartboard.launch"></launchConfigurationTabGroup>
+    </extension>
+    <extension point="org.eclipse.ui.menus">
+        <menuContribution
+              locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+           <menu
+                 id="org.eclipse.dartboard.pubmenuentry"
+                 label="Pub">
+              <command
+                    commandId="org.eclipse.dartboard.commands.pubget"
+                    style="push">
+              </command>
+              <visibleWhen>
+                 <with
+                       variable="selection">
+                    <count
+                          value="1">
+                    </count>
+                    <iterate>
+                       <adapt
+                             type="org.eclipse.core.resources.IResource">
+                          <test
+                                forcePluginActivation="true"
+                                property="org.eclipse.dartboard.isDartProject">
+                          </test>
+                       </adapt>
+                    </iterate>
+                 </with>
+              </visibleWhen>
+           </menu>
+        </menuContribution>
+    </extension>
+    <extension point="org.eclipse.debug.ui.launchShortcuts">
+        <shortcut class="org.eclipse.dartboard.dart.launch.LaunchShortcut" id="org.eclipse.dartboard.run_as_shortcut" label="Run as Dart Program" icon="icons/dart.png" modes="run">
+     <contextualLaunch>
+        <enablement>
+           <with
+                 variable="selection">
+              <count
+                    value="1">
+              </count>
+              <iterate>
+                 <adapt
+                       type="org.eclipse.core.resources.IResource">
+                    <test
+                          forcePluginActivation="true"
+                          property="org.eclipse.dartboard.isDartProject">
+                    </test>
+                 </adapt>
+              </iterate>
+           </with>
+        </enablement>
+     </contextualLaunch>
+            
+        </shortcut>
+        <shortcut id="org.eclipse.dartboard.launch_file" class="org.eclipse.dartboard.dart.launch.LaunchFileShortcut" label="Run File..." icon="icons/dart.png" modes="run">
+            <contextualLaunch>
+                <enablement>
+                    <with variable="selection">
+                        <count value="1" />
+                        <iterate>
+                            <or>
+                                <and>
+                                    <adapt type="org.eclipse.core.resources.IFile" />
+                                    <test property="org.eclipse.debug.ui.matchesPattern" value="*.dart" />
+                                </and>
+                            </or>
+                        </iterate>
+                    </with>
+                </enablement>
+            </contextualLaunch>
+        </shortcut>
+    </extension>
+	<extension
+		point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+		<launchConfigurationTypeImage
+			id="org.eclipse.dartboard.launch.image"
+			configTypeID="org.eclipse.dartboard.launch" icon="icons/dart.png" />
+  <launchConfigurationTypeImage
+        configTypeID="org.eclipse.dartboard.flutter.launch"
+        icon="icons/flutter.png"
+        id="org.eclipse.dartboard.flutter.image">
+  </launchConfigurationTypeImage>
+	</extension>
+  <extension
+          point="org.eclipse.ui.newWizards">
+        <category
+             id="org.eclipse.dartboard.eclipse.wizards"
+             name="Dart"></category>
+        <wizard
+             category="org.eclipse.dartboard.eclipse.wizards"
+             class="org.eclipse.dartboard.dart.project.DartProjectWizard"
+             icon="icons/dart.png"
+             id="org.eclipse.dartboard.dart.newproject"
+             name="Dart Project"
+             project="true">
+            <description>
+              Create a Dart project
+          </description>
+        </wizard>
+        <wizard
+             category="org.eclipse.dartboard.eclipse.wizards"
+             class="org.eclipse.dartboard.dart.project.DartFileWizard"
+             icon="icons/dart_file.png"
+             id="org.eclipse.dartboard.dart.newfile"
+             name="Dart File">
+            <description>
+             Create a Dart file
+          </description>
+        </wizard>
+    </extension>
+    <extension
+          point="org.eclipse.ui.perspectiveExtensions">
+        <perspectiveExtension
+             targetID="*">
+            <newWizardShortcut
+                id="org.eclipse.dartboard.dart.newproject"/>
+            <newWizardShortcut
+                id="org.eclipse.dartboard.dart.newfile"/>
+        </perspectiveExtension>
+    </extension>
+    <extension
+          point="org.eclipse.core.expressions.propertyTesters">
+       <propertyTester
+             class="org.eclipse.dartboard.dart.propertytester.IsDartProjectPropertyTester"
+             id="org.eclipse.dartboard.isDartProject"
+             namespace="org.eclipse.dartboard"
+             properties="isDartProject"
+             type="java.lang.Object">
+       </propertyTester>
+    </extension>
+    <extension
+          point="org.eclipse.debug.ui.launchGroups">
+       <launchGroup
+             bannerImage="icons/banner.png"
+             id="org.eclipse.dartboard.launchGroup"
+             image="icons/dart.png"
+             label="Dart Launch Group"
+             mode="run">
+       </launchGroup>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commands">
+       <command
+             description="Get the current package&apos;s dependencies."
+             id="org.eclipse.dartboard.commands.pubget"
+             name="Get dependencies">
+       </command>
+    </extension>
+    <extension
+          point="org.eclipse.ui.handlers">
+       <handler
+             class="org.eclipse.dartboard.dart.pub.PubGetHandler"
+             commandId="org.eclipse.dartboard.commands.pubget">
+       </handler>
+    </extension>
+    <extension
+          point="org.eclipse.ui.commandImages">
+       <image
+             commandId="org.eclipse.dartboard.commands.pubget"
+             disabledIcon="platform:/plugin/org.eclipse.pde.ui/icons/dlcl16/refresh.png"
+             icon="platform:/plugin/org.eclipse.pde.ui/icons/elcl16/refresh.png">
+       </image>
+    </extension>
+    <extension
+          point="org.eclipse.ui.importWizards">
+       <wizard
+             category="org.eclipse.dartboard.import.category"
+             class="org.eclipse.ui.internal.wizards.datatransfer.SmartImportWizard"
+             icon="icons/dart.png"
+             id="org.eclipse.dartboard.import.wizard"
+             name="Dart Project">
+       </wizard>
+       <category
+             id="org.eclipse.dartboard.import.category"
+             name="Dart">
+       </category>
+    </extension>
+    <extension
+          point="org.eclipse.ui.ide.projectConfigurators">
+       <projectConfigurator
+             class="org.eclipse.dartboard.dart.project.DartProjectConfigurator"
+             label="Dart Project">
+       </projectConfigurator>
+    </extension>
+    <extension
+          point="org.eclipse.ui.genericeditor.icons">
+       <icon
+             contentType="org.eclipse.dartboard"
+             icon="icons/dart_file.png">
+       </icon>
+    </extension>
+    <extension
+          point="org.eclipse.dartboard.pubService">
+       <service
+             class="org.eclipse.dartboard.dart.pub.DartPubService"
+             priority="false">
+       </service>
+    </extension>
+</plugin>

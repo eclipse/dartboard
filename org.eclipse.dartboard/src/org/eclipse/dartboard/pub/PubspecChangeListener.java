@@ -1,7 +1,8 @@
 package org.eclipse.dartboard.pub;
 
 import static org.eclipse.core.resources.IResourceDelta.ADDED;
-import static org.eclipse.dartboard.Constants.PUBSPEC;
+
+import java.util.List;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
@@ -11,31 +12,21 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.ILog;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.dartboard.Constants;
-import org.eclipse.dartboard.util.DartPreferences;
-import org.eclipse.dartboard.util.StatusUtil;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.dartboard.logging.DartLog;
+import org.eclipse.dartboard.util.GlobalConstants;
 
 public class PubspecChangeListener implements IResourceChangeListener {
 
 	private static final ILog LOG = Platform.getLog(PubspecChangeListener.class);
 
-	private ScopedPreferenceStore preferences = DartPreferences.getPreferenceStore();;
+	private List<IPubService> pubServices;
 
-	private PubService pub;
-
-	public PubspecChangeListener(PubService pubService) {
-		pub = pubService;
+	public PubspecChangeListener(List<IPubService> pubServices) {
+		this.pubServices = pubServices;
 	}
 
 	@Override
 	public void resourceChanged(IResourceChangeEvent event) {
-		boolean syncPub = preferences.getBoolean(Constants.PREFERENCES_SYNC_PUB);
-		// Don't sync if the user has turned off this option in the preferences
-		if (!syncPub) {
-			return;
-		}
-
 		if (event.getType() == IResourceChangeEvent.POST_CHANGE) {
 			try {
 				event.getDelta().accept(new IResourceDeltaVisitor() {
@@ -43,16 +34,21 @@ public class PubspecChangeListener implements IResourceChangeListener {
 					@Override
 					public boolean visit(IResourceDelta delta) throws CoreException {
 						IResource resource = delta.getResource();
-						if (resource.getType() == IResource.FILE && PUBSPEC.equals(resource.getName())
+						if (resource.getType() == IResource.FILE && GlobalConstants.PUBSPEC_YAML.equals(resource.getName())
 								&& (delta.getKind() == ADDED || isContentChanged(delta))) {
-							boolean offline = preferences.getBoolean(Constants.PREFERENCES_OFFLINE_PUB);
-							pub.get(resource.getProject(), offline);
+							for (IPubService abstractPubService : pubServices) {
+								// At this point, resource is the pubspec.yaml
+								if (abstractPubService.test(resource.getProject())) {
+									abstractPubService.get(resource.getProject());
+									break;
+								}
+							}
 						}
 						return true;
 					}
 				});
 			} catch (CoreException e) {
-				LOG.log(StatusUtil.createError(e.getMessage(), e));
+				LOG.log(DartLog.createError(e.getMessage(), e));
 			}
 		}
 	}
@@ -60,7 +56,7 @@ public class PubspecChangeListener implements IResourceChangeListener {
 	/**
 	 * Determines whether an {@link IResourceDelta} indicates that a
 	 * {@link IResource}'s content was changed.
-	 * 
+	 *
 	 * @param delta - The {@link IResourceDelta} to be checked
 	 * @return <code>true</code> if the {@link IResource}'s content was changed,
 	 *         false otherwise.

@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Dartboard Flutter
+Bundle-SymbolicName: org.eclipse.dartboard.flutter;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse.org
+Automatic-Module-Name: org.eclipse.dartboard.flutter
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.google.guava;bundle-version="21.0.0",
+ org.eclipse.core.resources,
+ org.eclipse.debug.core,
+ org.eclipse.debug.ui,
+ org.eclipse.core.expressions,
+ org.eclipse.ui.ide,
+ org.eclipse.lsp4e;bundle-version="0.13.0"
+Import-Package: org.eclipse.dartboard.launch,
+ org.eclipse.dartboard.logging,
+ org.eclipse.dartboard.messages,
+ org.eclipse.dartboard.preferences;resolution:=optional,
+ org.eclipse.dartboard.pub,
+ org.eclipse.dartboard.util

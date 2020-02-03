@@ -22,4 +22,4 @@ before_install:
 
 install: true
 script:
-  - mvn clean verify
+  - mvn clean verify -B

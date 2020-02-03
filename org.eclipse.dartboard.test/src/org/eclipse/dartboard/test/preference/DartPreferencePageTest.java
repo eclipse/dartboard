@@ -14,21 +14,20 @@
 package org.eclipse.dartboard.test.preference;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.dartboard.Constants;
 import org.eclipse.dartboard.test.util.DefaultPreferences;
 import org.eclipse.reddeer.core.reference.ReferencedComposite;
 import org.eclipse.reddeer.jface.preference.PreferenceDialog;
 import org.eclipse.reddeer.jface.preference.PreferencePage;
 import org.eclipse.reddeer.junit.runner.RedDeerSuite;
 import org.eclipse.reddeer.swt.impl.button.CheckBox;
+import org.eclipse.reddeer.swt.impl.button.RadioButton;
 import org.eclipse.reddeer.swt.impl.text.DefaultText;
 import org.eclipse.reddeer.swt.impl.text.LabeledText;
 import org.eclipse.reddeer.workbench.ui.dialogs.WorkbenchPreferenceDialog;
-import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,36 +61,24 @@ public class DartPreferencePageTest {
 
 	@Test
 	public void dartPreferencePage__DefaultPreferences__CorrectDefaultsAreDisplayed() throws Exception {
-		assertEquals(true, preferencePage.isAutoPubSynchronization());
-		assertEquals(false, preferencePage.isUseOfflinePub());
+		assertTrue("Auto pub synchronization not selected", preferencePage.isAutoPubSynchronization());
+		assertFalse("Use offline pub is selected", preferencePage.isUseOfflinePub());
+		preferencePage.setPluginMode("Dart");
 
 		assertEquals(DART_SDK_LOC, preferencePage.getSDKLocation());
 	}
 
 	@Test
 	public void dartPreferencePage__InvalidSDKLocation__PageIsNotValid() throws Exception {
+		preferencePage.setPluginMode("Dart");
 		preferencePage.setSDKLocation("some-random-test-location/path-segment");
 		assertTrue(preferencePage.isShowingSDKInvalidError());
-	}
-
-	@Test
-	public void dartPreferencePage__ChangePubPreferences__UpdatedPreferencesAreSaved() throws Exception {
-		preferencePage.setAutoPubSynchronization(false);
-		preferencePage.setUseOfflinePub(true);
-
-		preferencePage.apply();
-
-		ScopedPreferenceStore preferenceStore = new ScopedPreferenceStore(InstanceScope.INSTANCE,
-				"org.eclipse.dartboard");
-
-		assertEquals(true, preferenceStore.getBoolean(Constants.PREFERENCES_OFFLINE_PUB));
-		assertEquals(false, preferenceStore.getBoolean(Constants.PREFERENCES_SYNC_PUB));
 	}
 
 	public class DartPreferencePage extends PreferencePage {
 
 		public DartPreferencePage(ReferencedComposite referencedComposite) {
-			super(referencedComposite, "Dart");
+			super(referencedComposite, "Dart and Flutter");
 		}
 
 		public DartPreferencePage setSDKLocation(String text) {
@@ -115,6 +102,15 @@ public class DartPreferencePageTest {
 		public DartPreferencePage setUseOfflinePub(boolean value) {
 			new CheckBox("Use cached packages (--offline flag)").toggle(value);
 			return this;
+		}
+
+		public DartPreferencePage setPluginMode(String value) {
+			new RadioButton(value).click();
+			return this;
+		}
+
+		public boolean isFlutterMode() {
+			return new RadioButton("Flutter").isSelected();
 		}
 
 		public boolean isUseOfflinePub() {

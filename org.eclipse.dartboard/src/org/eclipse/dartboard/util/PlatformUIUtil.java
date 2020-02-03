@@ -13,6 +13,7 @@
  *******************************************************************************/
 package org.eclipse.dartboard.util;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -23,6 +24,8 @@ public class PlatformUIUtil {
 
 	private PlatformUIUtil() {
 	}
+
+	public static final boolean IS_WINDOWS = Platform.OS_WIN32.equals(Platform.getOS());
 
 	public static Shell getActiveShell() {
 		IWorkbenchWindow window = getActiveWorkbenchWindow();

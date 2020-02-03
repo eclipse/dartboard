@@ -4,7 +4,7 @@ Bundle-Name: Dartboard Tests
 Bundle-SymbolicName: org.eclipse.dartboard.test
 Bundle-Version: 1.0.0.qualifier
 Bundle-Vendor: Eclipse.org
-Fragment-Host: org.eclipse.dartboard;bundle-version="0.1.0"
+Fragment-Host: org.eclipse.dartboard.dart;bundle-version="0.1.0"
 Automatic-Module-Name: org.eclipse.dartboard.test
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.hamcrest.library;bundle-version="1.3.0",
@@ -13,3 +13,4 @@ Require-Bundle: org.hamcrest.library;bundle-version="1.3.0",
  org.eclipse.reddeer.go;bundle-version="2.6.0",
  net.bytebuddy.byte-buddy;bundle-version="1.9.0",
  org.objenesis;bundle-version="2.6.0"
+Import-Package: org.eclipse.dartboard.util

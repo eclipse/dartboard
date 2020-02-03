@@ -16,7 +16,7 @@ package org.eclipse.dartboard.test.util;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.eclipse.dartboard.util.PubUtil;
+import org.eclipse.dartboard.dart.util.PubUtil;
 import org.junit.Test;
 
 public class PubUtilTest {
@@ -28,7 +28,7 @@ public class PubUtilTest {
 
 		String pubEnvironment = PubUtil.getUpdatePubEnviroment(builder);
 
-		assertThat(pubEnvironment, is("org.eclipse.dartboard"));
+		assertThat(pubEnvironment, is("org.eclipse.dartboard.dart"));
 	}
 
 	@Test
@@ -40,6 +40,6 @@ public class PubUtilTest {
 
 		String pubEnvironment = PubUtil.getUpdatePubEnviroment(builder);
 
-		assertThat(pubEnvironment, is(randomValue + ":org.eclipse.dartboard"));
+		assertThat(pubEnvironment, is(randomValue + ":org.eclipse.dartboard.dart"));
 	}
 }
