@@ -19,6 +19,33 @@
       </launchConfigurationType>
    </extension>
    <extension
+          point="org.eclipse.ui.newWizards">
+        <category
+             id="org.eclipse.dartboard.eclipse.wizards"
+             name="Dart"></category>
+        <wizard
+             category="org.eclipse.dartboard.eclipse.wizards"
+             class="org.eclipse.dartboard.flutter.project.FlutterProjectWizard"
+             icon="icons/flutter.png"
+             id="org.eclipse.dartboard.dart.newproject"
+             name="Dart Project"
+             project="true">
+            <description>
+              Create a Dart project
+          </description>
+        </wizard>
+        <wizard
+             category="org.eclipse.dartboard.eclipse.wizards"
+             class="org.eclipse.dartboard.dart.project.DartFileWizard"
+             icon="icons/flutter.png"
+             id="org.eclipse.dartboard.dart.newfile"
+             name="Dart File">
+            <description>
+             Create a Dart file
+          </description>
+        </wizard>
+   </extension>
+   <extension
          point="org.eclipse.core.expressions.propertyTesters">
       <propertyTester
             class="org.eclipse.dartboard.flutter.util.IsFlutterProjectPropertyTester"

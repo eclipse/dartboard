@@ -12,21 +12,6 @@
  <artifactId>org.eclipse.dartboard.test</artifactId>
  <version>1.0.0-SNAPSHOT</version>
  <packaging>eclipse-test-plugin</packaging>
- <properties>
-  <rd.closeShells>true</rd.closeShells>
-  <rd.closeWelcomeScreen>true</rd.closeWelcomeScreen>
-  <rd.disableMavenIndex>true</rd.disableMavenIndex>
-  <junitExtensionsProperties>-Drd.closeShells=${rd.closeShells}
-   -Drd.closeWelcomeScreen=${rd.closeWelcomeScreen}
-   -Drd.disableMavenIndex=${rd.disableMavenIndex}</junitExtensionsProperties>
-  <!-- placeholder for properties of RedDeer JUnit extensions -->
-  <platformSystemProperties></platformSystemProperties>
-  <customArgLine></customArgLine>
-  <logMessageFilter>ALL</logMessageFilter>
-  <pauseFailedTest>false</pauseFailedTest>
-  <relativeScreenshotDirectory>.${file.separator}target${file.separator}screenshots</relativeScreenshotDirectory>
-  <surefire.timeout>2400</surefire.timeout>
- </properties>
 
  <build>
   <plugins>
@@ -38,31 +23,8 @@
      <useUIHarness>true</useUIHarness>
      <useUIThread>false</useUIThread>
      <!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
-     <argLine>-DlogMessageFilter=${logMessageFilter} -DpauseFailedTest=${pauseFailedTest} -DrelativeScreenshotDirectory=${relativeScreenshotDirectory} ${platformSystemProperties} ${customArgLine} ${junitExtensionsProperties} -Xmx512m</argLine>
      <product>org.eclipse.platform.ide</product>
      <application>org.eclipse.ui.ide.workbench</application>
-     <dependencies combine.children="append">
-      <dependency>
-       <type>p2-installable-unit</type>
-       <artifactId>org.eclipse.platform</artifactId>
-       <version>0.0.0</version>
-      </dependency>
-      <dependency>
-       <type>p2-installable-unit</type>
-       <artifactId>org.eclipse.jdt.ui</artifactId>
-       <version>0.0.0</version>
-      </dependency>
-      <dependency>
-       <type>p2-installable-unit</type>
-       <artifactId>org.eclipse.jdt.junit</artifactId>
-       <version>0.0.0</version>
-      </dependency>
-      <dependency>
-       <type>p2-installable-unit</type>
-       <artifactId>org.eclipse.e4.rcp.feature.group</artifactId>
-       <version>0.0.0</version>
-      </dependency>
-     </dependencies>
      <includes>
       <include>**/*Test.class</include>
      </includes>
@@ -70,4 +32,31 @@
    </plugin>
   </plugins>
  </build>
+ 
+ <profiles>
+    <profile>
+        <id>debug</id>
+
+        <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.eclipse.tycho</groupId>
+                    <artifactId>tycho-surefire-plugin</artifactId>
+                    <version>${tycho.version}</version>
+                    <configuration>
+                       <argLine>-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y</argLine>
+                       <useUIHarness>true</useUIHarness>
+     <useUIThread>false</useUIThread>
+     <!-- THE FOLLOWING LINE MUST NOT BE BROKEN BY AUTOFORMATTING -->
+     <product>org.eclipse.platform.ide</product>
+     <application>org.eclipse.ui.ide.workbench</application>
+     <includes>
+      <include>**/*Test.class</include>
+     </includes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
+    </profile>
+</profiles>
 </project>

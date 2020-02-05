@@ -21,10 +21,18 @@ public class ProjectUtil {
 
 	}
 
-	public static class DartProjectPage extends WorkbenchMenuWizardDialog {
+	private static class DartProjectPage extends WorkbenchMenuWizardDialog {
 
 		public DartProjectPage() {
 			super("New Dart Project", "File", "New", "Dart Project");
+		}
+	}
+
+
+	private static class FlutterProjectPage extends WorkbenchMenuWizardDialog {
+
+		public FlutterProjectPage() {
+			super("New Flutter Project", "File", "New", "Dart Project");
 		}
 	}
 
