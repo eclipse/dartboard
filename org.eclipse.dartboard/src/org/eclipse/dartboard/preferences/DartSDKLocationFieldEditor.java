@@ -129,11 +129,12 @@ public class DartSDKLocationFieldEditor extends DirectoryFieldEditor {
 		try (BufferedReader reader = new BufferedReader(
 				new InputStreamReader(processBuilder.start().getInputStream()))) {
 			version = reader.readLine();
+			version = version.toLowerCase();
 		} catch (IOException e) {
 			return false;
 		}
 
-		return version.startsWith("Dart VM version");
+		return (version.contains(new String("dart")) && version.contains(new String("version")));
 	}
 
 	protected void addModifyListener(ModifyListener listener) {
