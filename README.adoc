@@ -1,3 +1,6 @@
+= Currently not actively developed, please see https://github.com/dart4e/dart4e/ for Dart and Flutter support in the Eclipse IDE.
+
+
 = Dartboard image:https://img.shields.io/jenkins/build/https/ci.eclipse.org/dartboard/job/dartboard-release.svg?label=release-build&style=flat-square[Jenkins] image:https://img.shields.io/badge/version-0.1.0-blue.svg?style=flat-square[Version]
 
 Dartboard is an Eclipse plugin for https://www.dart.dev/[Dart] and https://flutter.dev[Flutter] development.
